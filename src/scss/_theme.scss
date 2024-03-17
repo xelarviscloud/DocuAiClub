@@ -2,7 +2,8 @@ body {
   background-color: var(--cui-tertiary-bg);
 }
 .bg-primary{
-  background-color: #2c3e50!important;
+  // background-color: #2c3e50!important;
+  background-color: #2f3640!important;
 }
 .fontHeader{
   font-size: 22px;
@@ -10,6 +11,21 @@ body {
 .form-control{
   border-color: #6b7689!important;
 }
+.coin { 
+  border-radius: 100px;  
+  animation: coin-rotate 15s both infinite;
+}
+
+@keyframes coin-rotate {
+  from {
+    transform: rotateY(0);
+  }
+
+  to {
+    transform: rotateY(180deg);
+  }
+}
+
 .wrapper {
   width: 100%;
   @include ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));
