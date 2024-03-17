@@ -28,12 +28,16 @@ body {
 .sidebar-header{
   padding: 3px;
 }
+.sidebar-nav .nav-title{
+  border-bottom: 1px solid gray;
+}
 .bg-before{
   background: #eef3f9;
     color: #023b6d;
     padding: 49px;
     border-radius: 4px;
     opacity: .9;
+    font-family: Poppins, sans-serif;
 }
 .wrapper {
   width: 100%;

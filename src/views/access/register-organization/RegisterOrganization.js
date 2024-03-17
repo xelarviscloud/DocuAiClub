@@ -27,10 +27,7 @@ const RegisterOrganization = () => {
                 <CFormLabel htmlFor="exampleFormControlInput1">Name</CFormLabel>
                 <CFormInput type="email" id="exampleFormControlInput1" placeholder="" />
               </div>
-              <div className="mb-3">
-                <CFormLabel htmlFor="exampleFormControlInput1">Address Line1</CFormLabel>
-                <CFormInput type="email" id="exampleFormControlInput1" placeholder="" />
-              </div>
+
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
@@ -62,8 +59,8 @@ const RegisterOrganization = () => {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">City</CFormLabel>
-                    <CFormInput type="email" id="exampleFormControlInput1" placeholder="" />
+                    <CFormLabel htmlFor="exampleFormControlInput1">Contact</CFormLabel>
+                    <CFormInput type="text" id="exampleFormControlInput1" placeholder="" />
                   </CCol>
                   <CCol xs>
                     <CFormLabel htmlFor="exampleFormControlInput1">Email</CFormLabel>
@@ -71,7 +68,7 @@ const RegisterOrganization = () => {
                   </CCol>
                   <CCol xs>
                     <CFormLabel htmlFor="exampleFormControlInput1">Phone</CFormLabel>
-                    <CFormInput type="phones" id="exampleFormControlInput1" placeholder="" />
+                    <CFormInput type="phone" id="exampleFormControlInput1" placeholder="" />
                   </CCol>
                 </CRow>
               </div>

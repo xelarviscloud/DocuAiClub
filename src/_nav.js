@@ -36,12 +36,6 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Documents',
-    to: '/access/Documents',
-    icon: <CIcon icon={cilObjectGroup} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
     name: 'Organizations',
     to: '/access/Organizations',
     icon: <CIcon icon={cilHome} customClassName="nav-icon" />,
@@ -58,7 +52,114 @@ const _nav = [
     to: '/theme/Users',
     icon: <CIcon icon={cilGroup} customClassName="nav-icon" />,
   },
-
+  {
+    component: CNavTitle,
+    name: 'Documents',
+  },
+  {
+    component: CNavGroup,
+    name: 'Manage',
+    to: '/access/Documents',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Search',
+        to: '/access/search',
+      },
+      {
+        component: CNavItem,
+        name: 'Pages',
+        to: '/access/pages',
+      },
+      {
+        component: CNavItem,
+        name: 'View',
+        to: '/access/view',
+      },
+    ],
+  },
+  {
+    component: CNavTitle,
+    name: 'Training',
+  },
+  {
+    component: CNavGroup,
+    name: 'Manage',
+    to: '/access/Documents',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Search',
+        to: '/access/search',
+      },
+      {
+        component: CNavItem,
+        name: 'Pages',
+        to: '/access/pages',
+      },
+      {
+        component: CNavItem,
+        name: 'View',
+        to: '/access/view',
+      },
+    ],
+  },
+  {
+    component: CNavTitle,
+    name: 'Maintenance',
+  },
+  {
+    component: CNavGroup,
+    name: 'Maintenance',
+    to: '/access/Documents',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Search',
+        to: '/access/search',
+      },
+      {
+        component: CNavItem,
+        name: 'Pages',
+        to: '/access/pages',
+      },
+      {
+        component: CNavItem,
+        name: 'View',
+        to: '/access/view',
+      },
+    ],
+  },
+  {
+    component: CNavTitle,
+    name: 'Expense',
+  },
+  {
+    component: CNavGroup,
+    name: 'Expense',
+    to: '/access/Documents',
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Search',
+        to: '/access/search',
+      },
+      {
+        component: CNavItem,
+        name: 'Pages',
+        to: '/access/pages',
+      },
+      {
+        component: CNavItem,
+        name: 'View',
+        to: '/access/view',
+      },
+    ],
+  },
   {
     component: CNavTitle,
     name: 'Components',
@@ -310,12 +411,6 @@ const _nav = [
         to: '/500',
       },
     ],
-  },
-  {
-    component: CNavItem,
-    name: 'Docs',
-    href: 'https://coreui.io/react/docs/templates/installation/',
-    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
   },
 ]
 

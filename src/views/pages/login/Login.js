@@ -33,7 +33,7 @@ const Login = () => {
               borderRadius: '100%',
               width: 120,
               left: '19%',
-              top: 270,
+              marginTop: 5,
             }}
           />
           <h1>DocuAi Club</h1>
@@ -61,12 +61,12 @@ const Login = () => {
               />
             </div>
             <CRow>
-              <CCol xs={6}>
+              <CCol xs={5}>
                 <CButton color="primary" className="px-4" onClick={(e) => handleLogin(e)}>
                   Login
                 </CButton>
               </CCol>
-              <CCol xs={6} className="text-right">
+              <CCol xs={7} className="text-right">
                 <CButton color="link" className="px-0">
                   Forgot password?
                 </CButton>
@@ -88,7 +88,7 @@ const Login = () => {
         <div style={{ margin: 50 }} className="bg-before">
           <h1 style={{ color: '#1b2f45' }}>Focus on What Matters!</h1>
           <div style={{ background: '#f7f9fc', padding: 5 }}>
-            <h5>Property(s) Documents in central place</h5>
+            <h5>Property Document Management Center</h5>
             <h5>Multi Locations and Users Access Support</h5>
             <h5>Intelligent Document Search</h5>
             <h5>Fight Charge Back with finding proper documentation</h5>

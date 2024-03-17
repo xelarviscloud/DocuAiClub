@@ -12,6 +12,7 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  CTooltip,
 } from '@coreui/react'
 import { useNavigate } from 'react-router-dom'
 
@@ -42,13 +43,15 @@ const Organizations = () => {
         <CCard className="mb-4">
           <CCardHeader>
             <strong className="fontHeader">Organizations</strong>
-            <CButton
-              color="primary"
-              style={{ float: 'right' }}
-              onClick={(e) => handleAddOrganization(e)}
-            >
-              ADD
-            </CButton>
+            <CTooltip content="Add New Organization" placement="bottom">
+              <CButton
+                color="primary"
+                style={{ float: 'right', marginRight: 10 }}
+                onClick={(e) => handleAddOrganization(e)}
+              >
+                ADD
+              </CButton>
+            </CTooltip>
           </CCardHeader>
           <CCardBody>
             <CTable>
