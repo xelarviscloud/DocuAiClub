@@ -7,6 +7,9 @@ body {
 .fontHeader{
   font-size: 22px;
 }
+.form-control{
+  border-color: #6b7689!important;
+}
 .wrapper {
   width: 100%;
   @include ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));

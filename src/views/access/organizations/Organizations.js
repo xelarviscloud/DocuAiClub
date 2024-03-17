@@ -33,7 +33,6 @@ const Organizations = () => {
   }, [])
 
   const handleAddOrganization = (e) => {
-    alert('')
     navigate('/access/register-organization')
   }
 
