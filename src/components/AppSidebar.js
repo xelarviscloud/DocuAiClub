@@ -8,13 +8,10 @@ import {
   CSidebarFooter,
   CSidebarHeader,
   CSidebarToggler,
+  CCardImage,
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-
+import Logo from '../assets/logo-bg-1.png'
 import { AppSidebarNav } from './AppSidebarNav'
-
-import { logo } from 'src/assets/brand/logo'
-import { sygnet } from 'src/assets/brand/sygnet'
 
 // sidebar nav config
 import navigation from '../_nav'
@@ -36,9 +33,17 @@ const AppSidebar = () => {
       }}
     >
       <CSidebarHeader className="border-bottom">
-        <CSidebarBrand to="/">
-          <CIcon customClassName="sidebar-brand-full" icon={logo} height={32} />
-          <CIcon customClassName="sidebar-brand-narrow" icon={sygnet} height={32} />
+        <CSidebarBrand to="/" className="d-flex">
+          <CCardImage
+            src={Logo}
+            style={{
+              borderRadius: '100%',
+              width: 50,
+              background: 'white',
+              padding: 1,
+            }}
+          />
+          <h5 style={{ marginTop: '10px' }}>DocuAiClub</h5>
         </CSidebarBrand>
         <CCloseButton
           className="d-lg-none"

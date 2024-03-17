@@ -1,28 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import {
-  CButton,
-  CCard,
-  CCardBody,
-  CCardGroup,
-  CCol,
-  CContainer,
-  CForm,
-  CFormInput,
-  CInputGroup,
-  CInputGroupText,
-  CRow,
-  CFormLabel,
-  CCardImage,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
+import { CButton, CCol, CForm, CFormInput, CRow, CFormLabel, CCardImage } from '@coreui/react'
 import { useNavigate } from 'react-router-dom'
 import { userLogin } from '../../../services/LoginService'
 import setCookie from '../../../resources/utility'
 import Background from '../../../assets/login-bg.jpg'
 import Logo from '../../../assets/logo-bg-1.png'
-import ButtonGroups from './../../buttons/button-groups/ButtonGroups'
 const Login = () => {
   const navigate = useNavigate()
 
