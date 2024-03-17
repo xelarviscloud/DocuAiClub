@@ -22,6 +22,7 @@ import { userLogin } from '../../../services/LoginService'
 import setCookie from '../../../resources/utility'
 import Background from '../../../assets/login-bg.jpg'
 import Logo from '../../../assets/logo-bg-1.png'
+import ButtonGroups from './../../buttons/button-groups/ButtonGroups'
 const Login = () => {
   const navigate = useNavigate()
 
@@ -45,7 +46,6 @@ const Login = () => {
         <div style={{ position: 'relative' }} className="align-items-center">
           <CCardImage
             orientation="top"
-            // className="coin"
             src={Logo}
             style={{
               borderRadius: '100%',
@@ -57,7 +57,7 @@ const Login = () => {
           <h1>DocuAi Club</h1>
           <h5>Restaging Documents</h5>
           <CForm style={{ marginTop: 60 }}>
-            <h3 className="text-body-secondary">Sign In.</h3>
+            <h4 className="text-body-secondary">Sign In.</h4>
 
             <div className="mb-3">
               {/* <CInputGroupText>
@@ -100,12 +100,25 @@ const Login = () => {
           backgroundColor: '#ffffff99',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
-          opacity: 0.9,
         }}
-        className="min-vh-100 d-flex flex-row align-items-center justify-content-center"
+        className="min-vh-100 d-block align-items-center"
       >
-        <div style={{ opacity: 1 }}>
-          {/* <h1 style={{ color: '#222222' }}>Restaging Document Storage</h1> */}
+        <div style={{ margin: 50 }} className="bg-before">
+          <h1 style={{ color: '#1b2f45' }}>Focus on What Matters!</h1>
+          <div style={{ background: '#f7f9fc', padding: 5 }}>
+            <h5>Property(s) Documents in central place</h5>
+            <h5>Multi Locations and Users Access Support</h5>
+            <h5>Intelligent Document Search</h5>
+            <h5>Fight Charge Back with finding proper documentation</h5>
+            <h5>Training and Quality Document Storage and easy Sharing</h5>
+          </div>
+        </div>
+        <div style={{ margin: 50 }} className="bg-before">
+          <h1>Coming Soon</h1>
+          <div style={{ background: '#f7f9fc', padding: 5 }}>
+            <h4>Maintenance Module</h4>
+            <h4>Expense Tracker Module</h4>
+          </div>
         </div>
       </CCol>
     </CRow>

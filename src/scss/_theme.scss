@@ -25,7 +25,13 @@ body {
     transform: rotateY(180deg);
   }
 }
-
+.bg-before{
+  background: #eef3f9;
+    color: #023b6d;
+    padding: 49px;
+    border-radius: 4px;
+    opacity: .9;
+}
 .wrapper {
   width: 100%;
   @include ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));
