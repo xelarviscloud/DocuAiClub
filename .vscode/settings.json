@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/735dd863-53e4-499a-8ddf-754986f1f465/resourceGroups/rg-staysolve-dev/providers/Microsoft.Web/sites/wa-staysolveweb-dev",
+  "appService.deploySubpath": "build"
+}

@@ -3,8 +3,9 @@ import { CButton, CCol, CForm, CFormInput, CRow, CFormLabel, CCardImage } from '
 import { useNavigate } from 'react-router-dom'
 import { userLogin } from '../../../services/LoginService'
 import setCookie from '../../../resources/utility'
-import Background from '../../../assets/login-bg.jpg'
+// import Background from '../../../assets/login-bg.jpg'
 import Logo from '../../../assets/logo-bg-1.png'
+import Background from '../../../assets/Register.png'
 const Login = () => {
   const navigate = useNavigate()
 
@@ -24,8 +25,16 @@ const Login = () => {
   }
   return (
     <CRow>
-      <CCol xs={5} className="min-vh-100 d-flex flex-row  justify-content-center">
-        <div style={{ position: 'relative' }} className="align-items-center">
+      <CCol
+        xs={7}
+        style={{
+          backgroundImage: `url(${Background})`,
+          backgroundSize: 'fit',
+          backgroundRepeat: 'no-repeat',
+        }}
+        className="min-vh-100 d-flex flex-row align-items-center  justify-content-center"
+      >
+        <div style={{ margin: 50 }} className="bg-before">
           <CCardImage
             orientation="top"
             src={Logo}
@@ -38,20 +47,21 @@ const Login = () => {
           />
           <h1>DocuAi Club</h1>
           <h5>Restaging Documents</h5>
+        </div>
+      </CCol>
+      <CCol
+        xs={5}
+        className="min-vh-100 d-flex flex-row align-items-center  justify-content-center"
+      >
+        <div style={{ position: 'relative' }} className="align-items-center">
           <CForm style={{ marginTop: 60 }}>
-            <h4 className="text-body-secondary">Sign In.</h4>
+            <h4 style={{ color: '#023b6d !important' }}>Sign In.</h4>
 
             <div className="mb-3">
-              {/* <CInputGroupText>
-                    <CIcon icon={cilUser} />
-                  </CInputGroupText> */}
               <CFormLabel htmlFor="Username">User Name</CFormLabel>
               <CFormInput size="lg" placeholder="Username" autoComplete="username" />
             </div>
             <div className="mb-3">
-              {/* <CInputGroupText>
-                    <CIcon icon={cilLockLocked} />
-                  </CInputGroupText> */}
               <CFormLabel htmlFor="Password">Password</CFormLabel>
               <CFormInput
                 size="lg"
@@ -73,34 +83,6 @@ const Login = () => {
               </CCol>
             </CRow>
           </CForm>
-        </div>
-      </CCol>
-      <CCol
-        xs={7}
-        style={{
-          backgroundImage: `url(${Background})`,
-          backgroundColor: '#ffffff99',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-        }}
-        className="min-vh-100 d-block align-items-center"
-      >
-        <div style={{ margin: 50 }} className="bg-before">
-          <h1 style={{ color: '#1b2f45' }}>Focus on What Matters!</h1>
-          <div style={{ background: '#f7f9fc', padding: 5 }}>
-            <h5>Property Document Management Center</h5>
-            <h5>Multi Locations and Users Access Support</h5>
-            <h5>Intelligent Document Search</h5>
-            <h5>Fight Charge Back with finding proper documentation</h5>
-            <h5>Training and Quality Document Storage and easy Sharing</h5>
-          </div>
-        </div>
-        <div style={{ margin: 50 }} className="bg-before">
-          <h1>Coming Soon</h1>
-          <div style={{ background: '#f7f9fc', padding: 5 }}>
-            <h4>Maintenance Module</h4>
-            <h4>Expense Tracker Module</h4>
-          </div>
         </div>
       </CCol>
     </CRow>

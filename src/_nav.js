@@ -325,7 +325,7 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'CoreUI Free',
+        name: 'DocuAiClub',
         to: '/icons/coreui-icons',
         badge: {
           color: 'success',
