@@ -54,7 +54,7 @@ const Login = () => {
         className="min-vh-100 d-flex flex-row align-items-center  justify-content-center"
       >
         <div style={{ position: 'relative' }} className="align-items-center">
-          <CForm style={{ border: '1px solid', borderRadius: 5, padding: 22 }}>
+          <CForm style={{ border: '1px solid', borderRadius: 5, padding: 25 }}>
             <h4 style={{ color: '#023b6d !important' }}>Sign In.</h4>
 
             <div className="mb-3">
