@@ -37,19 +37,19 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Organizations',
-    to: '/access/Organizations',
+    to: '/access/organizations',
     icon: <CIcon icon={cilHome} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Locations',
-    to: '/access/Locations',
+    to: '/access/locations',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Users',
-    to: '/theme/Users',
+    to: '/access/users',
     icon: <CIcon icon={cilGroup} customClassName="nav-icon" />,
   },
   {

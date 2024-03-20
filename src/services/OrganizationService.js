@@ -11,11 +11,14 @@ export async function getOrganizations({
   pageSize = 10,
 }) {
   try {
-    const response = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/organization/get`, {
-      headers: {
-        Authorization: localStorage.getItem('token'),
+    const response = await axios.get(
+      `${process.env.REACT_APP_LOCAL_URL}/organization/get?page=${currentPage}&pageSize=${pageSize}`,
+      {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
       },
-    })
+    )
     return response.data
   } catch (error) {
     throw error
@@ -33,10 +36,48 @@ export async function searchOrganizations({
   pageSize = 10,
 }) {
   try {
-    console.log('get Organzations: Get Token', localStorage.getItem('token'))
-
     const response = await axios.get(
       `${process.env.REACT_APP_LOCAL_URL}/organizationlist/get?page=${currentPage}&pageSize=${pageSize}`,
+      {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      },
+    )
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+/**
+ * ADD Organizations
+ * SYSTEM ADMIN will access all Organizations
+ */
+
+export async function addOrganization({ body: body }) {
+  try {
+    const response = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/organization/add`, body, {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    })
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+/**
+ * EDIT Organizations
+ * SYSTEM ADMIN will access all Organizations
+ */
+
+export async function editOrganization({ id: id, body: body }) {
+  try {
+    const response = await axios.put(
+      `${process.env.REACT_APP_LOCAL_URL}/organization/edit/${id}`,
+      body,
       {
         headers: {
           Authorization: localStorage.getItem('token'),
