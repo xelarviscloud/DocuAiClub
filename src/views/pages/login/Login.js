@@ -31,12 +31,45 @@ const Login = () => {
         password: values?.password,
       }
       // Let's call an Login API.
-      let result = await userLogin(credentials).then((response) => {
-        setCookie('token', response?.accessToken, 24)
-        localStorage.setItem('token', response?.accessToken)
-      })
-      // assume user is logged in successful.
-      navigate('/dashboard')
+      let result = await userLogin(credentials)
+        .then((response) => {
+          const decoded = jwtDecode(response?.accessToken)
+          setCookie('token', response?.accessToken, 24)
+          localStorage.setItem('token', response?.accessToken)
+          if (decoded?.role === 'superadmin') {
+            localStorage.setItem('role', decoded?.role)
+            localStorage.setItem('username', decoded?.username)
+            localStorage.setItem('email', decoded?.email)
+          } else if (decoded?.role === 'organizationuser') {
+            localStorage.setItem('role', decoded?.role)
+            localStorage.setItem('username', decoded?.username)
+            localStorage.setItem('email', decoded?.email)
+            localStorage.setItem('is_verified', decoded?.is_verified)
+            localStorage.setItem('organizationid', decoded?.organizationid)
+            localStorage.setItem('organizationuserid', decoded?.organizationuserid)
+          } else if (decoded?.role === 'locationuser') {
+            localStorage.setItem('role', decoded?.role)
+            localStorage.setItem('username', decoded?.username)
+            localStorage.setItem('email', decoded?.email)
+            localStorage.setItem('is_verified', decoded?.is_verified)
+            localStorage.setItem('locationid', decoded?.locationid)
+            localStorage.setItem('locationuserid', decoded?.locationuserid)
+            localStorage.setItem('organizationid', decoded?.organizationid)
+          }
+          if (localStorage.getItem('token') && localStorage.getItem('role')) {
+            // assume user is logged in successful.
+            navigate('/dashboard')
+          }
+          setLoading(false)
+          setValues({})
+          toast.success(response?.message)
+        })
+        .catch((error) => {
+          console.log('error', error)
+          console.log('err', error)
+          toast.error(error?.response?.data?.error)
+          setLoading(false)
+        })
     } else {
       setValidated(true)
     }
