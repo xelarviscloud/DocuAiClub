@@ -8,13 +8,11 @@ import {
   CForm,
   CFormInput,
   CFormLabel,
-  CFormTextarea,
   CInputGroup,
   CInputGroupText,
   CRow,
   CTooltip,
 } from '@coreui/react'
-import { DocsExample } from 'src/components'
 import Spinners from '../../base/spinners/Spinners'
 import { addOrganization, editOrganization } from '../../../services/OrganizationService'
 import toast from 'react-hot-toast'
@@ -116,7 +114,6 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
                       placeholder="Enter Your Name"
                       value={values?.name}
                       onChange={(e) => handleOnChange(e)}
-                      disabled={editData?.organizationid}
                     />
                   </CCol>
                 </CRow>
@@ -136,7 +133,6 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
                       placeholder="Enter Your Email"
                       value={values?.email}
                       onChange={(e) => handleOnChange(e)}
-                      disabled={editData?.organizationid}
                     />
                   </CCol>
                   <CCol xs>
