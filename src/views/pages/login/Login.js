@@ -1,10 +1,21 @@
 import React, { useState } from 'react'
-import { CButton, CCol, CForm, CFormInput, CRow, CFormLabel, CCardImage } from '@coreui/react'
+import {
+  CButton,
+  CCol,
+  CForm,
+  CFormInput,
+  CRow,
+  CFormLabel,
+  CCardImage,
+  CCard,
+  CCardHeader,
+  CCardBody,
+} from '@coreui/react'
 import { useNavigate } from 'react-router-dom'
 import { userLogin } from '../../../services/LoginService'
 import setCookie from '../../../resources/utility'
 import Logo from '../../../assets/logo-bg-1.png'
-import Background from '../../../assets/Register.png'
+import Background from '../../../assets/doc-bg.png'
 import { jwtDecode } from 'jwt-decode'
 import toast from 'react-hot-toast'
 import Spinners from '../../base/spinners/Spinners'
@@ -77,38 +88,53 @@ const Login = () => {
 
   return (
     <CRow>
-      <CCol
-        xs={7}
+      <div
         style={{
+          height: 60,
+          width: '100%',
           backgroundImage: `url(${Background})`,
           backgroundSize: 'fit',
-          backgroundRepeat: 'no-repeat',
+
+          //background: '#ffffff',
         }}
-        className="min-vh-100 d-flex flex-row align-items-center  justify-content-center"
-      >
-        <div style={{ margin: 50 }} className="bg-before">
-          <CCardImage
-            orientation="top"
-            src={Logo}
-            style={{
-              borderRadius: '100%',
-              width: 120,
-              left: '19%',
-              marginTop: 5,
-            }}
-          />
-          <h1>DocuAi Club</h1>
-          <h5>Restaging Documents</h5>
-        </div>
-      </CCol>
+      ></div>
       <CCol
-        xs={5}
-        className="min-vh-100 d-flex flex-row align-items-center  justify-content-center"
+        xs={7}
+        style={{ borderRight: '1px solid gray' }}
+        className="min-vh-100 d-flex  align-items-center  justify-content-center"
       >
-        <div style={{ position: 'relative' }} className="align-items-center">
+        <CCard style={{ margin: 5 }}>
+          <CCardBody>Documents</CCardBody>
+        </CCard>
+        <CCard style={{ margin: 5 }}>
+          <CCardBody>Ai</CCardBody>
+        </CCard>
+        <CCard style={{ margin: 5 }}>
+          <CCardBody>Search</CCardBody>
+        </CCard>
+      </CCol>
+      <CCol xs={5}>
+        <div style={{ margin: 50 }} className="bg-before">
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 40,
+            }}
+          >
+            <CCardImage
+              src={Logo}
+              style={{
+                width: 80,
+                alignSelf: 'stretch',
+                borderRadius: 3,
+              }}
+            />
+          </div>
           <CForm
             // className="g-3 needs-validation"
-            style={{ border: '1px solid', borderRadius: 5, padding: 25 }}
+
             noValidate
             validated={validated}
             onSubmit={handleLogin}
@@ -127,6 +153,7 @@ const Login = () => {
                 id="validationEmail"
                 feedbackInvalid="Please provide a username."
                 required
+                style={{ borderRadius: '0' }}
               />
             </div>
             <div className="mb-3">
@@ -142,6 +169,7 @@ const Login = () => {
                 id="validationPassword"
                 feedbackInvalid="Please provide a password."
                 required
+                style={{ borderRadius: '0' }}
               />
             </div>
             <CRow>
