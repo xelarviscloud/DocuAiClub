@@ -18,7 +18,7 @@ import Spinners from '../../base/spinners/Spinners'
 import Paginations from '../../base/paginations/Paginations'
 import { cilPencil } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
-
+import formatPhoneNumber from '../../../services/Utility'
 // API
 import { getOrganizations } from '../../../services/OrganizationService'
 import RegisterOrganization from '../register-organization/RegisterOrganization'
@@ -107,7 +107,9 @@ const Organizations = () => {
                                 <CTableDataCell>{org.zip_code}</CTableDataCell>
 
                                 <CTableDataCell>{org.email}</CTableDataCell>
-                                <CTableDataCell>{org.phone_number}</CTableDataCell>
+                                <CTableDataCell>
+                                  {formatPhoneNumber(org.phone_number)}
+                                </CTableDataCell>
                                 <CTableDataCell>
                                   <CTooltip content="Edit" placement="bottom">
                                     <CIcon
