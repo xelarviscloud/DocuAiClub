@@ -116,7 +116,6 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
                       placeholder="Enter Your Name"
                       value={values?.name}
                       onChange={(e) => handleOnChange(e)}
-                      disabled={editData?.organizationid}
                     />
                   </CCol>
                 </CRow>
@@ -136,7 +135,6 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
                       placeholder="Enter Your Email"
                       value={values?.email}
                       onChange={(e) => handleOnChange(e)}
-                      disabled={editData?.organizationid}
                     />
                   </CCol>
                   <CCol xs>
