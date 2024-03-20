@@ -8,11 +8,13 @@ import {
   CForm,
   CFormInput,
   CFormLabel,
+  CFormTextarea,
   CInputGroup,
   CInputGroupText,
   CRow,
   CTooltip,
 } from '@coreui/react'
+import { DocsExample } from 'src/components'
 import Spinners from '../../base/spinners/Spinners'
 import { addOrganization, editOrganization } from '../../../services/OrganizationService'
 import toast from 'react-hot-toast'
@@ -21,6 +23,7 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
   const [values, setValues] = useState(editData)
   const [validated, setValidated] = useState(false)
   const [loading, setLoading] = useState(false)
+  console.log('editData', editData, values)
   const handleOnChange = (e) => {
     const { name, value } = e.target
     setValues({ ...values, [name]: value })
