@@ -19,6 +19,7 @@ import {
   cilSettings,
   cilTask,
   cilUser,
+  cilUserX,
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
@@ -28,7 +29,17 @@ const AppHeaderDropdown = () => {
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>
-        <CAvatar src={avatar8} size="md" />
+        <CIcon
+          icon={cilUser}
+          style={{
+            height: '35',
+            width: '30',
+            color: '#212631',
+            background: '#f9b115',
+            borderRadius: 50,
+            padding: 8,
+          }}
+        />
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">Account</CDropdownHeader>
@@ -69,24 +80,18 @@ const AppHeaderDropdown = () => {
           <CIcon icon={cilSettings} className="me-2" />
           Settings
         </CDropdownItem>
-        <CDropdownItem href="#">
+        {/* <CDropdownItem href="#">
           <CIcon icon={cilCreditCard} className="me-2" />
           Payments
           <CBadge color="secondary" className="ms-2">
             42
           </CBadge>
         </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilFile} className="me-2" />
-          Projects
-          <CBadge color="primary" className="ms-2">
-            42
-          </CBadge>
-        </CDropdownItem>
+         */}
         <CDropdownDivider />
         <CDropdownItem href="#">
           <CIcon icon={cilLockLocked} className="me-2" />
-          Lock Account
+          Logout
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
