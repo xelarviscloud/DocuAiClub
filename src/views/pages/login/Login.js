@@ -63,7 +63,6 @@ const Login = () => {
           setLoading(false)
           setValues({})
           toast.success(response?.message)
-          window.location.reload()
         })
         .catch((error) => {
           console.log('error', error)
