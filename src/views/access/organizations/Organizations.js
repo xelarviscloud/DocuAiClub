@@ -25,10 +25,10 @@ const Organizations = () => {
 
   useEffect(() => {
     async function fetchOrganizations() {
-      const data = await getOrganizations({ currentPage: 1 })
-      setOrgList(data.orgData)
+      const result = await getOrganizations({ currentPage: 1 })
+      setOrgList(result.data)
 
-      console.log('Get Organizations', data)
+      console.log('Get Organizations', result)
     }
     fetchOrganizations()
   }, [])

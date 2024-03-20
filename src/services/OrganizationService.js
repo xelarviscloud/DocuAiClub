@@ -11,16 +11,11 @@ export async function getOrganizations({
   pageSize = 10,
 }) {
   try {
-    console.log('get Organzations: Get Token', localStorage.getItem('token'))
-
-    const response = await axios.get(
-      `${process.env.REACT_APP_LOCAL_URL}/organizationlist/get?page=${currentPage}&pageSize=${pageSize}`,
-      {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
+    const response = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/organization/get`, {
+      headers: {
+        Authorization: localStorage.getItem('token'),
       },
-    )
+    })
     return response.data
   } catch (error) {
     throw error
