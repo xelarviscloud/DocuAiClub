@@ -58,7 +58,7 @@ const Login = () => {
           }
           if (localStorage.getItem('token') && localStorage.getItem('role')) {
             // assume user is logged in successful.
-            navigate('/dashboard')
+            navigate('/Dashboard')
           }
           setLoading(false)
           setValues({})
