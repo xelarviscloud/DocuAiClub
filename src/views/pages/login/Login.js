@@ -73,8 +73,6 @@ function Login() {
           width: '100%',
           backgroundImage: `url(${Background})`,
           backgroundSize: 'fit',
-
-          //background: '#ffffff',
         }}
       ></div>
       <CCol
@@ -111,15 +109,8 @@ function Login() {
               }}
             />
           </div>
-          <CForm
-            // className="g-3 needs-validation"
-
-            noValidate
-            validated={validated}
-            onSubmit={handleLogin}
-          >
+          <CForm noValidate validated={validated} onSubmit={handleLogin}>
             <h4 style={{ color: '#023b6d !important' }}>Sign In.</h4>
-            import Register from './../register/Register';
             <div className="mb-3">
               <CFormLabel htmlFor="Username">User Name</CFormLabel>
               <CFormInput
