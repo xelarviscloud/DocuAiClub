@@ -33,7 +33,15 @@ const AppBreadcrumb = () => {
 
   return (
     <CBreadcrumb className="my-0">
-      <CBreadcrumbItem href="/dashboard">Home</CBreadcrumbItem>
+      <CBreadcrumbItem
+        href="/dashboard"
+        onClick={(e) => {
+          alert()
+          navigate('/dashboard')
+        }}
+      >
+        Home
+      </CBreadcrumbItem>
       {breadcrumbs.map((breadcrumb, index) => {
         return (
           <CBreadcrumbItem
