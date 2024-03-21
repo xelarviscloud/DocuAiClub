@@ -14,7 +14,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { userLogin } from '../../../services/LoginService'
 import Logo from '../../../assets/logo-bg-1.png'
-import Background from '../../../assets/doc-bg.png'
+import Background from '../../../assets/Register.png'
 import toast from 'react-hot-toast'
 import Spinners from '../../base/spinners/Spinners'
 import { jwtDecode } from 'jwt-decode'
@@ -119,7 +119,7 @@ function Login() {
             onSubmit={handleLogin}
           >
             <h4 style={{ color: '#023b6d !important' }}>Sign In.</h4>
-
+            import Register from './../register/Register';
             <div className="mb-3">
               <CFormLabel htmlFor="Username">User Name</CFormLabel>
               <CFormInput

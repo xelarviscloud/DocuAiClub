@@ -10,7 +10,7 @@ import {
   CSidebarToggler,
   CCardImage,
 } from '@coreui/react'
-import Logo from '../assets/logo-bg-1.png'
+import Logo from '../assets/logo-bg-2.png'
 import { AppSidebarNav } from './AppSidebarNav'
 
 // sidebar nav config
@@ -38,7 +38,8 @@ const AppSidebar = () => {
             src={Logo}
             style={{
               borderRadius: '5%',
-              width: 50,
+              width: 45,
+              height: 50,
               background: 'white',
               padding: 1,
               marginRight: 5,
