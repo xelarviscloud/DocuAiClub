@@ -95,7 +95,7 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Add New Location</strong>
+            <strong>Add New Property</strong>
           </CCardHeader>
           <CCardBody>
             <CForm

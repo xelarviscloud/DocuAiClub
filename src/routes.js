@@ -70,7 +70,7 @@ const routes = [
     name: 'Register Organization',
     element: RegisterOrganization,
   },
-  { path: '/access/locations', name: 'Locations', element: Locations },
+  { path: '/access/locations', name: 'Property(s)', element: Locations },
   { path: '/access/users', name: 'Users', element: Users },
 
   { path: '/base', name: 'Base', element: Cards, exact: true },

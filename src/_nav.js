@@ -48,7 +48,7 @@ const _nav =
         },
         {
           component: CNavItem,
-          name: 'Locations',
+          name: 'Property(s)',
           to: '/access/locations',
           icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
         },

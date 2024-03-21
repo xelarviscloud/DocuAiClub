@@ -90,23 +90,24 @@ function Locations() {
                   <CCardHeader>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <div style={{ marginRight: '20px' }}>
-                        <strong className="fontHeader">Locations</strong>
+                        <strong className="fontHeader">Property(s)</strong>
                       </div>
-
-                      <CFormSelect
-                        id="organization"
-                        type="text"
-                        name="organizationid"
-                        placeholder="Select Organization"
-                        value={selectedOrgID}
-                        onChange={(e) => setSelectedOrgID(e.target.value)}
-                      >
-                        <option value="">Select Organization</option>
-                        {orgList?.map((item) => (
-                          <option value={item?.organizationid}>{item?.name}</option>
-                        ))}
-                      </CFormSelect>
-                      <CTooltip content="Add New Location" placement="bottom">
+                      <CTooltip content="Select Organization">
+                        <CFormSelect
+                          id="organization"
+                          type="text"
+                          name="organizationid"
+                          placeholder="All Organizations"
+                          value={selectedOrgID}
+                          onChange={(e) => setSelectedOrgID(e.target.value)}
+                        >
+                          <option value="">All</option>
+                          {orgList?.map((item) => (
+                            <option value={item?.organizationid}>{item?.name}</option>
+                          ))}
+                        </CFormSelect>
+                      </CTooltip>
+                      <CTooltip content="Add New Property" placement="bottom">
                         <CButton
                           color="primary"
                           style={{ float: 'right', marginLeft: 20, marginRight: 0 }}
