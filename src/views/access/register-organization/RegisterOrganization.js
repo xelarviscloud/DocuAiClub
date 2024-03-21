@@ -8,13 +8,11 @@ import {
   CForm,
   CFormInput,
   CFormLabel,
-  CFormTextarea,
   CInputGroup,
   CInputGroupText,
   CRow,
   CTooltip,
 } from '@coreui/react'
-import { DocsExample } from 'src/components'
 import Spinners from '../../base/spinners/Spinners'
 import { addOrganization, editOrganization } from '../../../services/OrganizationService'
 import toast from 'react-hot-toast'
@@ -32,9 +30,9 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
     e.preventDefault()
     const form = e.currentTarget
     if (!form.checkValidity() === false) {
-      const credentials = {
+      const formOrganization = {
         name: values?.name,
-        phone_number: editData?.organizationid ? values?.phone_number : '+1' + values?.phone_number,
+        phone_number: values?.phone_number,
         email: values?.email,
         address_line1: values?.address_line1,
         address_line2: values?.address_line2,
@@ -46,8 +44,8 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
       setLoading(true)
       await (
         editData?.organizationid
-          ? editOrganization({ id: editData?.organizationid, body: credentials })
-          : addOrganization({ body: credentials })
+          ? editOrganization({ id: editData?.organizationid, body: formOrganization })
+          : addOrganization({ body: formOrganization })
       )
         .then((res) => {
           console.log('res', res)
@@ -116,7 +114,6 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
                       placeholder="Enter Your Name"
                       value={values?.name}
                       onChange={(e) => handleOnChange(e)}
-                      disabled={editData?.organizationid}
                     />
                   </CCol>
                 </CRow>
@@ -136,7 +133,6 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
                       placeholder="Enter Your Email"
                       value={values?.email}
                       onChange={(e) => handleOnChange(e)}
-                      disabled={editData?.organizationid}
                     />
                   </CCol>
                   <CCol xs>

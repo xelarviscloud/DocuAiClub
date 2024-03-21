@@ -127,7 +127,7 @@ const AppHeaderDropdown = () => {
         </CDropdownItem>
          */}
         <CDropdownDivider />
-        <CDropdownItem onClick={() => handleOnClick()}>
+        <CDropdownItem onClick={() => handleOnClick()} href="/">
           <CIcon icon={cilLockLocked} className="me-2" />
           Logout
         </CDropdownItem>
