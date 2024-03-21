@@ -59,7 +59,7 @@ const Organizations = () => {
     <>
       {!modal && (
         <CRow>
-          <CCol xs={12}>
+          <CCol>
             <CCard className="mb-4">
               {loading ? (
                 <div className="d-flex justify-content-center">

@@ -18,6 +18,10 @@ body {
 .card{
   border-top-left-radius: 0;
 }
+.table{
+  overflow-x: auto;
+  display: block;
+}
 @keyframes coin-rotate {
   from {
     transform: rotateY(0);
