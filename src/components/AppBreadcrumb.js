@@ -3,7 +3,8 @@ import { useLocation } from 'react-router-dom'
 
 import routes from '../routes'
 
-import { CBreadcrumb, CBreadcrumbItem } from '@coreui/react'
+import { CBreadcrumb, CBreadcrumbItem, CNavItem, CNavLink } from '@coreui/react'
+import { NavLink } from 'react-router-dom'
 
 const AppBreadcrumb = () => {
   const currentLocation = useLocation().pathname
@@ -33,15 +34,23 @@ const AppBreadcrumb = () => {
 
   return (
     <CBreadcrumb className="my-0">
-      <CBreadcrumbItem
-        href="/dashboard"
-        onClick={(e) => {
-          alert()
-          navigate('/dashboard')
-        }}
-      >
-        Home
-      </CBreadcrumbItem>
+      <CNavItem>
+        <CNavLink to="/dashboard" as={NavLink}>
+          <b
+            style={{
+              color: '#4645ab',
+              fontWeight: 400,
+              fontSize: 16,
+              textDecorationStyle: 'underlined',
+              marginRight: 5,
+            }}
+          >
+            HOME
+          </b>
+          <b style={{ marginRight: 5 }}>/</b>
+        </CNavLink>
+      </CNavItem>
+      {/* <CBreadcrumbItem href="/dashboard">Home</CBreadcrumbItem> */}
       {breadcrumbs.map((breadcrumb, index) => {
         return (
           <CBreadcrumbItem
