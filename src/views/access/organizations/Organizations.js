@@ -72,7 +72,7 @@ const Organizations = () => {
                     <CTooltip content="Add New Organization" placement="bottom">
                       <CButton
                         color="primary"
-                        style={{ float: 'right', marginRight: 10 }}
+                        style={{ float: 'right', marginRight: 5 }}
                         onClick={(e) => handleAddOrganization(e)}
                       >
                         ADD
