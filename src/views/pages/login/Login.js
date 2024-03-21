@@ -13,14 +13,14 @@ import {
 } from '@coreui/react'
 import { useNavigate } from 'react-router-dom'
 import { userLogin } from '../../../services/LoginService'
-import setCookie from '../../../resources/utility'
 import Logo from '../../../assets/logo-bg-1.png'
 import Background from '../../../assets/doc-bg.png'
-import { jwtDecode } from 'jwt-decode'
 import toast from 'react-hot-toast'
 import Spinners from '../../base/spinners/Spinners'
+import { jwtDecode } from 'jwt-decode'
+import { setCookie } from '../../../resources/utility'
 
-const Login = () => {
+function Login() {
   const navigate = useNavigate()
   const [values, setValues] = useState({})
   const [validated, setValidated] = useState(false)
@@ -47,27 +47,8 @@ const Login = () => {
           const decoded = jwtDecode(response?.accessToken)
           setCookie('token', response?.accessToken, 24)
           localStorage.setItem('token', response?.accessToken)
-          if (decoded?.role === 'superadmin') {
-            localStorage.setItem('role', decoded?.role)
-            localStorage.setItem('username', decoded?.username)
-            localStorage.setItem('email', decoded?.email)
-          } else if (decoded?.role === 'organizationuser') {
-            localStorage.setItem('role', decoded?.role)
-            localStorage.setItem('username', decoded?.username)
-            localStorage.setItem('email', decoded?.email)
-            localStorage.setItem('is_verified', decoded?.is_verified)
-            localStorage.setItem('organizationid', decoded?.organizationid)
-            localStorage.setItem('organizationuserid', decoded?.organizationuserid)
-          } else if (decoded?.role === 'locationuser') {
-            localStorage.setItem('role', decoded?.role)
-            localStorage.setItem('username', decoded?.username)
-            localStorage.setItem('email', decoded?.email)
-            localStorage.setItem('is_verified', decoded?.is_verified)
-            localStorage.setItem('locationid', decoded?.locationid)
-            localStorage.setItem('locationuserid', decoded?.locationuserid)
-            localStorage.setItem('organizationid', decoded?.organizationid)
-          }
-          if (localStorage.getItem('token') && localStorage.getItem('role')) {
+
+          if (localStorage.getItem('token') && decoded?.role) {
             // assume user is logged in successful.
             navigate('/dashboard')
           }
@@ -76,8 +57,6 @@ const Login = () => {
           toast.success(response?.message)
         })
         .catch((error) => {
-          console.log('error', error)
-          console.log('err', error)
           toast.error(error?.response?.data?.error)
           setLoading(false)
         })

@@ -98,17 +98,17 @@ const Organizations = () => {
                           {orgList?.map((org, key) => {
                             return (
                               <CTableRow key={key}>
-                                <CTableHeaderCell scope="row">{org.name}</CTableHeaderCell>
+                                <CTableHeaderCell scope="row">{org?.name}</CTableHeaderCell>
                                 <CTableDataCell>{org?.address_line1}</CTableDataCell>
 
-                                <CTableDataCell>{org.city}</CTableDataCell>
-                                <CTableDataCell>{org.state}</CTableDataCell>
+                                <CTableDataCell>{org?.city}</CTableDataCell>
+                                <CTableDataCell>{org?.state}</CTableDataCell>
 
-                                <CTableDataCell>{org.zip_code}</CTableDataCell>
+                                <CTableDataCell>{org?.zip_code}</CTableDataCell>
 
-                                <CTableDataCell>{org.email}</CTableDataCell>
+                                <CTableDataCell>{org?.email}</CTableDataCell>
                                 <CTableDataCell>
-                                  {formatPhoneNumber(org.phone_number)}
+                                  {'+1 ' + formatPhoneNumber(org?.phone_number)}
                                 </CTableDataCell>
                                 <CTableDataCell>
                                   <CTooltip content="Edit" placement="bottom">
@@ -134,7 +134,9 @@ const Organizations = () => {
                           })}
                         </CTableBody>
                       ) : (
-                        <div className="d-flex justify-content-center">No Data Found</div>
+                        <div className="d-flex justify-content-center">
+                          <div className="bold-text">No Data Found</div>
+                        </div>
                       )}
                     </CTable>
                   </CCardBody>

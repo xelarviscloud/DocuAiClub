@@ -21,11 +21,12 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
   const [values, setValues] = useState(editData)
   const [validated, setValidated] = useState(false)
   const [loading, setLoading] = useState(false)
-  console.log('editData', editData, values)
+
   const handleOnChange = (e) => {
     const { name, value } = e.target
     setValues({ ...values, [name]: value })
   }
+
   const handleOnSubmit = async (e) => {
     e.preventDefault()
     const form = e.currentTarget
@@ -47,9 +48,9 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
           ? editOrganization({ id: editData?.organizationid, body: formOrganization })
           : addOrganization({ body: formOrganization })
       )
-        .then((res) => {
-          console.log('res', res)
-          toast.success(res?.message)
+        .then((response) => {
+          console.log('response', response)
+          toast.success(response?.message)
           setValues({
             name: '',
             phone_number: '',
@@ -114,6 +115,7 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
                       placeholder="Enter Your Name"
                       value={values?.name}
                       onChange={(e) => handleOnChange(e)}
+                      disabled={editData?.organizationid}
                     />
                   </CCol>
                 </CRow>
@@ -130,9 +132,11 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
                       feedbackInvalid="Please provide a email"
                       type="email"
                       name="email"
+                      pattern="^\S+@\S+\.\S+$"
                       placeholder="Enter Your Email"
                       value={values?.email}
                       onChange={(e) => handleOnChange(e)}
+                      disabled={editData?.organizationid}
                     />
                   </CCol>
                   <CCol xs>
@@ -148,6 +152,8 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
                         name="phone_number"
                         placeholder="Enter Your Phone Number"
                         maxLength={10}
+                        pattern="\d{10}"
+                        // pattern="\(\d{3}\) \d{3}-\d{4}"
                         value={values?.phone_number}
                         onChange={(e) => handleOnChange(e)}
                         onKeyDown={handleNumberKeyDown}
@@ -228,6 +234,7 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
                       name="zip_code"
                       placeholder="Enter Your Zipcode"
                       maxLength={5}
+                      pattern="\d{5}"
                       value={values?.zip_code}
                       onChange={(e) => handleOnChange(e)}
                       onKeyDown={handleNumberKeyDown}

@@ -25,45 +25,17 @@ import CIcon from '@coreui/icons-react'
 
 import avatar8 from './../../assets/images/avatars/8.jpg'
 import { useNavigate } from 'react-router-dom'
+import { removeCookie } from '../../resources/utility'
 
 const AppHeaderDropdown = () => {
   const navigate = useNavigate()
-  const Role = localStorage.getItem('role')
-
-  function removeCookie(name) {
-    const expirationDate = new Date() // A past date
-
-    const expires = 'expires=' + expirationDate.toUTCString()
-    document.cookie = `${name}=; ${expires}; path=/`
-  }
 
   const handleOnClick = () => {
     localStorage.removeItem('token')
     removeCookie('token')
-    if (Role === 'superadmin') {
-      localStorage.removeItem('role')
-      localStorage.removeItem('username')
-      localStorage.removeItem('email')
-      navigate('/')
-    } else if (Role === 'organizationuser') {
-      localStorage.removeItem('role')
-      localStorage.removeItem('username')
-      localStorage.removeItem('email')
-      localStorage.removeItem('is_verified')
-      localStorage.removeItem('organizationid')
-      localStorage.removeItem('organizationuserid')
-      navigate('/')
-    } else if (Role === 'locationuser') {
-      localStorage.removeItem('role')
-      localStorage.removeItem('username')
-      localStorage.removeItem('email')
-      localStorage.removeItem('is_verified')
-      localStorage.removeItem('locationid')
-      localStorage.removeItem('locationuserid')
-      localStorage.removeItem('organizationid')
-      navigate('/')
-    }
+    navigate('/')
   }
+
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>

@@ -89,3 +89,44 @@ export async function editOrganization({ id: id, body: body }) {
     throw error
   }
 }
+
+/**
+ * GET Organization User
+ * SYSTEM ADMIN will access all Organization User
+ */
+export async function getOrganizationUser({ currentPage: currentPage, pageSize = 10 }) {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_LOCAL_URL}/organization/user/get?page=${currentPage}&pageSize=${pageSize}`,
+      {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      },
+    )
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+/**
+ * ADD Organization User
+ * SYSTEM ADMIN will access all Organization User
+ */
+export async function addOrganizationUser({ body: body }) {
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_LOCAL_URL}/organization/user/add`,
+      body,
+      {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      },
+    )
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
