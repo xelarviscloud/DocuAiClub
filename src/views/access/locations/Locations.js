@@ -109,7 +109,7 @@ function Locations() {
                       <CTooltip content="Add New Location" placement="bottom">
                         <CButton
                           color="primary"
-                          style={{ float: 'right', marginLeft: 20, marginRight: 5 }}
+                          style={{ float: 'right', marginLeft: 20, marginRight: 0 }}
                           onClick={(e) => handleAddLocation(e)}
                         >
                           ADD
