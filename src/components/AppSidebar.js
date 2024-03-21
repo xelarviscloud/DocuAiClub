@@ -37,13 +37,14 @@ const AppSidebar = () => {
           <CCardImage
             src={Logo}
             style={{
-              borderRadius: '100%',
+              borderRadius: '5%',
               width: 50,
               background: 'white',
               padding: 1,
+              marginRight: 5,
             }}
           />
-          <h5 style={{ marginTop: '12px' }}>DocuAiClub</h5>
+          <h5 style={{ marginTop: '10px' }}>DocuAiClub</h5>
         </CSidebarBrand>
         <CCloseButton
           className="d-lg-none"

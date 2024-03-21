@@ -15,7 +15,9 @@ body {
   border-radius: 100px;  
   animation: coin-rotate 15s both infinite;
 }
-
+.card{
+  border-top-left-radius: 0;
+}
 @keyframes coin-rotate {
   from {
     transform: rotateY(0);
