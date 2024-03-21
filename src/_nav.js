@@ -52,11 +52,24 @@ const _nav =
           to: '/access/locations',
           icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
         },
+
         {
-          component: CNavItem,
+          component: CNavGroup,
           name: 'Users',
           to: '/access/users',
           icon: <CIcon icon={cilGroup} customClassName="nav-icon" />,
+          items: [
+            {
+              component: CNavItem,
+              name: 'Organization Users',
+              to: '/access/organization-users',
+            },
+            {
+              component: CNavItem,
+              name: 'Location Users',
+              to: '/access/location-users',
+            },
+          ],
         },
         {
           component: CNavTitle,

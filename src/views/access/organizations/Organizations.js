@@ -108,7 +108,7 @@ const Organizations = () => {
 
                                 <CTableDataCell>{org?.email}</CTableDataCell>
                                 <CTableDataCell>
-                                  {'+1 ' + formatPhoneNumber(org?.phone_number)}
+                                  {formatPhoneNumber(org?.phone_number)}
                                 </CTableDataCell>
                                 <CTableDataCell>
                                   <CTooltip content="Edit" placement="bottom">

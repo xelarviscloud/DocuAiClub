@@ -107,6 +107,32 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
+                    <CCol xs>
+                      <CFormLabel htmlFor="exampleFormControlInput1">Organization*</CFormLabel>
+                      <CFormSelect
+                        required
+                        aria-describedby="validationOrganizationFeedback"
+                        id="validationOrganization"
+                        feedbackInvalid="Please select Organization"
+                        type="select"
+                        name="organizationid"
+                        placeholder="Enter Notes"
+                        value={values?.organizationid}
+                        onChange={(e) => handleOnChange(e)}
+                        disabled={editData?.locationid}
+                      >
+                        <option value="">Select Organization</option>
+                        {orgList?.map((item) => (
+                          <option value={item?.organizationid}>{item?.name}</option>
+                        ))}
+                      </CFormSelect>
+                    </CCol>
+                  </CCol>
+                </CRow>
+              </div>
+              <div className="mb-3">
+                <CRow>
+                  <CCol xs>
                     <CFormLabel htmlFor="exampleFormControlInput1">Name*</CFormLabel>
                     <CFormInput
                       required
@@ -118,7 +144,6 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
                       placeholder="Enter Your Name"
                       value={values?.name}
                       onChange={(e) => handleOnChange(e)}
-                      disabled={editData?.locationid}
                     />
                   </CCol>
                 </CRow>
@@ -139,7 +164,6 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
                       placeholder="Enter Your Email"
                       value={values?.email}
                       onChange={(e) => handleOnChange(e)}
-                      disabled={editData?.locationid}
                     />
                   </CCol>
                   <CCol xs>
@@ -156,7 +180,6 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
                         placeholder="Enter Your Phone Number"
                         maxLength={10}
                         pattern="\d{10}"
-                        // pattern="\(\d{3}\) \d{3}-\d{4}"
                         value={values?.phone_number}
                         onChange={(e) => handleOnChange(e)}
                         onKeyDown={handleNumberKeyDown}
@@ -248,26 +271,6 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
 
               <div className="mb-3">
                 <CRow>
-                  <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Organization*</CFormLabel>
-                    <CFormSelect
-                      required
-                      aria-describedby="validationOrganizationFeedback"
-                      id="validationOrganization"
-                      feedbackInvalid="Please select Organization"
-                      type="select"
-                      name="organizationid"
-                      placeholder="Enter Notes"
-                      value={values?.organizationid}
-                      onChange={(e) => handleOnChange(e)}
-                      disabled={editData?.locationid}
-                    >
-                      <option value="">Select Organization</option>
-                      {orgList?.map((item) => (
-                        <option value={item?.organizationid}>{item?.name}</option>
-                      ))}
-                    </CFormSelect>
-                  </CCol>
                   <CCol xs>
                     <CFormLabel htmlFor="exampleFormControlInput1">Note</CFormLabel>
                     <CFormInput

@@ -89,32 +89,27 @@ function Locations() {
                 <>
                   <CCardHeader>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <div style={{ display: 'flex' }}>
-                        <div style={{ marginRight: '50px' }}>
-                          <strong className="fontHeader">Locations</strong>
-                        </div>
-                        <CRow>
-                          <CCol xs>
-                            <CFormSelect
-                              id="organization"
-                              type="text"
-                              name="organizationid"
-                              placeholder="Enter Notes"
-                              value={selectedOrgID}
-                              onChange={(e) => setSelectedOrgID(e.target.value)}
-                            >
-                              <option value="">Select Organization</option>
-                              {orgList?.map((item) => (
-                                <option value={item?.organizationid}>{item?.name}</option>
-                              ))}
-                            </CFormSelect>
-                          </CCol>
-                        </CRow>
+                      <div style={{ marginRight: '20px' }}>
+                        <strong className="fontHeader">Locations</strong>
                       </div>
+
+                      <CFormSelect
+                        id="organization"
+                        type="text"
+                        name="organizationid"
+                        placeholder="Select Organization"
+                        value={selectedOrgID}
+                        onChange={(e) => setSelectedOrgID(e.target.value)}
+                      >
+                        <option value="">Select Organization</option>
+                        {orgList?.map((item) => (
+                          <option value={item?.organizationid}>{item?.name}</option>
+                        ))}
+                      </CFormSelect>
                       <CTooltip content="Add New Location" placement="bottom">
                         <CButton
                           color="primary"
-                          style={{ float: 'right', marginRight: 10 }}
+                          style={{ float: 'right', marginLeft: 20, marginRight: 10 }}
                           onClick={(e) => handleAddLocation(e)}
                         >
                           ADD
@@ -152,7 +147,7 @@ function Locations() {
 
                                 <CTableDataCell>{item?.data?.email}</CTableDataCell>
                                 <CTableDataCell>
-                                  {'+1 ' + formatPhoneNumber(item?.data?.phone_number)}
+                                  {formatPhoneNumber(item?.data?.phone_number)}
                                 </CTableDataCell>
                                 <CTableDataCell>{item?.parentOrganization}</CTableDataCell>
                                 <CTableDataCell>
