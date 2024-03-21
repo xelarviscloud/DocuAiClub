@@ -66,108 +66,112 @@ function Login() {
   }
 
   return (
-    <CRow>
-      <div
-        style={{
-          height: 60,
-          width: '100%',
-          backgroundImage: `url(${Background})`,
-          backgroundSize: 'contain',
-        }}
-      ></div>
-      <CCol
-        xs={7}
-        style={{ borderRight: '1px solid gray' }}
-        className="min-vh-100 d-flex  align-items-center  justify-content-center"
-      >
-        <CCard style={{ margin: 5 }}>
-          <CCardBody>Documents</CCardBody>
-        </CCard>
-        <CCard style={{ margin: 5 }}>
-          <CCardBody>Ai</CCardBody>
-        </CCard>
-        <CCard style={{ margin: 5 }}>
-          <CCardBody>Search</CCardBody>
-        </CCard>
-      </CCol>
-      <CCol xs={5}>
-        <div style={{ margin: 50 }} className="bg-before">
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: 40,
-            }}
-          >
-            <CCardImage
-              src={Logo}
+    <>
+      <CRow>
+        <div
+          style={{
+            height: 60,
+            width: '100%',
+            backgroundImage: `url(${Background})`,
+            backgroundSize: 'contain',
+          }}
+        ></div>
+
+        <CCol xs={12} className="d-flex flex-row align-items-center  justify-content-center">
+          <div style={{ marginTop: 60 }}>
+            <div
               style={{
-                width: 80,
-                alignSelf: 'stretch',
-                borderRadius: 3,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 40,
               }}
-            />
+            >
+              <CCardImage
+                src={Logo}
+                style={{
+                  width: 80,
+                  alignSelf: 'stretch',
+                  borderRadius: 3,
+                }}
+              />
+            </div>
+            <CForm noValidate validated={validated} onSubmit={handleLogin}>
+              <h4 style={{ color: '#023b6d !important' }}>Sign In.</h4>
+              <div className="mb-3">
+                <CFormLabel htmlFor="Username">User Name</CFormLabel>
+                <CFormInput
+                  size="lg"
+                  placeholder="Username"
+                  name="username"
+                  value={values?.email}
+                  onChange={(e) => handleOnChange(e)}
+                  aria-describedby="validationEmail"
+                  id="validationEmail"
+                  feedbackInvalid="Please provide a username."
+                  required
+                  style={{ borderRadius: '0' }}
+                />
+              </div>
+              <div className="mb-3">
+                <CFormLabel htmlFor="Password">Password</CFormLabel>
+                <CFormInput
+                  size="lg"
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={values?.password}
+                  onChange={(e) => handleOnChange(e)}
+                  aria-describedby="validationPassword"
+                  id="validationPassword"
+                  feedbackInvalid="Please provide a password."
+                  required
+                  style={{ borderRadius: '0' }}
+                />
+              </div>
+              <CRow>
+                <CCol xs={5}>
+                  <CButton
+                    color="primary"
+                    type="submit"
+                    className="px-4"
+                    style={{ display: 'flex', marginRight: '4px' }}
+                  >
+                    Login
+                    {loading && (
+                      <div className="clearfix">
+                        <Spinners className="float-end" />
+                      </div>
+                    )}
+                  </CButton>
+                </CCol>
+                <CCol xs={7} className="text-right">
+                  <CButton color="link" className="px-0">
+                    Forgot password?
+                  </CButton>
+                </CCol>
+              </CRow>
+            </CForm>
           </div>
-          <CForm noValidate validated={validated} onSubmit={handleLogin}>
-            <h4 style={{ color: '#023b6d !important' }}>Sign In.</h4>
-            <div className="mb-3">
-              <CFormLabel htmlFor="Username">User Name</CFormLabel>
-              <CFormInput
-                size="lg"
-                placeholder="Username"
-                name="username"
-                value={values?.email}
-                onChange={(e) => handleOnChange(e)}
-                aria-describedby="validationEmail"
-                id="validationEmail"
-                feedbackInvalid="Please provide a username."
-                required
-                style={{ borderRadius: '0' }}
-              />
-            </div>
-            <div className="mb-3">
-              <CFormLabel htmlFor="Password">Password</CFormLabel>
-              <CFormInput
-                size="lg"
-                type="password"
-                placeholder="Password"
-                name="password"
-                value={values?.password}
-                onChange={(e) => handleOnChange(e)}
-                aria-describedby="validationPassword"
-                id="validationPassword"
-                feedbackInvalid="Please provide a password."
-                required
-                style={{ borderRadius: '0' }}
-              />
-            </div>
-            <CRow>
-              <CCol xs={5}>
-                <CButton
-                  color="primary"
-                  type="submit"
-                  className="px-4"
-                  style={{ display: 'flex', marginRight: '4px' }}
-                >
-                  Login
-                  {loading && (
-                    <div className="clearfix">
-                      <Spinners className="float-end" />
-                    </div>
-                  )}
-                </CButton>
-              </CCol>
-              <CCol xs={7} className="text-right">
-                <CButton color="link" className="px-0">
-                  Forgot password?
-                </CButton>
-              </CCol>
-            </CRow>
-          </CForm>
-        </div>
-      </CCol>
-    </CRow>
+        </CCol>
+      </CRow>
+      <CRow>
+        <CCol
+          style={{ marginTop: 30 }}
+          className="d-flex  align-items-center  justify-content-center"
+        >
+          <CCard style={{ margin: 5 }}>
+            <CCardBody>Documents</CCardBody>
+          </CCard>
+          <CCard style={{ margin: 5 }}>
+            <CCardBody>Ai</CCardBody>
+          </CCard>
+          <CCard style={{ margin: 5 }}>
+            <CCardBody>Search</CCardBody>
+          </CCard>
+        </CCol>
+      </CRow>
+    </>
   )
 }
 
