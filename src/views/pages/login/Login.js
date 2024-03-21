@@ -72,7 +72,7 @@ function Login() {
           height: 60,
           width: '100%',
           backgroundImage: `url(${Background})`,
-          backgroundSize: 'fit',
+          backgroundSize: 'contain',
         }}
       ></div>
       <CCol
