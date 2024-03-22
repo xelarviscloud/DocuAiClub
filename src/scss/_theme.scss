@@ -17,10 +17,13 @@ body {
 .card{
   border-top-left-radius: 0;
 }
-// .table{
-//   overflow-x: auto;
-//   display: block;
-// }
+@media only screen and (max-width: 600px) {
+  .table{
+  overflow-x: auto;
+  display: block;
+}
+}
+
 
 .btn-primary {
   --cui-btn-bg: #3399ff!important;
