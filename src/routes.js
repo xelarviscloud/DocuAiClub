@@ -10,6 +10,8 @@ const RegisterOrganization = React.lazy(
 )
 const Locations = React.lazy(() => import('./views/access/locations/Locations'))
 const Users = React.lazy(() => import('./views/access/users/Users'))
+const OrgUsers = React.lazy(() => import('./views/access/users/OrgUsers'))
+const LocationUsers = React.lazy(() => import('./views/access/users/LocationUsers'))
 
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
@@ -72,6 +74,8 @@ const routes = [
   },
   { path: '/access/locations', name: 'Property', element: Locations },
   { path: '/access/users', name: 'Users', element: Users },
+  { path: '/access/organization-users', name: 'Organization Admin', element: OrgUsers },
+  { path: '/access/location-users', name: 'Property Admin', element: LocationUsers },
 
   { path: '/base', name: 'Base', element: Cards, exact: true },
   { path: '/base/accordion', name: 'Accordion', element: Accordion },

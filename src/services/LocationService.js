@@ -120,3 +120,24 @@ export async function getLocationUser({ currentPage: currentPage, pageSize = 10 
     throw error
   }
 }
+
+/**
+ * ADD Location User
+ * SYSTEM ADMIN will access all Location User
+ */
+export async function addLocationUser({body : body}) {
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_LOCAL_URL}/location/user/add`,
+      body,
+      {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      },
+    )
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}

@@ -26,6 +26,8 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
   const [validated, setValidated] = useState(false)
   const [loading, setLoading] = useState(false)
   const [orgList, setOrgList] = useState([])
+  const [passwordError, setPasswordError] = useState('')
+  const [confirmPasswordError, setConfirmPasswordError] = useState('')
 
   useEffect(() => {
     fetchOrganizations()
@@ -43,13 +45,40 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
 
   const handleOnChange = (e) => {
     const { name, value, files } = e.target
-    if (name === 'picture') {
+    if (name === 'file') {
       setValues({ ...values, [name]: files[0] })
     } else {
       setValues({
         ...values,
         [name]: value,
       })
+    }
+
+    if (name === 'password') {
+      const minLength = 8
+      const uppercaseRegex = /[A-Z]/
+      const lowercaseRegex = /[a-z]/
+      const numberRegex = /[0-9]/
+      const specialCharRegex = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/
+      if (
+        value.length < minLength ||
+        !uppercaseRegex.test(value) ||
+        !lowercaseRegex.test(value) ||
+        !numberRegex.test(value) ||
+        !specialCharRegex.test(value)
+      ) {
+        setPasswordError(
+          'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
+        )
+      } else {
+        setPasswordError('')
+      }
+    } else if (name === 'confirmPassword') {
+      if (value !== values.password) {
+        setConfirmPasswordError('Passwords do not match.')
+      } else {
+        setConfirmPasswordError('')
+      }
     }
   }
 
@@ -84,7 +113,7 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
     e.preventDefault()
     const form = e.currentTarget
     console.log('form', form)
-    if (!form.checkValidity() === false) {
+    if (!form.checkValidity() === false && !passwordError && !confirmPasswordError) {
       var formdata = new FormData()
       formdata.append('firstName', values?.firstName)
       formdata.append('lastName', values?.lastName)
@@ -94,7 +123,7 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
       formdata.append('password', values?.password)
       formdata.append('confirmPassword', values?.confirmPassword)
       formdata.append('organizationid', values?.organizationid)
-      formdata.append('picture', values?.picture)
+      formdata.append('file', values?.file)
       setLoading(true)
       await addOrganizationUser({ body: formdata })
         .then((response) => {
@@ -108,7 +137,7 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
             password: '',
             confirmPassword: '',
             organizationid: '',
-            picture: '',
+            file: '',
           })
           //   VerifyEmail(values?.email, values?.password)
           fetchOrgUser()
@@ -141,7 +170,7 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Add New Organization User</strong>
+            <strong>Add New Organization Admin</strong>
           </CCardHeader>
           <CCardBody>
             <CForm
@@ -150,6 +179,29 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
               validated={validated}
               onSubmit={handleOnSubmit}
             >
+              <div className="mb-3">
+                <CRow>
+                  <CCol xs>
+                    <CFormLabel htmlFor="exampleFormControlInput1">Organization*</CFormLabel>
+                    <CFormSelect
+                      required
+                      aria-describedby="validationOrganizationFeedback"
+                      id="validationOrganization"
+                      feedbackInvalid="Please select Organization"
+                      type="text"
+                      name="organizationid"
+                      value={values?.organizationid}
+                      onChange={(e) => handleOnChange(e)}
+                    >
+                      <option value="">Select Organization</option>
+                      {orgList?.map((item) => (
+                        <option value={item?.organizationid}>{item?.name}</option>
+                      ))}
+                    </CFormSelect>
+                  </CCol>
+                </CRow>
+              </div>
+
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
@@ -246,12 +298,13 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
                       required
                       aria-describedby="validationPasswordFeedback"
                       id="validationPassword"
-                      feedbackInvalid="Please provide a password"
+                      feedbackInvalid={passwordError ? passwordError : 'Please provide a password'}
                       type="password"
                       name="password"
                       placeholder="Enter Your Password"
                       value={values?.password}
                       onChange={(e) => handleOnChange(e)}
+                      invalid={passwordError}
                     />
                   </CCol>
                   <CCol xs>
@@ -260,13 +313,18 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
                       required
                       aria-describedby="validationConfirmPasswordFeedback"
                       id="validationConfirmPassword"
-                      feedbackInvalid="Please provide a confirm password"
+                      feedbackInvalid={
+                        confirmPasswordError
+                          ? confirmPasswordError
+                          : 'Please provide a confirm password'
+                      }
                       type="password"
                       name="confirmPassword"
                       placeholder="Enter Your Confirm Password"
                       value={values?.confirmPassword}
                       onChange={(e) => handleOnChange(e)}
                       //   invalid={values?.password !== values?.confirmPassword}
+                      invalid={confirmPasswordError}
                     />
                   </CCol>
                 </CRow>
@@ -275,33 +333,15 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Organization*</CFormLabel>
-                    <CFormSelect
-                      required
-                      aria-describedby="validationOrganizationFeedback"
-                      id="validationOrganization"
-                      feedbackInvalid="Please select Organization"
-                      type="text"
-                      name="organizationid"
-                      value={values?.organizationid}
-                      onChange={(e) => handleOnChange(e)}
-                    >
-                      <option value="">Select Organization</option>
-                      {orgList?.map((item) => (
-                        <option value={item?.organizationid}>{item?.name}</option>
-                      ))}
-                    </CFormSelect>
-                  </CCol>
-                  <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">picture*</CFormLabel>
+                    <CFormLabel htmlFor="exampleFormControlInput1">file*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationpictureFeedback"
-                      id="validationpicture"
-                      feedbackInvalid="Please select a picture"
+                      aria-describedby="validationFileFeedback"
+                      id="validationFile"
+                      feedbackInvalid="Please select a file"
                       type="file"
                       accept="image/*"
-                      name="picture"
+                      name="file"
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>
@@ -311,10 +351,10 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    {values?.picture && (
+                    {values?.file && (
                       <img
-                        src={values?.picture ? URL.createObjectURL(values?.picture) : ''}
-                        alt="picture"
+                        src={values?.file ? URL.createObjectURL(values?.file) : ''}
+                        alt="file"
                         style={{ width: 100, height: 100 }}
                       />
                     )}
@@ -323,7 +363,7 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
               </div>
 
               <div className="mb-3">
-                <CTooltip content="Submit Organization User" placement="bottom">
+                <CTooltip content="Submit Organization Admin" placement="bottom">
                   <CButton
                     color="primary"
                     type="submit"
@@ -338,7 +378,7 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
                     )}
                   </CButton>
                 </CTooltip>
-                <CTooltip content="Close Organization User Form" placement="bottom">
+                <CTooltip content="Close Organization Admin Form" placement="bottom">
                   <CButton
                     color="secondary"
                     style={{ float: 'right', marginRight: 10, display: 'flex' }}

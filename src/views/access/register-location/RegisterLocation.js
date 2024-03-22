@@ -286,7 +286,7 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
               </div>
 
               <div className="mb-3">
-                <CTooltip content="Submit Location" placement="bottom">
+                <CTooltip content="Submit Property" placement="bottom">
                   <CButton
                     color="primary"
                     type="submit"
@@ -301,7 +301,7 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
                     )}
                   </CButton>
                 </CTooltip>
-                <CTooltip content="Close Location Form" placement="bottom">
+                <CTooltip content="Close Property Form" placement="bottom">
                   <CButton
                     color="secondary"
                     style={{ float: 'right', marginRight: 10, display: 'flex' }}
