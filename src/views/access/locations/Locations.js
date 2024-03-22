@@ -90,7 +90,7 @@ function Locations() {
                   <CCardHeader>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <div style={{ marginRight: '20px' }}>
-                        <strong className="fontHeader">Property(s)</strong>
+                        <strong className="fontHeader">Property</strong>
                       </div>
                       <CTooltip content="Select Organization">
                         <CFormSelect
