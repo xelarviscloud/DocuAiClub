@@ -22,6 +22,7 @@ import formatPhoneNumber from '../../../services/Utility'
 // API
 import { getOrganizations } from '../../../services/OrganizationService'
 import RegisterOrganization from '../register-organization/RegisterOrganization'
+import { useSpeech } from 'react-text-to-speech'
 
 const Organizations = () => {
   const [modal, setModal] = useState(false)
@@ -55,6 +56,20 @@ const Organizations = () => {
     setEditData({})
   }
 
+  const [textToSpeak, SetTextToSpeak] = useState('')
+  const { Text, speechStatus, start, stop, isInQueue } = useSpeech({
+    text: textToSpeak,
+    preserveUtteranceQueue: true,
+  })
+  useEffect(() => {
+    start()
+  }, [textToSpeak])
+
+  const handleSpeech = (e) => {
+    SetTextToSpeak(e)
+    start()
+  }
+
   return (
     <>
       {!modal && (
@@ -69,11 +84,14 @@ const Organizations = () => {
                 <>
                   <CCardHeader>
                     <strong className="fontHeader">Organizations</strong>
-                    <CTooltip content="Add New Organization" placement="bottom">
+                    <CTooltip content="Add New Organization" placement="left">
                       <CButton
                         color="primary"
                         style={{ float: 'right', marginRight: 0 }}
                         onClick={(e) => handleAddOrganization(e)}
+                        onMouseOver={(e) =>
+                          handleSpeech('Please click on add button to add Organization.')
+                        }
                       >
                         ADD
                       </CButton>
