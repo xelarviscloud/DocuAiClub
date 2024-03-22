@@ -61,12 +61,12 @@ const _nav =
           items: [
             {
               component: CNavItem,
-              name: 'Organization Users',
+              name: 'Organization Admin',
               to: '/access/organization-users',
             },
             {
               component: CNavItem,
-              name: 'Location Users',
+              name: 'Property Admin',
               to: '/access/location-users',
             },
           ],
