@@ -40,12 +40,11 @@ const AppSidebar = () => {
               borderRadius: '5%',
               width: 45,
               height: 50,
-              background: 'white',
-              padding: 1,
-              marginRight: 5,
+              margin: 5,
+              marginRight: 2,
             }}
           />
-          <h5 style={{ marginTop: '10px' }}>DocuAiClub</h5>
+          <h5 style={{ marginTop: '16px' }}>DocuAiClub</h5>
         </CSidebarBrand>
         <CCloseButton
           className="d-lg-none"

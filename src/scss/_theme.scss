@@ -23,11 +23,13 @@ body {
   display: block;
 }
 }
-
+.sidebar-brand {
+  text-decoration: none!important;
+}
 
 .btn-primary {
-  --cui-btn-bg: #3399ff!important;
-  --cui-btn-background:#3399ff!important;
+  --cui-btn-bg: #4a90e2!important;
+  --cui-btn-background:#4a90e2!important;
 }
 @keyframes coin-rotate {
   from {

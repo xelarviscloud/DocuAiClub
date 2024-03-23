@@ -65,7 +65,7 @@ function OrganizationUsers() {
               ) : (
                 <>
                   <CCardHeader>
-                    <strong className="fontHeader">Organization Admin</strong>
+                    <strong className="fontHeader">Organization Admins</strong>
                     <CTooltip content="Add New Organization Admin" placement="bottom">
                       <CButton
                         color="primary"

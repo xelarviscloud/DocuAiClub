@@ -67,16 +67,7 @@ function Login() {
 
   return (
     <>
-      <CRow>
-        <div
-          style={{
-            height: 60,
-            width: '100%',
-            backgroundImage: `url(${Background})`,
-            backgroundSize: 'contain',
-          }}
-        ></div>
-
+      <CRow style={{ background: '#eff6ff' }}>
         <CCol xs={12} className="d-flex flex-row align-items-center  justify-content-center">
           <div style={{ marginTop: 60 }}>
             <div

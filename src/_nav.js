@@ -48,7 +48,7 @@ const _nav =
         },
         {
           component: CNavItem,
-          name: 'Property',
+          name: 'Properties',
           to: '/access/locations',
           icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
         },
@@ -61,12 +61,12 @@ const _nav =
           items: [
             {
               component: CNavItem,
-              name: 'Organization Admin',
+              name: 'Organization',
               to: '/access/organization-users',
             },
             {
               component: CNavItem,
-              name: 'Property Admin',
+              name: 'Property',
               to: '/access/location-users',
             },
           ],

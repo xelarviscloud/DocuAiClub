@@ -71,7 +71,7 @@ const routes = [
     name: 'Register Organization',
     element: RegisterOrganization,
   },
-  { path: '/access/locations', name: 'Property', element: Locations },
+  { path: '/access/locations', name: 'Properties', element: Locations },
   { path: '/access/organization-users', name: 'Organization Admin', element: OrganizationUsers },
   { path: '/access/location-users', name: 'Property Admin', element: LocationUsers },
 
