@@ -94,10 +94,14 @@ export async function editOrganization({ id: id, body: body }) {
  * GET Organization User
  * SYSTEM ADMIN will access all Organization User
  */
-export async function getOrganizationUser({ currentPage: currentPage, pageSize = 10 }) {
+export async function getOrganizationUsers({
+  currentPage: currentPage,
+  pageSize = 10,
+  organizationId,
+}) {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_LOCAL_URL}/organization/user/get?page=${currentPage}&pageSize=${pageSize}`,
+      `${process.env.REACT_APP_LOCAL_URL}/organizationUsers?page=${currentPage}&pageSize=${pageSize}&organizationId=${organizationId}`,
       {
         headers: {
           Authorization: localStorage.getItem('token'),
@@ -116,15 +120,12 @@ export async function getOrganizationUser({ currentPage: currentPage, pageSize =
  */
 export async function addOrganizationUser({ body: body }) {
   try {
-    const response = await axios.post(
-      `${process.env.REACT_APP_LOCAL_URL}/organization/user/add`,
-      body,
-      {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
+    const response = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/organizationUser`, body, {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+        'content-type': 'application/x-www-form-urlencoded',
       },
-    )
+    })
     return response.data
   } catch (error) {
     throw error

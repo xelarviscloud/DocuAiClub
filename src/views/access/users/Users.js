@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import OrgUsers from './OrgUsers'
+import OrganizationUsers from './OrganizationUsers'
 import LocationUsers from './LocationUsers'
 import { decryptData } from '../../../services/Utility'
 import { getLocationUser } from '../../../services/LocationService'
@@ -67,7 +67,7 @@ function Users() {
     <div>
       {!orgModal && !locationmodal && (
         <>
-          <OrgUsers
+          <OrganizationUsers
             setOrgModal={setOrgModal}
             orgLoading={orgLoading}
             orgUserList={orgUserList}

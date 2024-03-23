@@ -18,16 +18,18 @@ import Spinners from '../../base/spinners/Spinners'
 import Paginations from '../../base/paginations/Paginations'
 import formatPhoneNumber, { decryptData } from '../../../services/Utility'
 import RegisterOrgUser from '../register-user/RegisterOrgUser'
-import { getOrganizationUser } from '../../../services/OrganizationService'
+import { getOrganizationUsers } from '../../../services/OrganizationService'
+import CIcon from '@coreui/icons-react'
+import { cibQq, cilBell, cilUser } from '@coreui/icons'
+import UserNoImage from '../../../assets/user-no-image.png'
 
-function OrgUsers() {
+function OrganizationUsers() {
   const [orgModal, setOrgModal] = useState(false)
   const [orgLoading, setOrgLoading] = useState(false)
   const [orgUserList, setOrgnUserList] = useState([])
   const [orgUserCurrentPage, setOrgUserCurrentPage] = useState(1)
   const [orgcount, setOrgCount] = useState()
   const secretKey = 'alibaba1234@Devops&$%'
-  const decryptedData = decryptData(secretKey)
 
   /**
    * ORGANIZATION USER
@@ -38,7 +40,7 @@ function OrgUsers() {
 
   const fetchOrgUser = async () => {
     setOrgLoading(true)
-    await getOrganizationUser({ currentPage: orgUserCurrentPage })
+    await getOrganizationUsers({ currentPage: orgUserCurrentPage })
       .then((response) => {
         setOrgnUserList(response?.data)
         setOrgCount(response?.totalPages === 0 ? 1 : response?.totalPages)
@@ -94,19 +96,31 @@ function OrgUsers() {
                               <CTableRow key={key}>
                                 <CTableHeaderCell scope="row">
                                   {
-                                    <img
-                                      src={`${decryptedData}${item?.data?.fileUrl}`}
-                                      alt="fileUrl"
-                                      style={{ width: 100, height: 100 }}
+                                    // <img
+                                    //   src={UserNoImage}
+                                    //   alt="User Image"
+                                    //   style={{ width: 30, height: 30, borderRadius: 50 }}
+                                    // />
+                                    <CIcon
+                                      icon={cibQq}
+                                      customClassName="nav-icon"
+                                      style={{
+                                        height: '40',
+                                        width: '40',
+                                        color: '#212631',
+                                        background: '#959fb2',
+                                        borderRadius: 50,
+                                        padding: 6,
+                                      }}
                                     />
                                   }
                                 </CTableHeaderCell>
-                                <CTableDataCell>{item?.data?.username}</CTableDataCell>
-                                <CTableDataCell>{item?.data?.firstName}</CTableDataCell>
-                                <CTableDataCell>{item?.data?.lastName}</CTableDataCell>
-                                <CTableDataCell>{item?.data?.email}</CTableDataCell>
+                                <CTableDataCell>{item?.username}</CTableDataCell>
+                                <CTableDataCell>{item?.firstName}</CTableDataCell>
+                                <CTableDataCell>{item?.lastName}</CTableDataCell>
+                                <CTableDataCell>{item?.email}</CTableDataCell>
                                 <CTableDataCell>
-                                  {formatPhoneNumber(item?.data?.mobileNumber)}
+                                  {formatPhoneNumber(item?.mobileNumber)}
                                 </CTableDataCell>
                                 <CTableDataCell>{item?.parentOrganization}</CTableDataCell>
                               </CTableRow>
@@ -140,4 +154,4 @@ function OrgUsers() {
   )
 }
 
-export default OrgUsers
+export default OrganizationUsers

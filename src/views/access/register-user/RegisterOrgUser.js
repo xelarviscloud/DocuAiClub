@@ -5,7 +5,6 @@ import {
   CCardHeader,
   CCol,
   CForm,
-  CFormFeedback,
   CFormInput,
   CFormLabel,
   CFormSelect,
@@ -18,8 +17,6 @@ import React, { useEffect, useState } from 'react'
 import Spinners from '../../base/spinners/Spinners'
 import { addOrganizationUser, getOrganizations } from '../../../services/OrganizationService'
 import toast from 'react-hot-toast'
-import CryptoJS from 'crypto-js'
-import { addVerifyEmail } from '../../../services/LoginService'
 
 function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
   const [values, setValues] = useState()
@@ -83,63 +80,38 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
   }
 
   /**
-   * EMAIL VERIFICATION
-   */
-  const encryptEmail = (email) => {
-    const encryptedEmail = CryptoJS.AES.encrypt(email, secretKey).toString()
-    return encryptedEmail
-  }
-
-  const VerifyEmail = async (email, password) => {
-    const encryptedEmail = encryptEmail(email)
-    const body = {
-      email: encryptedEmail,
-      role: 'organizationuser',
-      password: password,
-    }
-    await addVerifyEmail(body)
-      .then((response) => {
-        toast.success(response?.message)
-      })
-      .catch((error) => {
-        console.log('error', error)
-      })
-  }
-
-  /**
    * ADD Organization User Api Calling
    */
   const handleOnSubmit = async (e) => {
     e.preventDefault()
     const form = e.currentTarget
-    console.log('form', form)
     if (!form.checkValidity() === false && !passwordError && !confirmPasswordError) {
-      var formdata = new FormData()
-      formdata.append('firstName', values?.firstName)
-      formdata.append('lastName', values?.lastName)
-      formdata.append('username', values?.username)
-      formdata.append('email', values?.email)
-      formdata.append('mobileNumber', values?.mobileNumber)
-      formdata.append('password', values?.password)
-      formdata.append('confirmPassword', values?.confirmPassword)
-      formdata.append('organizationid', values?.organizationid)
-      formdata.append('file', values?.file)
+      var formData = new FormData()
+      formData.append('firstname', values?.firstName)
+      formData.append('lastname', values?.lastName)
+      formData.append('username', values?.username)
+      formData.append('email', values?.email)
+      formData.append('mobile_number', values?.mobile_number)
+      formData.append('password', values?.password)
+      formData.append('confirmPassword', values?.confirmPassword)
+      formData.append('organizationId', values?.organizationid)
+      formData.append('file', values?.file)
       setLoading(true)
-      await addOrganizationUser({ body: formdata })
+      await addOrganizationUser({ body: formData })
         .then((response) => {
           toast.success(response?.message)
           setValues({
-            firstName: '',
-            lastName: '',
+            firstname: '',
+            lastname: '',
             username: '',
             email: '',
-            mobileNumber: '',
+            mobile_number: '',
             password: '',
             confirmPassword: '',
-            organizationid: '',
+            organizationId: '',
             file: '',
           })
-          //   VerifyEmail(values?.email, values?.password)
+
           fetchOrgUser()
           setOrgModal(false)
           setLoading(false)
@@ -214,7 +186,7 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
                       type="text"
                       name="firstName"
                       placeholder="Enter Your First Name"
-                      value={values?.firstName}
+                      value={values?.firstname}
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>
@@ -228,7 +200,7 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
                       type="text"
                       name="lastName"
                       placeholder="Enter Your Last Name"
-                      value={values?.lastName}
+                      value={values?.lastname}
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>
@@ -276,12 +248,11 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
                         id="validationPhone"
                         feedbackInvalid="Please provide a phone number"
                         type="text"
-                        name="mobileNumber"
+                        name="mobile_number"
                         placeholder="Enter Your Phone Number"
                         maxLength={10}
                         pattern="\d{10}"
-                        // pattern="\(\d{3}\) \d{3}-\d{4}"
-                        value={values?.mobileNumber}
+                        value={values?.mobile_number}
                         onChange={(e) => handleOnChange(e)}
                         onKeyDown={handleNumberKeyDown}
                       />
@@ -302,7 +273,7 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
                       type="password"
                       name="password"
                       placeholder="Enter Your Password"
-                      value={values?.password}
+                      value={values?.password || 'Test@1234'}
                       onChange={(e) => handleOnChange(e)}
                       invalid={passwordError}
                     />
@@ -321,9 +292,8 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
                       type="password"
                       name="confirmPassword"
                       placeholder="Enter Your Confirm Password"
-                      value={values?.confirmPassword}
+                      value={values?.confirmPassword || 'Test@1234'}
                       onChange={(e) => handleOnChange(e)}
-                      //   invalid={values?.password !== values?.confirmPassword}
                       invalid={confirmPasswordError}
                     />
                   </CCol>
@@ -333,9 +303,8 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">file*</CFormLabel>
+                    <CFormLabel htmlFor="exampleFormControlInput1">User Image</CFormLabel>
                     <CFormInput
-                      required
                       aria-describedby="validationFileFeedback"
                       id="validationFile"
                       feedbackInvalid="Please select a file"
@@ -368,7 +337,6 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
                     color="primary"
                     type="submit"
                     style={{ float: 'right', marginRight: 10, display: 'flex' }}
-                    // onClick={(e) => handleOnSubmit(e)}
                   >
                     Submit
                     {loading && (
