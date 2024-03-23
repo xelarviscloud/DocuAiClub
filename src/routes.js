@@ -9,7 +9,6 @@ const RegisterOrganization = React.lazy(
   () => import('./views/access/register-organization/RegisterOrganization'),
 )
 const Locations = React.lazy(() => import('./views/access/locations/Locations'))
-const Users = React.lazy(() => import('./views/access/users/Users'))
 const OrganizationUsers = React.lazy(() => import('./views/access/users/OrganizationUsers'))
 const LocationUsers = React.lazy(() => import('./views/access/users/LocationUsers'))
 
@@ -73,7 +72,6 @@ const routes = [
     element: RegisterOrganization,
   },
   { path: '/access/locations', name: 'Property', element: Locations },
-  { path: '/access/users', name: 'Users', element: Users },
   { path: '/access/organization-users', name: 'Organization Admin', element: OrganizationUsers },
   { path: '/access/location-users', name: 'Property Admin', element: LocationUsers },
 
