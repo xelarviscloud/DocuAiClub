@@ -35,10 +35,10 @@ function Locations() {
   const [editData, setEditData] = useState({})
 
   useEffect(() => {
-    fetchorganizations()
+    fetchOrganizations()
   }, [])
 
-  const fetchorganizations = async () => {
+  const fetchOrganizations = async () => {
     await getOrganizations({ currentPage: '' })
       .then((response) => {
         setOrgList(response?.data)
@@ -92,18 +92,20 @@ function Locations() {
                       <div style={{ marginRight: '20px' }}>
                         <strong className="fontHeader">Property</strong>
                       </div>
-                      <CTooltip content="Select Organization">
+                      <CTooltip content="Select an Organization">
                         <CFormSelect
-                          id="organization"
+                          id="organizationList"
                           type="text"
-                          name="organizationid"
+                          name="organizationList"
                           placeholder="All Organizations"
                           value={selectedOrgID}
                           onChange={(e) => setSelectedOrgID(e.target.value)}
                         >
                           <option value="">All</option>
                           {orgList?.map((item) => (
-                            <option value={item?.organizationid}>{item?.name}</option>
+                            <option key={item.organizationId} value={item?.organizationId}>
+                              {item?.organizationName}
+                            </option>
                           ))}
                         </CFormSelect>
                       </CTooltip>
@@ -137,20 +139,22 @@ function Locations() {
                         <CTableBody>
                           {locationList?.map((item, key) => {
                             return (
-                              <CTableRow key={key}>
-                                <CTableHeaderCell scope="row">{item?.data?.name}</CTableHeaderCell>
-                                <CTableDataCell>{item?.data?.address_line1}</CTableDataCell>
+                              <CTableRow key={item?.data?.locationId}>
+                                <CTableHeaderCell scope="row">
+                                  {item?.data?.locationName}
+                                </CTableHeaderCell>
+                                <CTableDataCell>{item?.data?.locationName}</CTableDataCell>
 
                                 <CTableDataCell>{item?.data?.city}</CTableDataCell>
                                 <CTableDataCell>{item?.data?.state}</CTableDataCell>
 
-                                <CTableDataCell>{item?.data?.zip_code}</CTableDataCell>
+                                <CTableDataCell>{item?.data?.zipCode}</CTableDataCell>
 
-                                <CTableDataCell>{item?.data?.email}</CTableDataCell>
+                                <CTableDataCell>{item?.data?.emailAddress}</CTableDataCell>
                                 <CTableDataCell>
-                                  {formatPhoneNumber(item?.data?.phone_number)}
+                                  {formatPhoneNumber(item?.data?.phoneNumber)}
                                 </CTableDataCell>
-                                <CTableDataCell>{item?.parentOrganization}</CTableDataCell>
+                                <CTableDataCell>{item?.locationOrganizationName}</CTableDataCell>
                                 <CTableDataCell>
                                   <CTooltip content="Edit" placement="bottom">
                                     <CIcon
@@ -163,7 +167,7 @@ function Locations() {
                                         setEditData(
                                           locationList?.filter((item2) => {
                                             return (
-                                              item2?.data?.locationid === item?.data?.locationid
+                                              item2?.data?.locationId === item?.data?.locationId
                                             )
                                           })?.[0]?.data,
                                         )
@@ -176,9 +180,11 @@ function Locations() {
                           })}
                         </CTableBody>
                       ) : (
-                        <div className="d-flex justify-content-center">
-                          <div className="bold-text">No Data Found</div>
-                        </div>
+                        <CTableBody>
+                          <CTableRow>
+                            <CTableDataCell>No Data Found </CTableDataCell>
+                          </CTableRow>
+                        </CTableBody>
                       )}
                     </CTable>
                   </CCardBody>

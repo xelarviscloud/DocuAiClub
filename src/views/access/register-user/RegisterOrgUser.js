@@ -18,14 +18,18 @@ import Spinners from '../../base/spinners/Spinners'
 import { addOrganizationUser, getOrganizations } from '../../../services/OrganizationService'
 import toast from 'react-hot-toast'
 
-function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
-  const [values, setValues] = useState()
+function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData }) {
+  editData.password = ''
+  editData.confirmPassword = ''
+
+  const [values, setValues] = useState(editData)
   const [validated, setValidated] = useState(false)
   const [loading, setLoading] = useState(false)
   const [orgList, setOrgList] = useState([])
   const [passwordError, setPasswordError] = useState('')
   const [confirmPasswordError, setConfirmPasswordError] = useState('')
 
+  console.log('edit data', editData)
   useEffect(() => {
     fetchOrganizations()
   }, [])
@@ -113,7 +117,7 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
           })
 
           fetchOrgUser()
-          setOrgModal(false)
+          setModal(false)
           setLoading(false)
         })
         .catch((error) => {
@@ -164,6 +168,8 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
                       name="organizationid"
                       value={values?.organizationid}
                       onChange={(e) => handleOnChange(e)}
+                      disabled={editData?.organizationUserId}
+                      key={editData._id}
                     >
                       <option value="">Select Organization</option>
                       {orgList?.map((item) => (
@@ -186,7 +192,7 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
                       type="text"
                       name="firstName"
                       placeholder="Enter Your First Name"
-                      value={values?.firstname}
+                      value={values?.firstName}
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>
@@ -200,7 +206,7 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
                       type="text"
                       name="lastName"
                       placeholder="Enter Your Last Name"
-                      value={values?.lastname}
+                      value={values?.lastName}
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>
@@ -221,6 +227,7 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
                       placeholder="Enter Your User Name"
                       value={values?.username}
                       onChange={(e) => handleOnChange(e)}
+                      disabled={editData?.organizationUserId}
                     />
                   </CCol>
                   <CCol xs>
@@ -252,7 +259,7 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
                         placeholder="Enter Your Phone Number"
                         maxLength={10}
                         pattern="\d{10}"
-                        value={values?.mobile_number}
+                        value={values?.mobileNumber}
                         onChange={(e) => handleOnChange(e)}
                         onKeyDown={handleNumberKeyDown}
                       />
@@ -350,7 +357,7 @@ function RegisterOrgUser({ setOrgModal, secretKey, fetchOrgUser }) {
                   <CButton
                     color="secondary"
                     style={{ float: 'right', marginRight: 10, display: 'flex' }}
-                    onClick={() => setOrgModal(false)}
+                    onClick={() => setModal(false)}
                   >
                     Cancel
                   </CButton>

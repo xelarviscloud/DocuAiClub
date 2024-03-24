@@ -32,34 +32,33 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
     const form = e.currentTarget
     if (!form.checkValidity() === false) {
       const formOrganization = {
-        name: values?.name,
-        phone_number: values?.phone_number,
-        email: values?.email,
-        address_line1: values?.address_line1,
-        address_line2: values?.address_line2,
+        organizationName: values?.organizationName,
+        phoneNumber: values?.phoneNumber,
+        emailAddress: values?.emailAddress,
+        addressLine1: values?.addressLine1,
+        addressLine2: values?.addressLine2,
         state: values?.state,
         city: values?.city,
-        zip_code: values?.zip_code,
+        zipCode: values?.zipCode,
         notes: values?.notes,
       }
       setLoading(true)
       await (
-        editData?.organizationid
-          ? editOrganization({ id: editData?.organizationid, body: formOrganization })
+        editData?.organizationId
+          ? editOrganization({ id: editData?.organizationId, body: formOrganization })
           : addOrganization({ body: formOrganization })
       )
         .then((response) => {
-          console.log('response', response)
           toast.success(response?.message)
           setValues({
-            name: '',
-            phone_number: '',
-            email: '',
-            address_line1: '',
-            address_line2: '',
+            organizationName: '',
+            phoneNumber: '',
+            emailAddress: '',
+            addressLine1: '',
+            addressLine2: '',
             city: '',
             state: '',
-            zip_code: '',
+            zipCode: '',
             notes: '',
           })
           fetchOrganizations()
@@ -81,7 +80,6 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
     // Allow only numbers (0-9) and backspace/delete key
     const isValidKey = /[0-9]|Backspace|Delete/.test(e.key)
 
-    // If the key pressed is not valid, prevent the default action
     if (!isValidKey) {
       e.preventDefault()
     }
@@ -104,18 +102,18 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Name*</CFormLabel>
+                    <CFormLabel htmlFor="organizationName">Name*</CFormLabel>
                     <CFormInput
                       required
                       aria-describedby="validationNameFeedback"
-                      id="validationName"
-                      feedbackInvalid="Please provide a name"
+                      id="organizationName"
+                      feedbackInvalid="Please provide Organization Name"
                       type="text"
-                      name="name"
+                      name="organizationName"
                       placeholder="Enter Your Name"
-                      value={values?.name}
+                      value={values?.organizationName}
                       onChange={(e) => handleOnChange(e)}
-                      disabled={editData?.organizationid}
+                      disabled={editData?.organizationId}
                     />
                   </CCol>
                 </CRow>
@@ -124,37 +122,35 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Email*</CFormLabel>
+                    <CFormLabel htmlFor="emailAddress">Email*</CFormLabel>
                     <CFormInput
                       required
                       aria-describedby="validationEmailFeedback"
-                      id="validationEmail"
-                      feedbackInvalid="Please provide a email"
+                      id="emailAddress"
+                      feedbackInvalid="Please provide an Email"
                       type="email"
-                      name="email"
+                      name="emailAddress"
                       pattern="^\S+@\S+\.\S+$"
                       placeholder="Enter Your Email"
-                      value={values?.email}
+                      value={values?.emailAddress}
                       onChange={(e) => handleOnChange(e)}
-                      disabled={editData?.organizationid}
                     />
                   </CCol>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Phone*</CFormLabel>
+                    <CFormLabel htmlFor="phoneNumber">Phone*</CFormLabel>
                     <CInputGroup>
                       <CInputGroupText id="basic-addon1">+1</CInputGroupText>
                       <CFormInput
                         required
                         aria-describedby="validationPhoneFeedback"
-                        id="validationPhone"
-                        feedbackInvalid="Please provide a phone number"
+                        id="phoneNumber"
+                        feedbackInvalid="Please provide a Phone Number"
                         type="text"
-                        name="phone_number"
+                        name="phoneNumber"
                         placeholder="Enter Your Phone Number"
                         maxLength={10}
                         pattern="\d{10}"
-                        // pattern="\(\d{3}\) \d{3}-\d{4}"
-                        value={values?.phone_number}
+                        value={values?.phoneNumber}
                         onChange={(e) => handleOnChange(e)}
                         onKeyDown={handleNumberKeyDown}
                       />
@@ -166,27 +162,27 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Address Line1*</CFormLabel>
+                    <CFormLabel htmlFor="addressLine1">Address Line1*</CFormLabel>
                     <CFormInput
                       required
                       aria-describedby="validationAddressFeedback"
-                      id="validationAddress"
-                      feedbackInvalid="Please provide a Address"
+                      id="addressLine1"
+                      feedbackInvalid="Please provide an Address"
                       type="text"
-                      name="address_line1"
+                      name="addressLine1"
                       placeholder="Enter Your Address 1"
-                      value={values?.address_line1}
+                      value={values?.addressLine1}
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Address Line2</CFormLabel>
+                    <CFormLabel htmlFor="addressLine2">Address Line2</CFormLabel>
                     <CFormInput
-                      id="addressline2"
+                      id="addressLine2"
                       type="text"
-                      name="address_line2"
+                      name="addressLine2"
                       placeholder="Enter Your Address 2"
-                      value={values?.address_line2}
+                      value={values?.addressLine2}
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>
@@ -196,12 +192,12 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">City*</CFormLabel>
+                    <CFormLabel htmlFor="city">City*</CFormLabel>
                     <CFormInput
                       required
                       aria-describedby="validationCityFeedback"
-                      id="validationCity"
-                      feedbackInvalid="Please provide a city"
+                      id="city"
+                      feedbackInvalid="Please provide city"
                       type="text"
                       name="city"
                       placeholder="Enter Your City"
@@ -210,12 +206,12 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
                     />
                   </CCol>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">State*</CFormLabel>
+                    <CFormLabel htmlFor="state">State*</CFormLabel>
                     <CFormInput
                       required
                       aria-describedby="validationStateFeedback"
-                      id="validationState"
-                      feedbackInvalid="Please provide a state"
+                      id="state"
+                      feedbackInvalid="Please provide State"
                       type="text"
                       name="state"
                       placeholder="Enter Your State"
@@ -224,18 +220,18 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
                     />
                   </CCol>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Zip*</CFormLabel>
+                    <CFormLabel htmlFor="zipCode">Zip*</CFormLabel>
                     <CFormInput
                       required
                       aria-describedby="validationZipFeedback"
-                      id="validationZip"
-                      feedbackInvalid="Please provide a zip code"
+                      id="zipCode"
+                      feedbackInvalid="Please provide Zip"
                       type="text"
-                      name="zip_code"
-                      placeholder="Enter Your Zipcode"
+                      name="zipCode"
+                      placeholder="Enter Your Zip"
                       maxLength={5}
                       pattern="\d{5}"
-                      value={values?.zip_code}
+                      value={values?.zipCode}
                       onChange={(e) => handleOnChange(e)}
                       onKeyDown={handleNumberKeyDown}
                     />
@@ -246,9 +242,9 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Note</CFormLabel>
+                    <CFormLabel htmlFor="notes">Note</CFormLabel>
                     <CFormInput
-                      id="validationNote"
+                      id="notes"
                       type="text"
                       name="notes"
                       placeholder="Enter Notes"
@@ -265,7 +261,6 @@ const RegisterOrganization = ({ setModal, fetchOrganizations, editData }) => {
                     color="primary"
                     type="submit"
                     style={{ float: 'right', marginRight: 10, display: 'flex' }}
-                    // onClick={(e) => handleOnSubmit(e)}
                   >
                     Submit
                     {loading && (

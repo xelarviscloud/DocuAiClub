@@ -87,7 +87,7 @@ export async function addLocation({ body: body }) {
 export async function editLocation({ id: id, body: body }) {
   try {
     const response = await axios.put(
-      `${process.env.REACT_APP_LOCAL_URL}/lcoation/edit/${id}`,
+      `${process.env.REACT_APP_LOCAL_URL}/location/edit/${id}`,
       body,
       {
         headers: {
@@ -125,7 +125,7 @@ export async function getLocationUser({ currentPage: currentPage, pageSize = 10 
  * ADD Location User
  * SYSTEM ADMIN will access all Location User
  */
-export async function addLocationUser({body : body}) {
+export async function addLocationUser({ body: body }) {
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_LOCAL_URL}/location/user/add`,

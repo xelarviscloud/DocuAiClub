@@ -22,7 +22,7 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
   const [values, setValues] = useState(editData)
   const [validated, setValidated] = useState(false)
   const [loading, setLoading] = useState(false)
-
+  console.log('loca', values)
   const handleOnChange = (e) => {
     const { name, value } = e.target
     setValues({ ...values, [name]: value })
@@ -33,37 +33,37 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
     const form = e.currentTarget
     if (!form.checkValidity() === false) {
       const formLocation = {
-        name: values?.name,
-        phone_number: values?.phone_number,
-        email: values?.email,
-        address_line1: values?.address_line1,
-        address_line2: values?.address_line2,
+        locationName: values?.locationName,
+        phoneNumber: values?.phoneNumber,
+        emailAddress: values?.emailAddress,
+        addressLine1: values?.addressLine1,
+        addressLine2: values?.addressLine2,
         state: values?.state,
         city: values?.city,
-        zip_code: values?.zip_code,
+        zipCode: values?.zipCode,
         notes: values?.notes,
-        organizationid: values?.organizationid,
+        organizationId: values?.organizationId,
       }
       setLoading(true)
       await (
-        editData?.locationid
-          ? editLocation({ id: editData?.locationid, body: formLocation })
+        editData?.locationId
+          ? editLocation({ id: editData?.locationId, body: formLocation })
           : addLocation({ body: formLocation })
       )
         .then((response) => {
           console.log('response', response)
           toast.success(response?.message)
           setValues({
-            name: '',
-            phone_number: '',
-            email: '',
-            address_line1: '',
-            address_line2: '',
+            locationName: '',
+            phoneNumber: '',
+            emailAddress: '',
+            addressLine1: '',
+            addressLine2: '',
             city: '',
             state: '',
-            zip_code: '',
+            zipCode: '',
             notes: '',
-            organizationid: '',
+            organizationId: '',
           })
           fetchLocations()
           setModal(false)
@@ -84,7 +84,6 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
     // Allow only numbers (0-9) and backspace/delete key
     const isValidKey = /[0-9]|Backspace|Delete/.test(e.key)
 
-    // If the key pressed is not valid, prevent the default action
     if (!isValidKey) {
       e.preventDefault()
     }
@@ -108,22 +107,22 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
                 <CRow>
                   <CCol xs>
                     <CCol xs>
-                      <CFormLabel htmlFor="exampleFormControlInput1">Organization*</CFormLabel>
+                      <CFormLabel htmlFor="organizationId">Organization*</CFormLabel>
                       <CFormSelect
                         required
-                        aria-describedby="validationOrganizationFeedback"
-                        id="validationOrganization"
-                        feedbackInvalid="Please select Organization"
+                        aria-describedby="organizationId"
+                        id="organizationId"
+                        feedbackInvalid="Please select an Organization"
                         type="select"
-                        name="organizationid"
-                        placeholder="Enter Notes"
-                        value={values?.organizationid}
+                        name="organizationId"
+                        placeholder="Enter Organization"
+                        value={values?.locationOrgId}
                         onChange={(e) => handleOnChange(e)}
-                        disabled={editData?.locationid}
+                        disabled={editData?.locationId}
                       >
-                        <option value="">Select Organization</option>
+                        <option value="">Select an Organization</option>
                         {orgList?.map((item) => (
-                          <option value={item?.organizationid}>{item?.name}</option>
+                          <option value={item?.organizationId}>{item?.organizationName}</option>
                         ))}
                       </CFormSelect>
                     </CCol>
@@ -133,16 +132,16 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Name*</CFormLabel>
+                    <CFormLabel htmlFor="locationName">Name*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationNameFeedback"
-                      id="validationName"
-                      feedbackInvalid="Please provide a name"
+                      aria-describedby="locationName"
+                      id="locationName"
+                      feedbackInvalid="Please provide Location Name"
                       type="text"
-                      name="name"
+                      name="locationName"
                       placeholder="Enter Your Name"
-                      value={values?.name}
+                      value={values?.locationName}
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>
@@ -152,35 +151,35 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Email*</CFormLabel>
+                    <CFormLabel htmlFor="emailAddress">Email*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationEmailFeedback"
-                      id="validationEmail"
-                      feedbackInvalid="Please provide a email"
+                      aria-describedby="emailAddress"
+                      id="emailAddress"
+                      feedbackInvalid="Please provide an Email"
                       type="email"
-                      name="email"
+                      name="emailAddress"
                       pattern="^\S+@\S+\.\S+$"
                       placeholder="Enter Your Email"
-                      value={values?.email}
+                      value={values?.emailAddress}
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Phone*</CFormLabel>
+                    <CFormLabel htmlFor="phoneNumber">Phone*</CFormLabel>
                     <CInputGroup>
                       <CInputGroupText id="basic-addon1">+1</CInputGroupText>
                       <CFormInput
                         required
-                        aria-describedby="validationPhoneFeedback"
-                        id="validationPhone"
-                        feedbackInvalid="Please provide a phone number"
+                        aria-describedby="phoneNumber"
+                        id="phoneNumber"
+                        feedbackInvalid="Please provide a Phone Number"
                         type="text"
-                        name="phone_number"
+                        name="phoneNumber"
                         placeholder="Enter Your Phone Number"
                         maxLength={10}
                         pattern="\d{10}"
-                        value={values?.phone_number}
+                        value={values?.phoneNumber}
                         onChange={(e) => handleOnChange(e)}
                         onKeyDown={handleNumberKeyDown}
                       />
@@ -192,27 +191,27 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Address Line1*</CFormLabel>
+                    <CFormLabel htmlFor="addressLine1">Address Line1*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationAddressFeedback"
-                      id="validationAddress"
-                      feedbackInvalid="Please provide a Address"
+                      aria-describedby="addressLine1"
+                      id="addressLine1"
+                      feedbackInvalid="Please provide an Address"
                       type="text"
-                      name="address_line1"
-                      placeholder="Enter Your Address 1"
-                      value={values?.address_line1}
+                      name="addressLine1"
+                      placeholder="Enter Address Line 1"
+                      value={values?.addressLine1}
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Address Line2</CFormLabel>
+                    <CFormLabel htmlFor="addressLine2">Address Line2</CFormLabel>
                     <CFormInput
-                      id="addressline2"
+                      id="addressLine2"
                       type="text"
-                      name="address_line2"
-                      placeholder="Enter Your Address 2"
-                      value={values?.address_line2}
+                      name="addressLine2"
+                      placeholder="Enter Address Line 2"
+                      value={values?.addressLine2}
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>
@@ -222,12 +221,12 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">City*</CFormLabel>
+                    <CFormLabel htmlFor="city">City*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationCityFeedback"
-                      id="validationCity"
-                      feedbackInvalid="Please provide a city"
+                      aria-describedby="city"
+                      id="city"
+                      feedbackInvalid="Please provide City"
                       type="text"
                       name="city"
                       placeholder="Enter Your City"
@@ -236,12 +235,12 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
                     />
                   </CCol>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">State*</CFormLabel>
+                    <CFormLabel htmlFor="state">State*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationStateFeedback"
-                      id="validationState"
-                      feedbackInvalid="Please provide a state"
+                      aria-describedby="state"
+                      id="state"
+                      feedbackInvalid="Please provide State"
                       type="text"
                       name="state"
                       placeholder="Enter Your State"
@@ -250,18 +249,18 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
                     />
                   </CCol>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Zip*</CFormLabel>
+                    <CFormLabel htmlFor="zipCode">Zip*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationZipFeedback"
-                      id="validationZip"
-                      feedbackInvalid="Please provide a zip code"
+                      aria-describedby="zipCode"
+                      id="zipCode"
+                      feedbackInvalid="Please provide Zip"
                       type="text"
-                      name="zip_code"
-                      placeholder="Enter Your Zipcode"
+                      name="zipCode"
+                      placeholder="Enter Your Zip"
                       maxLength={5}
                       pattern="\d{5}"
-                      value={values?.zip_code}
+                      value={values?.zipCode}
                       onChange={(e) => handleOnChange(e)}
                       onKeyDown={handleNumberKeyDown}
                     />
@@ -272,9 +271,9 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Note</CFormLabel>
+                    <CFormLabel htmlFor="notes">Note</CFormLabel>
                     <CFormInput
-                      id="validationNote"
+                      id="notes"
                       type="text"
                       name="notes"
                       placeholder="Enter Notes"
@@ -291,7 +290,6 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
                     color="primary"
                     type="submit"
                     style={{ float: 'right', marginRight: 10, display: 'flex' }}
-                    // onClick={(e) => handleOnSubmit(e)}
                   >
                     Submit
                     {loading && (

@@ -116,17 +116,19 @@ const Organizations = () => {
                           {orgList?.map((org, key) => {
                             return (
                               <CTableRow key={key}>
-                                <CTableHeaderCell scope="row">{org?.name}</CTableHeaderCell>
-                                <CTableDataCell>{org?.address_line1}</CTableDataCell>
+                                <CTableHeaderCell scope="row">
+                                  {org?.organizationName}
+                                </CTableHeaderCell>
+                                <CTableDataCell>{org?.addressLine1}</CTableDataCell>
 
                                 <CTableDataCell>{org?.city}</CTableDataCell>
                                 <CTableDataCell>{org?.state}</CTableDataCell>
 
-                                <CTableDataCell>{org?.zip_code}</CTableDataCell>
+                                <CTableDataCell>{org?.zipCode}</CTableDataCell>
 
-                                <CTableDataCell>{org?.email}</CTableDataCell>
+                                <CTableDataCell>{org?.emailAddress}</CTableDataCell>
                                 <CTableDataCell>
-                                  {formatPhoneNumber(org?.phone_number)}
+                                  {formatPhoneNumber(org?.phoneNumber)}
                                 </CTableDataCell>
                                 <CTableDataCell>
                                   <CTooltip content="Edit" placement="bottom">
@@ -136,11 +138,10 @@ const Organizations = () => {
                                       color="primary"
                                       style={{ cursor: 'pointer' }}
                                       onClick={() => {
-                                        // e.stopPropagation()
                                         setModal(true)
                                         setEditData(
                                           orgList?.filter((item) => {
-                                            return item?.organizationid === org?.organizationid
+                                            return item?.organizationId === org?.organizationId
                                           })?.[0],
                                         )
                                       }}
@@ -152,9 +153,11 @@ const Organizations = () => {
                           })}
                         </CTableBody>
                       ) : (
-                        <div className="d-flex justify-content-center">
-                          <div className="bold-text">No Data Found</div>
-                        </div>
+                        <CTableBody>
+                          <CTableRow>
+                            <CTableDataCell>No Data Found </CTableDataCell>
+                          </CTableRow>
+                        </CTableBody>
                       )}
                     </CTable>
                   </CCardBody>

@@ -20,17 +20,16 @@ import formatPhoneNumber, { decryptData } from '../../../services/Utility'
 import RegisterOrgUser from '../register-user/RegisterOrgUser'
 import { getOrganizationUsers } from '../../../services/OrganizationService'
 import CIcon from '@coreui/icons-react'
-import { cibQq, cilBell, cilUser } from '@coreui/icons'
-import UserNoImage from '../../../assets/user-no-image.png'
+import { cibQq, cilBell, cilUser, cilPencil } from '@coreui/icons'
 
 function OrganizationUsers() {
-  const [orgModal, setOrgModal] = useState(false)
   const [orgLoading, setOrgLoading] = useState(false)
-  const [orgUserList, setOrgnUserList] = useState([])
+  const [orgUserList, setUserList] = useState([])
   const [orgUserCurrentPage, setOrgUserCurrentPage] = useState(1)
-  const [orgcount, setOrgCount] = useState()
+  const [orgCount, setOrgCount] = useState()
   const secretKey = 'alibaba1234@Devops&$%'
-
+  const [modal, setModal] = useState(false)
+  const [editData, setEditData] = useState({})
   /**
    * ORGANIZATION USER
    */
@@ -42,9 +41,10 @@ function OrganizationUsers() {
     setOrgLoading(true)
     await getOrganizationUsers({ currentPage: orgUserCurrentPage })
       .then((response) => {
-        setOrgnUserList(response?.data)
+        setUserList(response?.data)
         setOrgCount(response?.totalPages === 0 ? 1 : response?.totalPages)
         setOrgLoading(false)
+        console.log('Org User List', response?.data)
       })
       .catch((error) => {
         console.log('error', error)
@@ -54,7 +54,7 @@ function OrganizationUsers() {
 
   return (
     <div>
-      {!orgModal && (
+      {!modal && (
         <CRow>
           <CCol xs={12}>
             <CCard className="mb-4">
@@ -70,7 +70,7 @@ function OrganizationUsers() {
                       <CButton
                         color="primary"
                         style={{ float: 'right', marginRight: 10 }}
-                        onClick={() => setOrgModal(true)}
+                        onClick={() => setEditData(true)}
                       >
                         ADD
                       </CButton>
@@ -87,6 +87,7 @@ function OrganizationUsers() {
                           <CTableHeaderCell scope="col">Email</CTableHeaderCell>
                           <CTableHeaderCell scope="col">Phone Number</CTableHeaderCell>
                           <CTableHeaderCell scope="col">Organization</CTableHeaderCell>
+                          <CTableHeaderCell scope="col">Action</CTableHeaderCell>
                         </CTableRow>
                       </CTableHead>
                       <CTableBody>
@@ -123,11 +124,29 @@ function OrganizationUsers() {
                                   {formatPhoneNumber(item?.mobileNumber)}
                                 </CTableDataCell>
                                 <CTableDataCell>{item?.parentOrganization}</CTableDataCell>
+                                <CTableDataCell>
+                                  <CTooltip content="Edit" placement="bottom">
+                                    <CIcon
+                                      icon={cilPencil}
+                                      size="lg"
+                                      color="primary"
+                                      style={{ cursor: 'pointer' }}
+                                      onClick={() => {
+                                        setModal(true)
+                                        setEditData(item)
+                                      }}
+                                    />
+                                  </CTooltip>
+                                </CTableDataCell>
                               </CTableRow>
                             )
                           })
                         ) : (
-                          <div className="d-flex justify-content-center">No Data Found</div>
+                          <CTableRow>
+                            <CTableDataCell className="d-flex justify-content-center">
+                              No Data Found{' '}
+                            </CTableDataCell>
+                          </CTableRow>
                         )}
                       </CTableBody>
                     </CTable>
@@ -135,7 +154,7 @@ function OrganizationUsers() {
                   <Paginations
                     currentPage={orgUserCurrentPage}
                     setCurrentPage={setOrgUserCurrentPage}
-                    count={orgcount}
+                    count={orgCount}
                   />
                 </>
               )}
@@ -143,11 +162,12 @@ function OrganizationUsers() {
           </CCol>
         </CRow>
       )}
-      {orgModal && (
+      {modal && (
         <RegisterOrgUser
-          setOrgModal={setOrgModal}
+          setModal={setModal}
           secretKey={secretKey}
           fetchOrgUser={fetchOrgUser}
+          editData={editData}
         />
       )}
     </div>
