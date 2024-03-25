@@ -26,6 +26,7 @@ import { getLocations } from '../../../services/LocationService'
 import { getOrganizations } from '../../../services/OrganizationService'
 import RegisterLocation from '../register-location/RegisterLocation'
 import { jwtDecode } from 'jwt-decode'
+import AppLabel from '../../../components/AppLabel'
 function Locations() {
   const [modal, setModal] = useState(false)
   const [locationList, setLocationList] = useState([])
@@ -35,12 +36,12 @@ function Locations() {
   const [selectedOrgID, setSelectedOrgID] = useState()
   const [orgList, setOrgList] = useState([])
   const [editData, setEditData] = useState({})
+  const [currentOrganization, setCurrentOrganization] = useState({})
 
   const token = localStorage.getItem('token')
   const decodedToken = jwtDecode(token)
-
+  let _userOrgId = decodedToken.organizationId
   useEffect(() => {
-    let _userOrgId = decodedToken.organizationId
     fetchOrganizations()
     setSelectedOrgID(_userOrgId)
   }, [])
@@ -49,6 +50,8 @@ function Locations() {
     await getOrganizations({ currentPage: '' })
       .then((response) => {
         setOrgList(response?.data)
+        console.log(orgList)
+        setCurrentOrganization(response?.data?.find((e) => e.organizationId == _userOrgId))
       })
       .catch((error) => {
         console.log('error', error)
@@ -93,7 +96,7 @@ function Locations() {
                   <CCardHeader>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <div style={{ marginRight: '20px' }}>
-                        <strong className="fontHeader">Organization</strong>
+                        <strong className="fontHeader">Organization:</strong>
                       </div>
                       {decodedToken?.role === 'superadmin' ? (
                         <CTooltip content="Select an Organization">
@@ -115,7 +118,7 @@ function Locations() {
                           </CFormSelect>
                         </CTooltip>
                       ) : (
-                        ''
+                        <AppLabel text={currentOrganization?.organizationName} />
                       )}
 
                       <CTooltip content="Add New Property" placement="bottom">

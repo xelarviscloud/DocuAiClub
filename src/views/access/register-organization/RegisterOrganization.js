@@ -124,7 +124,6 @@ const RegisterOrganization = ({
                         placeholder="Enter Your Name"
                         value={values?.organizationName}
                         onChange={(e) => handleOnChange(e)}
-                        disabled={editData?.organizationId}
                       />
                     </CCol>
                   </CRow>
