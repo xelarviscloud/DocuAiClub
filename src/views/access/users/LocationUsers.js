@@ -13,6 +13,8 @@ import {
   CTableRow,
   CTooltip,
   CFormSelect,
+  CInputGroupText,
+  CInputGroup,
 } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
 import Spinners from '../../base/spinners/Spinners'
@@ -117,40 +119,47 @@ function LocationUsers() {
 
                   <CCardBody>
                     <div style={{ marginTop: 5 }}>
-                      <CTooltip content="Select an Organization">
-                        <CFormSelect
-                          style={{ marginBottom: 5 }}
-                          id="organizationList"
-                          type="text"
-                          name="organizationList"
-                          placeholder="All Organizations"
-                          value={selectedOrgId}
-                          onChange={(e) => setSelectedOrgId(e.target.value)}
-                        >
-                          <option value="1">Select an Organization</option>
-                          {orgList?.map((item) => (
-                            <option key={item.organizationId} value={item?.organizationId}>
-                              {item?.organizationName}
-                            </option>
-                          ))}
-                        </CFormSelect>
+                      <CTooltip content="Select...an Organization">
+                        <CInputGroup style={{ marginBottom: 5 }}>
+                          <CInputGroupText id="basic-addon1">Organization(s)</CInputGroupText>
+                          <CFormSelect
+                            id="organizationList"
+                            type="text"
+                            name="organizationList"
+                            placeholder="All Organizations"
+                            value={selectedOrgId}
+                            onChange={(e) => setSelectedOrgId(e.target.value)}
+                          >
+                            <option value="1">Select...one</option>
+                            {orgList?.map((item) => (
+                              <option key={item.organizationId} value={item?.organizationId}>
+                                {item?.organizationName}
+                              </option>
+                            ))}
+                          </CFormSelect>
+                        </CInputGroup>
                       </CTooltip>
-                      <CTooltip content="Select a Location">
-                        <CFormSelect
-                          id="locationList"
-                          type="text"
-                          name="locationList"
-                          placeholder="All"
-                          value={selectedLocId}
-                          onChange={(e) => SetSelectedLocId(e.target.value)}
-                        >
-                          <option value="1">Select a Location</option>
-                          {locationsList?.map((item) => (
-                            <option key={item.locationId} value={item?.locationId}>
-                              {item?.locationName}
-                            </option>
-                          ))}
-                        </CFormSelect>
+                      <CTooltip content="Select...a Location.">
+                        <CInputGroup style={{ marginBottom: 5 }}>
+                          <CInputGroupText id="basic-addon1" style={{ paddingLeft: 42 }}>
+                            Property(s)
+                          </CInputGroupText>
+                          <CFormSelect
+                            id="locationList"
+                            type="text"
+                            name="locationList"
+                            placeholder="All"
+                            value={selectedLocId}
+                            onChange={(e) => SetSelectedLocId(e.target.value)}
+                          >
+                            <option value="1">Select...one</option>
+                            {locationsList?.map((item) => (
+                              <option key={item.locationId} value={item?.locationId}>
+                                {item?.locationName}
+                              </option>
+                            ))}
+                          </CFormSelect>
+                        </CInputGroup>
                       </CTooltip>
                     </div>
                     <CTable>
