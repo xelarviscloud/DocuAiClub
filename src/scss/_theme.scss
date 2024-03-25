@@ -17,7 +17,7 @@ body {
 .card{
   border-top-left-radius: 0;
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800) {
   .table{
   overflow-x: auto;
   display: block;
@@ -53,6 +53,9 @@ body {
     border-radius: 4px;
     opacity: .9;
     font-family: Poppins, sans-serif;
+}
+.form-select{
+  color: #212631!important;
 }
 .wrapper {
   width: 100%;

@@ -5,13 +5,14 @@ import axios from 'axios'
  * SYSTEM ADMIN will access all Locations
  */
 export async function getLocations({
+  organizationId: organizationId,
   currentPage: currentPage,
   searchName: searchName,
   pageSize = 10,
 }) {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_LOCAL_URL}/location/get?page=${currentPage}&pageSize=${pageSize}`,
+      `${process.env.REACT_APP_LOCAL_URL}/locations/get?organizationId=${organizationId}&page=${currentPage}&pageSize=${pageSize}`,
       {
         headers: {
           Authorization: localStorage.getItem('token'),
@@ -19,45 +20,6 @@ export async function getLocations({
       },
     )
     return response.data
-  } catch (error) {
-    throw error
-  }
-}
-
-/**
- * GET Organizations Wise Locations
- * SYSTEM ADMIN will access all Locations
- */
-export async function getLocationList({
-  id: id,
-  currentPage: currentPage,
-  searchName: searchName,
-  pageSize = 10,
-}) {
-  try {
-    if (currentPage) {
-      const response = await axios.get(
-        searchName
-          ? `${process.env.REACT_APP_LOCAL_URL}/organization/location/get/${id}?page=${currentPage}&pageSize=${pageSize}&search=${searchName}`
-          : `${process.env.REACT_APP_LOCAL_URL}/organization/location/get/${id}?page=${currentPage}&pageSize=${pageSize}`,
-        {
-          headers: {
-            Authorization: localStorage.getItem('token'),
-          },
-        },
-      )
-      return response.data
-    } else {
-      const response = await axios.get(
-        `${process.env.REACT_APP_LOCAL_URL}/organization/location/get/${id}`,
-        {
-          headers: {
-            Authorization: localStorage.getItem('token'),
-          },
-        },
-      )
-      return response.data
-    }
   } catch (error) {
     throw error
   }
@@ -105,10 +67,15 @@ export async function editLocation({ id: id, body: body }) {
  * GET Location User
  * SYSTEM ADMIN will access all Location User
  */
-export async function getLocationUser({ currentPage: currentPage, pageSize = 10 }) {
+export async function getLocationUsers({
+  locationId: locationId,
+  organizationId: organizationId,
+  currentPage: currentPage,
+  pageSize = 10,
+}) {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_LOCAL_URL}/location/user/get?page=${currentPage}&pageSize=${pageSize}`,
+      `${process.env.REACT_APP_LOCAL_URL}/locationUsers?page=${currentPage}&pageSize=${pageSize}&locationId=${locationId}&organizationId=${organizationId}`,
       {
         headers: {
           Authorization: localStorage.getItem('token'),
@@ -127,15 +94,11 @@ export async function getLocationUser({ currentPage: currentPage, pageSize = 10 
  */
 export async function addLocationUser({ body: body }) {
   try {
-    const response = await axios.post(
-      `${process.env.REACT_APP_LOCAL_URL}/location/user/add`,
-      body,
-      {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
+    const response = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/locationUser`, body, {
+      headers: {
+        Authorization: localStorage.getItem('token'),
       },
-    )
+    })
     return response.data
   } catch (error) {
     throw error

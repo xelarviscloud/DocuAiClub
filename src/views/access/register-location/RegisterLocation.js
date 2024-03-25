@@ -122,7 +122,9 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
                       >
                         <option value="">Select an Organization</option>
                         {orgList?.map((item) => (
-                          <option value={item?.organizationId}>{item?.organizationName}</option>
+                          <option key={item.organizationId} value={item?.organizationId}>
+                            {item?.organizationName}
+                          </option>
                         ))}
                       </CFormSelect>
                     </CCol>

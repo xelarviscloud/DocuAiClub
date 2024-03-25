@@ -65,12 +65,15 @@ function OrganizationUsers() {
               ) : (
                 <>
                   <CCardHeader>
-                    <strong className="fontHeader">Organization Admins</strong>
+                    <strong className="fontHeader">Admins</strong>
                     <CTooltip content="Add New Organization Admin" placement="bottom">
                       <CButton
                         color="primary"
                         style={{ float: 'right', marginRight: 10 }}
-                        onClick={() => setEditData(true)}
+                        onClick={() => {
+                          setModal(true)
+                          setEditData({})
+                        }}
                       >
                         ADD
                       </CButton>
@@ -116,14 +119,16 @@ function OrganizationUsers() {
                                     />
                                   }
                                 </CTableHeaderCell>
-                                <CTableDataCell>{item?.username}</CTableDataCell>
+                                <CTableDataCell>{item?.userName}</CTableDataCell>
                                 <CTableDataCell>{item?.firstName}</CTableDataCell>
                                 <CTableDataCell>{item?.lastName}</CTableDataCell>
-                                <CTableDataCell>{item?.email}</CTableDataCell>
+                                <CTableDataCell>{item?.emailAddress}</CTableDataCell>
                                 <CTableDataCell>
-                                  {formatPhoneNumber(item?.mobileNumber)}
+                                  {formatPhoneNumber(item?.phoneNumber)}
                                 </CTableDataCell>
-                                <CTableDataCell>{item?.parentOrganization}</CTableDataCell>
+                                <CTableDataCell>
+                                  {item?.vw_org_users[0]?.organizationName}
+                                </CTableDataCell>
                                 <CTableDataCell>
                                   <CTooltip content="Edit" placement="bottom">
                                     <CIcon

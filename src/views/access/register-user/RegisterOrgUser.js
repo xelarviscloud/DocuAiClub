@@ -91,25 +91,25 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData }) {
     const form = e.currentTarget
     if (!form.checkValidity() === false && !passwordError && !confirmPasswordError) {
       var formData = new FormData()
-      formData.append('firstname', values?.firstName)
-      formData.append('lastname', values?.lastName)
-      formData.append('username', values?.username)
-      formData.append('email', values?.email)
-      formData.append('mobile_number', values?.mobile_number)
+      formData.append('firstName', values?.firstName)
+      formData.append('lastName', values?.lastName)
+      formData.append('userName', values?.userName)
+      formData.append('emailAddress', values?.emailAddress)
+      formData.append('phoneNumber', values?.phoneNumber)
       formData.append('password', values?.password)
       formData.append('confirmPassword', values?.confirmPassword)
-      formData.append('organizationId', values?.organizationid)
+      formData.append('organizationId', values?.organizationId)
       formData.append('file', values?.file)
       setLoading(true)
       await addOrganizationUser({ body: formData })
         .then((response) => {
           toast.success(response?.message)
           setValues({
-            firstname: '',
-            lastname: '',
-            username: '',
-            email: '',
-            mobile_number: '',
+            firstName: '',
+            lastName: '',
+            userName: '',
+            emailAddress: '',
+            phoneNumber: '',
             password: '',
             confirmPassword: '',
             organizationId: '',
@@ -134,8 +134,6 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData }) {
   const handleNumberKeyDown = (e) => {
     // Allow only numbers (0-9) and backspace/delete key
     const isValidKey = /[0-9]|Backspace|Delete/.test(e.key)
-
-    // If the key pressed is not valid, prevent the default action
     if (!isValidKey) {
       e.preventDefault()
     }
@@ -158,22 +156,24 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData }) {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Organization*</CFormLabel>
+                    <CFormLabel htmlFor="organizationId">Organization*</CFormLabel>
                     <CFormSelect
                       required
-                      aria-describedby="validationOrganizationFeedback"
-                      id="validationOrganization"
+                      aria-describedby="organizationId"
+                      id="organizationId"
                       feedbackInvalid="Please select Organization"
                       type="text"
-                      name="organizationid"
-                      value={values?.organizationid}
+                      name="organizationId"
+                      value={values?.userOrganizationId}
                       onChange={(e) => handleOnChange(e)}
-                      disabled={editData?.organizationUserId}
+                      disabled={editData?.userOrganizationId}
                       key={editData._id}
                     >
                       <option value="">Select Organization</option>
                       {orgList?.map((item) => (
-                        <option value={item?.organizationid}>{item?.name}</option>
+                        <option key={item?.organizationId} value={item?.organizationId}>
+                          {item?.organizationName}
+                        </option>
                       ))}
                     </CFormSelect>
                   </CCol>
@@ -183,12 +183,12 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData }) {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">First Name*</CFormLabel>
+                    <CFormLabel htmlFor="firstName">First Name*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationFirstNameFeedback"
-                      id="validationFirstName"
-                      feedbackInvalid="Please provide a first name"
+                      aria-describedby="firstName"
+                      id="firstName"
+                      feedbackInvalid="Please provide First Name"
                       type="text"
                       name="firstName"
                       placeholder="Enter Your First Name"
@@ -197,12 +197,12 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData }) {
                     />
                   </CCol>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Last Name*</CFormLabel>
+                    <CFormLabel htmlFor="lastName">Last Name*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationLastNameFeedback"
-                      id="validationLastName"
-                      feedbackInvalid="Please provide a last name"
+                      aria-describedby="lastName"
+                      id="lastName"
+                      feedbackInvalid="Please provide Last Name"
                       type="text"
                       name="lastName"
                       placeholder="Enter Your Last Name"
@@ -216,46 +216,46 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData }) {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">User Name*</CFormLabel>
+                    <CFormLabel htmlFor="userName">User Name*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationUserNameFeedback"
-                      id="validationUserName"
-                      feedbackInvalid="Please provide a user name"
+                      aria-describedby="userName"
+                      id="userName"
+                      feedbackInvalid="Please provide Username"
                       type="text"
-                      name="username"
+                      name="userName"
                       placeholder="Enter Your User Name"
-                      value={values?.username}
+                      value={values?.userName}
                       onChange={(e) => handleOnChange(e)}
-                      disabled={editData?.organizationUserId}
+                      disabled={editData?.userOrganizationId}
                     />
                   </CCol>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Email*</CFormLabel>
+                    <CFormLabel htmlFor="emailAddress">Email*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationEmailFeedback"
-                      id="validationEmail"
-                      feedbackInvalid="Please provide a email"
+                      aria-describedby="emailAddress"
+                      id="emailAddress"
+                      feedbackInvalid="Please provide an Email Address"
                       type="email"
-                      name="email"
+                      name="emailAddress"
                       pattern="^\S+@\S+\.\S+$"
                       placeholder="Enter Your Email"
-                      value={values?.email}
+                      value={values?.emailAddress}
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Phone*</CFormLabel>
+                    <CFormLabel htmlFor="phoneNumber">Phone*</CFormLabel>
                     <CInputGroup>
                       <CInputGroupText id="basic-addon1">+1</CInputGroupText>
                       <CFormInput
                         required
-                        aria-describedby="validationPhoneFeedback"
-                        id="validationPhone"
-                        feedbackInvalid="Please provide a phone number"
+                        aria-describedby="phoneNumber"
+                        id="phoneNumber"
+                        feedbackInvalid="Please provide Phone Number"
                         type="text"
-                        name="mobile_number"
+                        name="phoneNumber"
                         placeholder="Enter Your Phone Number"
                         maxLength={10}
                         pattern="\d{10}"
@@ -271,35 +271,37 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData }) {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Password*</CFormLabel>
+                    <CFormLabel htmlFor="password">Password*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationPasswordFeedback"
-                      id="validationPassword"
-                      feedbackInvalid={passwordError ? passwordError : 'Please provide a password'}
+                      aria-describedby="password"
+                      id="password"
+                      feedbackInvalid={passwordError ? passwordError : 'Please provide a Password'}
                       type="password"
                       name="password"
+                      minLength={8}
                       placeholder="Enter Your Password"
-                      value={values?.password || 'Test@1234'}
+                      value={values?.password}
                       onChange={(e) => handleOnChange(e)}
                       invalid={passwordError}
                     />
                   </CCol>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Confirm Password*</CFormLabel>
+                    <CFormLabel htmlFor="confirmPassword">Confirm Password*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationConfirmPasswordFeedback"
-                      id="validationConfirmPassword"
+                      aria-describedby="confirmPassword"
+                      id="confirmPassword"
                       feedbackInvalid={
                         confirmPasswordError
                           ? confirmPasswordError
-                          : 'Please provide a confirm password'
+                          : 'Please provide Confirm Password'
                       }
                       type="password"
                       name="confirmPassword"
+                      minLength={8}
                       placeholder="Enter Your Confirm Password"
-                      value={values?.confirmPassword || 'Test@1234'}
+                      value={values?.confirmPassword}
                       onChange={(e) => handleOnChange(e)}
                       invalid={confirmPasswordError}
                     />
@@ -310,14 +312,14 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData }) {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">User Image</CFormLabel>
+                    <CFormLabel htmlFor="fileUrl">User Image</CFormLabel>
                     <CFormInput
-                      aria-describedby="validationFileFeedback"
-                      id="validationFile"
-                      feedbackInvalid="Please select a file"
+                      aria-describedby="fileUrl"
+                      id="fileUrl"
+                      feedbackInvalid="Please select User Image"
                       type="file"
                       accept="image/*"
-                      name="file"
+                      name="fileUrl"
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>

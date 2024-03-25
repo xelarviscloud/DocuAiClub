@@ -19,19 +19,33 @@ import { addVerifyEmail } from '../../../services/LoginService'
 import { addLocationUser, getLocations } from '../../../services/LocationService'
 import toast from 'react-hot-toast'
 
-function RegisterLocationUser({ setLocationModal, fetchLocationUser, secretKey }) {
-  const [values, setValues] = useState()
+function RegisterLocationUser({ setModal, fetchLocationUser, secretKey, editData }) {
+  editData.password = ''
+  editData.confirmPassword = ''
+  const [values, setValues] = useState(editData)
   const [validated, setValidated] = useState(false)
   const [loading, setLoading] = useState(false)
   const [locationList, setLocationList] = useState([])
+  const [orgList, setOrgList] = useState([])
+
   const [passwordError, setPasswordError] = useState('')
   const [confirmPasswordError, setConfirmPasswordError] = useState('')
 
   useEffect(() => {
-    locationUserData()
+    fetchLocations()
   }, [])
 
-  const locationUserData = async () => {
+  const fetchOrganizations = async () => {
+    await getOrganizations({ currentPage: '' })
+      .then((response) => {
+        setOrgList(response?.data)
+      })
+      .catch((error) => {
+        console.log('error', error)
+      })
+  }
+
+  const fetchLocations = async () => {
     await getLocations({ currentPage: '' })
       .then((response) => {
         setLocationList(response?.data)
@@ -79,66 +93,43 @@ function RegisterLocationUser({ setLocationModal, fetchLocationUser, secretKey }
       }
     }
   }
-
-  /**
-   * EMAIL VERIFICATION
-   */
-  const encryptEmail = (email) => {
-    const encryptedEmail = CryptoJS.AES.encrypt(email, secretKey).toString()
-    return encryptedEmail
-  }
-
-  const VerifyEmail = async (email, password) => {
-    const encryptedEmail = encryptEmail(email)
-    const body = {
-      email: encryptedEmail,
-      role: 'locationuser',
-      password: password,
-    }
-    await addVerifyEmail(body)
-      .then((response) => {
-        toast.success(response?.message)
-      })
-      .catch((error) => {
-        console.log('error', error)
-      })
-  }
-
   /**
    * ADD Organization User Api Calling
    */
   const handleOnSubmit = async (e) => {
     e.preventDefault()
+    console.log('values', values)
     const form = e.currentTarget
     if (!form.checkValidity() === false && !passwordError && !confirmPasswordError) {
-      var formdata = new FormData()
-      formdata.append('firstName', values?.firstName)
-      formdata.append('lastName', values?.lastName)
-      formdata.append('username', values?.username)
-      formdata.append('email', values?.email)
-      formdata.append('mobileNumber', values?.mobileNumber)
-      formdata.append('password', values?.password)
-      formdata.append('confirmPassword', values?.confirmPassword)
-      formdata.append('locationid', values?.locationid)
-      formdata.append('file', values?.file)
+      var formData = new FormData()
+      formData.append('firstName', values?.firstName)
+      formData.append('lastName', values?.lastName)
+      formData.append('userName', values?.userName)
+      formData.append('emailAddress', values?.emailAddress)
+      formData.append('phoneNumber', values?.phoneNumber)
+      formData.append('password', values?.password)
+      formData.append('confirmPassword', values?.confirmPassword)
+      formData.append('locationId', values?.locationId)
+      formData.append('organizationId', values.organizationId)
+      formData.append('file', values?.file)
       setLoading(true)
-      await addLocationUser({ body: formdata })
+      await addLocationUser({ body: formData })
         .then((response) => {
           toast.success(response?.message)
           setValues({
             firstName: '',
             lastName: '',
-            username: '',
-            email: '',
-            mobileNumber: '',
+            userName: '',
+            emailAddress: '',
+            phoneNumber: '',
             password: '',
             confirmPassword: '',
-            organizationid: '',
+            locationId: '',
+            organizationId: '',
             file: '',
           })
-          //   VerifyEmail(values?.email, values?.password)
           fetchLocationUser()
-          setLocationModal(false)
+          setModal(false)
           setLoading(false)
         })
         .catch((error) => {
@@ -156,7 +147,6 @@ function RegisterLocationUser({ setLocationModal, fetchLocationUser, secretKey }
     // Allow only numbers (0-9) and backspace/delete key
     const isValidKey = /[0-9]|Backspace|Delete/.test(e.key)
 
-    // If the key pressed is not valid, prevent the default action
     if (!isValidKey) {
       e.preventDefault()
     }
@@ -179,20 +169,20 @@ function RegisterLocationUser({ setLocationModal, fetchLocationUser, secretKey }
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Parent Property*</CFormLabel>
+                    <CFormLabel htmlFor="locationId">Parent Property*</CFormLabel>
                     <CFormSelect
                       required
-                      aria-describedby="validationLocationFeedback"
-                      id="validationLocation"
+                      aria-describedby="locationId"
+                      id="locationId"
                       feedbackInvalid="Please select Parent Location"
                       type="text"
-                      name="locationid"
-                      value={values?.locationid}
+                      name="locationId"
+                      value={values?.locationId}
                       onChange={(e) => handleOnChange(e)}
                     >
                       <option value="">Select Property</option>
                       {locationList?.map((item) => (
-                        <option value={item?.data?.locationid}>{item?.data?.name}</option>
+                        <option value={item?.data?.locationId}>{item?.data?.locationName}</option>
                       ))}
                     </CFormSelect>
                   </CCol>
@@ -202,12 +192,12 @@ function RegisterLocationUser({ setLocationModal, fetchLocationUser, secretKey }
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">First Name*</CFormLabel>
+                    <CFormLabel htmlFor="firstName">First Name*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationFirstNameFeedback"
-                      id="validationFirstName"
-                      feedbackInvalid="Please provide a first name"
+                      aria-describedby="firstName"
+                      id="firstName"
+                      feedbackInvalid="Please provide First Name"
                       type="text"
                       name="firstName"
                       placeholder="Enter Your First Name"
@@ -216,12 +206,12 @@ function RegisterLocationUser({ setLocationModal, fetchLocationUser, secretKey }
                     />
                   </CCol>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Last Name*</CFormLabel>
+                    <CFormLabel htmlFor="lastName">Last Name*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationLastNameFeedback"
-                      id="validationLastName"
-                      feedbackInvalid="Please provide a last name"
+                      aria-describedby="lastName"
+                      id="lastName"
+                      feedbackInvalid="Please provide a Last Name"
                       type="text"
                       name="lastName"
                       placeholder="Enter Your Last Name"
@@ -235,28 +225,28 @@ function RegisterLocationUser({ setLocationModal, fetchLocationUser, secretKey }
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">User Name*</CFormLabel>
+                    <CFormLabel htmlFor="userName">User Name*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationUserNameFeedback"
-                      id="validationUserName"
-                      feedbackInvalid="Please provide a user name"
+                      aria-describedby="userName"
+                      id="userName"
+                      feedbackInvalid="Please provide Username"
                       type="text"
-                      name="username"
+                      name="userName"
                       placeholder="Enter Your User Name"
                       value={values?.username}
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Email*</CFormLabel>
+                    <CFormLabel htmlFor="emailAddress">Email*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationEmailFeedback"
-                      id="validationEmail"
-                      feedbackInvalid="Please provide a email"
+                      aria-describedby="emailAddress"
+                      id="emailAddress"
+                      feedbackInvalid="Please provide an Email Address"
                       type="email"
-                      name="email"
+                      name="emailAddress"
                       pattern="^\S+@\S+\.\S+$"
                       placeholder="Enter Your Email"
                       value={values?.email}
@@ -264,21 +254,20 @@ function RegisterLocationUser({ setLocationModal, fetchLocationUser, secretKey }
                     />
                   </CCol>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Phone*</CFormLabel>
+                    <CFormLabel htmlFor="phoneNumber">Phone*</CFormLabel>
                     <CInputGroup>
                       <CInputGroupText id="basic-addon1">+1</CInputGroupText>
                       <CFormInput
                         required
-                        aria-describedby="validationPhoneFeedback"
-                        id="validationPhone"
-                        feedbackInvalid="Please provide a phone number"
+                        aria-describedby="phoneNumber"
+                        id="phoneNumber"
+                        feedbackInvalid="Please provide a Phone Number"
                         type="text"
-                        name="mobileNumber"
+                        name="phoneNumber"
                         placeholder="Enter Your Phone Number"
                         maxLength={10}
                         pattern="\d{10}"
-                        // pattern="\(\d{3}\) \d{3}-\d{4}"
-                        value={values?.mobileNumber}
+                        value={values?.phoneNumber}
                         onChange={(e) => handleOnChange(e)}
                         onKeyDown={handleNumberKeyDown}
                       />
@@ -290,39 +279,38 @@ function RegisterLocationUser({ setLocationModal, fetchLocationUser, secretKey }
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Password*</CFormLabel>
+                    <CFormLabel htmlFor="password">Password*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationPasswordFeedback"
-                      id="validationPassword"
-                      feedbackInvalid={passwordError ? passwordError : 'Please provide a password'}
+                      aria-describedby="password"
+                      id="password"
+                      feedbackInvalid={passwordError ? passwordError : 'Please provide a Password'}
                       type="password"
                       name="password"
+                      minLength={8}
                       placeholder="Enter Your Password"
                       value={values?.password}
                       onChange={(e) => handleOnChange(e)}
-                      // pattern={"^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,}$"}
-                      // valid={!passwordError}
                       invalid={passwordError}
                     />
                   </CCol>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">Confirm Password*</CFormLabel>
+                    <CFormLabel htmlFor="confirmPassword">Confirm Password*</CFormLabel>
                     <CFormInput
                       required
-                      aria-describedby="validationConfirmPasswordFeedback"
-                      id="validationConfirmPassword"
+                      aria-describedby="confirmPassword"
+                      id="confirmPassword"
                       feedbackInvalid={
                         confirmPasswordError
                           ? confirmPasswordError
-                          : 'Please provide a confirm password'
+                          : 'Please provide Confirm Password'
                       }
                       type="password"
                       name="confirmPassword"
+                      minLength={8}
                       placeholder="Enter Your Confirm Password"
                       value={values?.confirmPassword}
                       onChange={(e) => handleOnChange(e)}
-                      // valid={!confirmPasswordError && values?.confirmPassword}
                       invalid={confirmPasswordError}
                     />
                   </CCol>
@@ -332,15 +320,14 @@ function RegisterLocationUser({ setLocationModal, fetchLocationUser, secretKey }
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="exampleFormControlInput1">file*</CFormLabel>
+                    <CFormLabel htmlFor="fileUrl">File</CFormLabel>
                     <CFormInput
-                      required
-                      aria-describedby="validationFileFeedback"
-                      id="validationFile"
-                      feedbackInvalid="Please select a file"
+                      aria-describedby="fileUrl"
+                      id="fileUrl"
+                      feedbackInvalid="Please select User Image"
                       type="file"
                       accept="image/*"
-                      name="file"
+                      name="fileUrl"
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>
@@ -367,7 +354,6 @@ function RegisterLocationUser({ setLocationModal, fetchLocationUser, secretKey }
                     color="primary"
                     type="submit"
                     style={{ float: 'right', marginRight: 10, display: 'flex' }}
-                    // onClick={(e) => handleOnSubmit(e)}
                   >
                     Submit
                     {loading && (
@@ -381,7 +367,7 @@ function RegisterLocationUser({ setLocationModal, fetchLocationUser, secretKey }
                   <CButton
                     color="secondary"
                     style={{ float: 'right', marginRight: 10, display: 'flex' }}
-                    onClick={() => setLocationModal(false)}
+                    onClick={() => setModal(false)}
                   >
                     Cancel
                   </CButton>

@@ -20,7 +20,7 @@ import {
 import formatPhoneNumber from '../../../services/Utility'
 import CIcon from '@coreui/icons-react'
 import { cilPencil } from '@coreui/icons'
-import { getLocationList, getLocations } from '../../../services/LocationService'
+import { getLocations } from '../../../services/LocationService'
 import { getOrganizations } from '../../../services/OrganizationService'
 import RegisterLocation from '../register-location/RegisterLocation'
 
@@ -54,11 +54,7 @@ function Locations() {
 
   const fetchLocations = async () => {
     setLoading(true)
-    await (
-      selectedOrgID
-        ? getLocationList({ id: selectedOrgID, currentPage: currentPage })
-        : getLocations({ currentPage: currentPage })
-    )
+    await getLocations({ organizationId: selectedOrgID, currentPage: currentPage })
       .then((response) => {
         setLocationList(response?.data)
         setCount(response?.totalPages === 0 ? 1 : response?.totalPages)
@@ -139,22 +135,24 @@ function Locations() {
                         <CTableBody>
                           {locationList?.map((item, key) => {
                             return (
-                              <CTableRow key={item?.data?.locationId}>
+                              <CTableRow key={item?.locationId}>
                                 <CTableHeaderCell scope="row">
-                                  {item?.data?.locationName}
+                                  {item?.locationName}
                                 </CTableHeaderCell>
-                                <CTableDataCell>{item?.data?.locationName}</CTableDataCell>
+                                <CTableDataCell>{item?.addressLine1}</CTableDataCell>
 
-                                <CTableDataCell>{item?.data?.city}</CTableDataCell>
-                                <CTableDataCell>{item?.data?.state}</CTableDataCell>
+                                <CTableDataCell>{item?.city}</CTableDataCell>
+                                <CTableDataCell>{item?.state}</CTableDataCell>
 
-                                <CTableDataCell>{item?.data?.zipCode}</CTableDataCell>
+                                <CTableDataCell>{item?.zipCode}</CTableDataCell>
 
-                                <CTableDataCell>{item?.data?.emailAddress}</CTableDataCell>
+                                <CTableDataCell>{item?.emailAddress}</CTableDataCell>
                                 <CTableDataCell>
-                                  {formatPhoneNumber(item?.data?.phoneNumber)}
+                                  {formatPhoneNumber(item?.phoneNumber)}
                                 </CTableDataCell>
-                                <CTableDataCell>{item?.locationOrganizationName}</CTableDataCell>
+                                <CTableDataCell>
+                                  {item?.vw_loc_orgs[0]?.organizationName}
+                                </CTableDataCell>
                                 <CTableDataCell>
                                   <CTooltip content="Edit" placement="bottom">
                                     <CIcon
@@ -166,10 +164,8 @@ function Locations() {
                                         setModal(true)
                                         setEditData(
                                           locationList?.filter((item2) => {
-                                            return (
-                                              item2?.data?.locationId === item?.data?.locationId
-                                            )
-                                          })?.[0]?.data,
+                                            return item2?.locationId === item?.locationId
+                                          })?.[0],
                                         )
                                       }}
                                     />
