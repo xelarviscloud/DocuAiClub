@@ -19,14 +19,13 @@ import { addVerifyEmail } from '../../../services/LoginService'
 import { addLocationUser, getLocations } from '../../../services/LocationService'
 import toast from 'react-hot-toast'
 
-function RegisterLocationUser({ setModal, fetchLocationUser, secretKey, editData }) {
+function RegisterLocationUser({ setModal, fetchLocationUsers, secretKey, editData }) {
   editData.password = ''
   editData.confirmPassword = ''
   const [values, setValues] = useState(editData)
   const [validated, setValidated] = useState(false)
   const [loading, setLoading] = useState(false)
   const [locationList, setLocationList] = useState([])
-  const [orgList, setOrgList] = useState([])
 
   const [passwordError, setPasswordError] = useState('')
   const [confirmPasswordError, setConfirmPasswordError] = useState('')
@@ -34,16 +33,6 @@ function RegisterLocationUser({ setModal, fetchLocationUser, secretKey, editData
   useEffect(() => {
     fetchLocations()
   }, [])
-
-  const fetchOrganizations = async () => {
-    await getOrganizations({ currentPage: '' })
-      .then((response) => {
-        setOrgList(response?.data)
-      })
-      .catch((error) => {
-        console.log('error', error)
-      })
-  }
 
   const fetchLocations = async () => {
     await getLocations({ currentPage: '' })
@@ -128,7 +117,7 @@ function RegisterLocationUser({ setModal, fetchLocationUser, secretKey, editData
             organizationId: '',
             file: '',
           })
-          fetchLocationUser()
+          fetchLocationUsers()
           setModal(false)
           setLoading(false)
         })
@@ -182,7 +171,7 @@ function RegisterLocationUser({ setModal, fetchLocationUser, secretKey, editData
                     >
                       <option value="">Select Property</option>
                       {locationList?.map((item) => (
-                        <option value={item?.data?.locationId}>{item?.data?.locationName}</option>
+                        <option value={item?.locationId}>{item?.locationName}</option>
                       ))}
                     </CFormSelect>
                   </CCol>
