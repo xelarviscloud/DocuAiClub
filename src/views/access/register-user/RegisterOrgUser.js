@@ -28,8 +28,8 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData }) {
   const [orgList, setOrgList] = useState([])
   const [passwordError, setPasswordError] = useState('')
   const [confirmPasswordError, setConfirmPasswordError] = useState('')
+  console.log('edit data org user', editData)
 
-  console.log('edit data', editData)
   useEffect(() => {
     fetchOrganizations()
   }, [])
@@ -83,9 +83,6 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData }) {
     }
   }
 
-  /**
-   * ADD Organization User Api Calling
-   */
   const handleOnSubmit = async (e) => {
     e.preventDefault()
     const form = e.currentTarget

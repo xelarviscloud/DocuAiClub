@@ -69,7 +69,7 @@ function OrganizationUsers() {
                     <CTooltip content="Add New Organization Admin" placement="bottom">
                       <CButton
                         color="primary"
-                        style={{ float: 'right', marginRight: 10 }}
+                        style={{ float: 'right', marginRight: 0 }}
                         onClick={() => {
                           setModal(true)
                           setEditData({})

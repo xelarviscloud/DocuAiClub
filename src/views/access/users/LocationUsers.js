@@ -23,7 +23,7 @@ import RegisterLocationUser from '../register-user/RegisterLocationUser'
 import { getOrganizations } from '../../../services/OrganizationService'
 import { getLocations } from '../../../services/LocationService'
 import CIcon from '@coreui/icons-react'
-import { cibQq } from '@coreui/icons'
+import { cibQq, cilPencil } from '@coreui/icons'
 
 function LocationUsers() {
   const [modal, setModal] = useState(false)
@@ -36,6 +36,8 @@ function LocationUsers() {
   const [selectedLocId, SetSelectedLocId] = useState()
   const [orgList, setOrgList] = useState([])
   const [locationsList, SetLocationList] = useState([])
+  const [editData, setEditData] = useState({})
+
   useEffect(() => {
     fetchOrganizations()
     fetchLocations()
@@ -43,8 +45,6 @@ function LocationUsers() {
   }, [selectedOrgId, selectedLocId])
 
   const fetchOrganizations = async () => {
-    // SetLocationList({})
-    // setLocationUserList({})
     await getOrganizations({ currentPage: '' })
       .then((response) => {
         setOrgList(response?.data)
@@ -103,8 +103,11 @@ function LocationUsers() {
                       <CTooltip content="Add New Property Admin" placement="bottom">
                         <CButton
                           color="primary"
-                          style={{ float: 'right', marginRight: 10 }}
-                          onClick={() => setModal(true)}
+                          style={{ float: 'right', marginRight: 0 }}
+                          onClick={() => {
+                            setModal(true)
+                            setEditData({})
+                          }}
                         >
                           ADD
                         </CButton>
@@ -161,6 +164,7 @@ function LocationUsers() {
                           <CTableHeaderCell scope="col">Phone Number</CTableHeaderCell>
                           <CTableHeaderCell scope="col">Property</CTableHeaderCell>
                           <CTableHeaderCell scope="col">Organization</CTableHeaderCell>
+                          <CTableHeaderCell scope="col">Action</CTableHeaderCell>
                         </CTableRow>
                       </CTableHead>
                       <CTableBody>
@@ -202,12 +206,26 @@ function LocationUsers() {
                                 <CTableDataCell>
                                   {item?.vw_org_users[0]?.organizationName}
                                 </CTableDataCell>
+                                <CTableDataCell>
+                                  <CTooltip content="Edit" placement="bottom">
+                                    <CIcon
+                                      icon={cilPencil}
+                                      size="lg"
+                                      color="primary"
+                                      style={{ cursor: 'pointer' }}
+                                      onClick={() => {
+                                        setModal(true)
+                                        setEditData(item)
+                                      }}
+                                    />
+                                  </CTooltip>
+                                </CTableDataCell>
                               </CTableRow>
                             )
                           })
                         ) : (
                           <CTableRow>
-                            <CTableDataCell colSpan={8}>No Data Found </CTableDataCell>
+                            <CTableDataCell colSpan={9}>No Data Found </CTableDataCell>
                           </CTableRow>
                         )}
                       </CTableBody>
@@ -229,7 +247,7 @@ function LocationUsers() {
           setModal={setModal}
           fetchLocationUsers={fetchLocationUsers}
           secretKey={secretKey}
-          editData={{}}
+          editData={editData}
         />
       )}
     </div>

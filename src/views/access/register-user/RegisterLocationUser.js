@@ -15,7 +15,6 @@ import {
 } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
 import Spinners from '../../base/spinners/Spinners'
-import { addVerifyEmail } from '../../../services/LoginService'
 import { addLocationUser, getLocations } from '../../../services/LocationService'
 import toast from 'react-hot-toast'
 
@@ -30,6 +29,7 @@ function RegisterLocationUser({ setModal, fetchLocationUsers, secretKey, editDat
   const [passwordError, setPasswordError] = useState('')
   const [confirmPasswordError, setConfirmPasswordError] = useState('')
 
+  console.log('edit data loc user', editData)
   useEffect(() => {
     fetchLocations()
   }, [])
@@ -98,7 +98,7 @@ function RegisterLocationUser({ setModal, fetchLocationUsers, secretKey, editDat
       formData.append('phoneNumber', values?.phoneNumber)
       formData.append('password', values?.password)
       formData.append('confirmPassword', values?.confirmPassword)
-      formData.append('locationId', values?.locationId)
+      formData.append('locationId', values?.userLocationId)
       formData.append('organizationId', values.organizationId)
       formData.append('file', values?.file)
       setLoading(true)
@@ -113,7 +113,7 @@ function RegisterLocationUser({ setModal, fetchLocationUsers, secretKey, editDat
             phoneNumber: '',
             password: '',
             confirmPassword: '',
-            locationId: '',
+            userLocationId: '',
             organizationId: '',
             file: '',
           })
@@ -158,20 +158,22 @@ function RegisterLocationUser({ setModal, fetchLocationUsers, secretKey, editDat
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="locationId">Parent Property*</CFormLabel>
+                    <CFormLabel htmlFor="userLocationId">Parent Property*</CFormLabel>
                     <CFormSelect
                       required
-                      aria-describedby="locationId"
-                      id="locationId"
+                      aria-describedby="userLocationId"
+                      id="userLocationId"
                       feedbackInvalid="Please select Parent Location"
                       type="text"
-                      name="locationId"
-                      value={values?.locationId}
+                      name="userLocationId"
+                      value={values?.userLocationId}
                       onChange={(e) => handleOnChange(e)}
                     >
                       <option value="">Select Property</option>
                       {locationList?.map((item) => (
-                        <option value={item?.locationId}>{item?.locationName}</option>
+                        <option key={item?.locationId} value={item?.locationId}>
+                          {item?.locationName}
+                        </option>
                       ))}
                     </CFormSelect>
                   </CCol>
@@ -238,7 +240,7 @@ function RegisterLocationUser({ setModal, fetchLocationUsers, secretKey, editDat
                       name="emailAddress"
                       pattern="^\S+@\S+\.\S+$"
                       placeholder="Enter Your Email"
-                      value={values?.email}
+                      value={values?.emailAddress}
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>
