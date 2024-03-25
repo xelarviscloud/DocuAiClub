@@ -16,6 +16,8 @@ import {
   CTableHeaderCell,
   CTableRow,
   CTooltip,
+  CBreadcrumb,
+  CBreadcrumbItem,
 } from '@coreui/react'
 import formatPhoneNumber from '../../../services/Utility'
 import CIcon from '@coreui/icons-react'
@@ -23,7 +25,7 @@ import { cilPencil } from '@coreui/icons'
 import { getLocations } from '../../../services/LocationService'
 import { getOrganizations } from '../../../services/OrganizationService'
 import RegisterLocation from '../register-location/RegisterLocation'
-
+import { jwtDecode } from 'jwt-decode'
 function Locations() {
   const [modal, setModal] = useState(false)
   const [locationList, setLocationList] = useState([])
@@ -34,8 +36,13 @@ function Locations() {
   const [orgList, setOrgList] = useState([])
   const [editData, setEditData] = useState({})
 
+  const token = localStorage.getItem('token')
+  const decodedToken = jwtDecode(token)
+
   useEffect(() => {
+    let _userOrgId = decodedToken.organizationId
     fetchOrganizations()
+    setSelectedOrgID(_userOrgId)
   }, [])
 
   const fetchOrganizations = async () => {
@@ -86,25 +93,31 @@ function Locations() {
                   <CCardHeader>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <div style={{ marginRight: '20px' }}>
-                        <strong className="fontHeader">Property</strong>
+                        <strong className="fontHeader">Organization</strong>
                       </div>
-                      <CTooltip content="Select an Organization">
-                        <CFormSelect
-                          id="organizationList"
-                          type="text"
-                          name="organizationList"
-                          placeholder="All Organizations"
-                          value={selectedOrgID}
-                          onChange={(e) => setSelectedOrgID(e.target.value)}
-                        >
-                          <option value="">All</option>
-                          {orgList?.map((item) => (
-                            <option key={item.organizationId} value={item?.organizationId}>
-                              {item?.organizationName}
-                            </option>
-                          ))}
-                        </CFormSelect>
-                      </CTooltip>
+                      {decodedToken?.role === 'superadmin' ? (
+                        <CTooltip content="Select an Organization">
+                          <CFormSelect
+                            disabled={decodedToken?.role != 'superadmin'}
+                            id="organizationList"
+                            type="text"
+                            name="organizationList"
+                            placeholder="All Organizations"
+                            value={selectedOrgID}
+                            onChange={(e) => setSelectedOrgID(e.target.value)}
+                          >
+                            <option value="">All</option>
+                            {orgList?.map((item) => (
+                              <option key={item.organizationId} value={item?.organizationId}>
+                                {item?.organizationName}
+                              </option>
+                            ))}
+                          </CFormSelect>
+                        </CTooltip>
+                      ) : (
+                        ''
+                      )}
+
                       <CTooltip content="Add New Property" placement="bottom">
                         <CButton
                           color="primary"
@@ -117,6 +130,11 @@ function Locations() {
                     </div>
                   </CCardHeader>
                   <CCardBody>
+                    <CBreadcrumb>
+                      <CBreadcrumbItem active>
+                        <h5>Property(s)</h5>
+                      </CBreadcrumbItem>
+                    </CBreadcrumb>
                     <CTable>
                       <CTableHead>
                         <CTableRow style={{ backgroundColor: '#f3f4f7' }}>

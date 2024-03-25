@@ -5,13 +5,13 @@ const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 // Access
 const Organizations = React.lazy(() => import('./views/access/organizations/Organizations'))
+const OrganizationDetails = React.lazy(() => import('./views/access/organizations/OrganizationDetails'))
 const RegisterOrganization = React.lazy(
   () => import('./views/access/register-organization/RegisterOrganization'),
 )
 const Locations = React.lazy(() => import('./views/access/locations/Locations'))
 const OrganizationUsers = React.lazy(() => import('./views/access/users/OrganizationUsers'))
 const LocationUsers = React.lazy(() => import('./views/access/users/LocationUsers'))
-
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
@@ -66,6 +66,7 @@ const routes = [
 
   { path: '/access/documents', name: 'Documents', element: Colors },
   { path: '/access/organizations', name: 'Organizations', element: Organizations },
+  { path:'/access/organization-details', name:'Organization Details', element: OrganizationDetails},
   {
     path: '/access/register-organization',
     name: 'Register Organization',

@@ -1,10 +1,30 @@
 import axios from 'axios'
 
 /**
- * GET Organizations
- * SYSTEM ADMIN will access all Organizations
+ * GOOD
+ * GET: Organization (details)
  */
 
+export async function getOrganization({ organizationId = organizationId }) {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_LOCAL_URL}/organization/get/${organizationId}`,
+      {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      },
+    )
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+/**
+ * GOOD
+ * GET: All Organizations
+ */
 export async function getOrganizations({
   currentPage: currentPage,
   searchName: searchName,
@@ -12,7 +32,7 @@ export async function getOrganizations({
 }) {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_LOCAL_URL}/organization/get?page=${currentPage}&pageSize=${pageSize}`,
+      `${process.env.REACT_APP_LOCAL_URL}/organizations/get?page=${currentPage}&pageSize=${pageSize}`,
       {
         headers: {
           Authorization: localStorage.getItem('token'),
@@ -26,33 +46,8 @@ export async function getOrganizations({
 }
 
 /**
- * SEARCH Organizations
- * SYSTEM ADMIN will access all Organizations
- */
-
-export async function searchOrganizations({
-  currentPage: currentPage,
-  searchName: searchName,
-  pageSize = 10,
-}) {
-  try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_LOCAL_URL}/organizationlist/get?page=${currentPage}&pageSize=${pageSize}`,
-      {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
-      },
-    )
-    return response.data
-  } catch (error) {
-    throw error
-  }
-}
-
-/**
- * ADD Organizations
- * SYSTEM ADMIN will access all Organizations
+ * GOOD
+ * POST: Add an Organization
  */
 
 export async function addOrganization({ body: body }) {
@@ -69,8 +64,8 @@ export async function addOrganization({ body: body }) {
 }
 
 /**
- * EDIT Organizations
- * SYSTEM ADMIN will access all Organizations
+ * GOOD
+ * PUT: Edit Organizations
  */
 
 export async function editOrganization({ id: id, body: body }) {
@@ -91,8 +86,8 @@ export async function editOrganization({ id: id, body: body }) {
 }
 
 /**
- * GET Organization User
- * SYSTEM ADMIN will access all Organization User
+ * GOOD
+ * GET: Organization Users
  */
 export async function getOrganizationUsers({
   currentPage: currentPage,
@@ -115,8 +110,8 @@ export async function getOrganizationUsers({
 }
 
 /**
- * ADD Organization User
- * SYSTEM ADMIN will access all Organization User
+ * GOOD
+ * POST: Add Org User
  */
 export async function addOrganizationUser({ body: body }) {
   try {
