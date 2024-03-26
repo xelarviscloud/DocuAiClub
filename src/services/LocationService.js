@@ -1,8 +1,26 @@
 import axios from 'axios'
 
 /**
- * GET Locations
- * SYSTEM ADMIN will access all Locations
+ * GET: All Location by LocId
+ */
+export async function getLocation({ locationId: locationId }) {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_LOCAL_URL}/location/get/${locationId}`,
+      {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      },
+    )
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+/**
+ * GET: All Locations by OrgId
  */
 export async function getLocations({
   organizationId: organizationId,
@@ -26,8 +44,7 @@ export async function getLocations({
 }
 
 /**
- * ADD Locations
- * SYSTEM ADMIN will access all Locations
+ * ADD: Location
  */
 export async function addLocation({ body: body }) {
   try {
@@ -43,8 +60,7 @@ export async function addLocation({ body: body }) {
 }
 
 /**
- * EDIT Locations
- * SYSTEM ADMIN will access all Locations
+ * EDIT: Location
  */
 export async function editLocation({ id: id, body: body }) {
   try {
@@ -64,8 +80,7 @@ export async function editLocation({ id: id, body: body }) {
 }
 
 /**
- * GET Location User
- * SYSTEM ADMIN will access all Location User
+ * GET Location Users by LocationId
  */
 export async function getLocationUsers({
   locationId: locationId,
@@ -89,8 +104,7 @@ export async function getLocationUsers({
 }
 
 /**
- * ADD Location User
- * SYSTEM ADMIN will access all Location User
+ * POST: Location User
  */
 export async function addLocationUser({ body: body }) {
   try {

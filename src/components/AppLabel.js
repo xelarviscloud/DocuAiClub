@@ -5,14 +5,16 @@ const AppLabel = (props) => {
 
   return (
     <div
-      className="d-flex align-items-center ps-1 w-100"
+      className="d-flex align-items-center"
       style={{
         border: '1px solid #ddd',
-        borderRadius: 3,
-        //   width: '100%',
-        //   display: 'flex',
-        //   alignItems: 'center',
-        //   paddingLeft: 15,
+        borderRadius: 6,
+        flex: '1 1 auto',
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0,
+        borderLeftWidth: 0,
+        width: '1%',
+        paddingLeft: 14,
       }}
     >
       {text}

@@ -16,6 +16,7 @@ import {
 import Spinners from '../../base/spinners/Spinners'
 import { addOrganization, editOrganization } from '../../../services/OrganizationService'
 import toast from 'react-hot-toast'
+import RequiredTag from '../../../components/RequiredTag'
 
 const RegisterOrganization = ({
   setModal,
@@ -113,7 +114,10 @@ const RegisterOrganization = ({
                 <div className="mb-3">
                   <CRow>
                     <CCol xs>
-                      <CFormLabel htmlFor="organizationName">Name*</CFormLabel>
+                      <CFormLabel htmlFor="organizationName">
+                        Name
+                        <RequiredTag />
+                      </CFormLabel>
                       <CFormInput
                         required
                         aria-describedby="validationNameFeedback"

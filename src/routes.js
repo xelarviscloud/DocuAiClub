@@ -5,7 +5,9 @@ const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 // Access
 const Organizations = React.lazy(() => import('./views/access/organizations/Organizations'))
-const OrganizationDetails = React.lazy(() => import('./views/access/organizations/OrganizationDetails'))
+const OrganizationDetails = React.lazy(
+  () => import('./views/access/organizations/OrganizationDetails'),
+)
 const RegisterOrganization = React.lazy(
   () => import('./views/access/register-organization/RegisterOrganization'),
 )
@@ -57,6 +59,7 @@ const Modals = React.lazy(() => import('./views/notifications/modals/Modals'))
 const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
+import LocationDetails from './views/access/locations/LocationDetails'
 
 const routes = [
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -66,12 +69,22 @@ const routes = [
 
   { path: '/access/documents', name: 'Documents', element: Colors },
   { path: '/access/organizations', name: 'Organizations', element: Organizations },
-  { path:'/access/organization-details', name:'Organization Details', element: OrganizationDetails},
+  {
+    path: '/access/organization-details',
+    name: 'Organization Details',
+    element: OrganizationDetails,
+  },
+  {
+    path: '/access/location-details',
+    name: 'Location Details',
+    element: LocationDetails,
+  },
   {
     path: '/access/register-organization',
     name: 'Register Organization',
     element: RegisterOrganization,
   },
+
   { path: '/access/locations', name: 'Properties', element: Locations },
   { path: '/access/organization-users', name: 'Organization Admin', element: OrganizationUsers },
   { path: '/access/location-users', name: 'Property Admin', element: LocationUsers },

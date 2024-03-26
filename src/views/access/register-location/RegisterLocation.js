@@ -17,8 +17,9 @@ import React, { useState } from 'react'
 import Spinners from '../../base/spinners/Spinners'
 import { addLocation, editLocation } from '../../../services/LocationService'
 import toast from 'react-hot-toast'
+import AppLabel from '../../../components/AppLabel'
 
-function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
+function RegisterLocation({ setModal, fetchLocations, orgList, editData, isFormViewOnly = false }) {
   const [values, setValues] = useState(editData)
   const [validated, setValidated] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -33,16 +34,17 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
     const form = e.currentTarget
     if (!form.checkValidity() === false) {
       const formLocation = {
-        locationName: values?.locationName,
-        phoneNumber: values?.phoneNumber,
-        emailAddress: values?.emailAddress,
-        addressLine1: values?.addressLine1,
-        addressLine2: values?.addressLine2,
-        state: values?.state,
-        city: values?.city,
-        zipCode: values?.zipCode,
-        notes: values?.notes,
-        organizationId: values?.organizationId,
+        ...values,
+        // locationName: values?.locationName,
+        // phoneNumber: values?.phoneNumber,
+        // emailAddress: values?.emailAddress,
+        // addressLine1: values?.addressLine1,
+        // addressLine2: values?.addressLine2,
+        // state: values?.state,
+        // city: values?.city,
+        // zipCode: values?.zipCode,
+        // notes: values?.notes,
+        // organizationId: values?.organizationId,
       }
       setLoading(true)
       await (
@@ -94,7 +96,9 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Add New Property</strong>
+            <strong>
+              {values?.organizationName ? values?.organizationName : 'Add New Property'}
+            </strong>
           </CCardHeader>
           <CCardBody>
             <CForm
@@ -103,214 +107,225 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
               validated={validated}
               onSubmit={handleOnSubmit}
             >
-              <div className="mb-3">
-                <CRow>
-                  <CCol xs>
+              <fieldset disabled={isFormViewOnly}>
+                <div className="mb-3">
+                  <CRow>
                     <CCol xs>
-                      <CFormLabel htmlFor="organizationId">Organization*</CFormLabel>
-                      <CFormSelect
-                        required
-                        aria-describedby="organizationId"
-                        id="organizationId"
-                        feedbackInvalid="Please select an Organization"
-                        type="select"
-                        name="organizationId"
-                        placeholder="Enter Organization"
-                        value={values?.locationOrgId}
-                        onChange={(e) => handleOnChange(e)}
-                        disabled={editData?.locationOrgId}
-                      >
-                        <option value="">Select an Organization</option>
-                        {orgList?.map((item) => (
-                          <option key={item.organizationId} value={item?.organizationId}>
-                            {item?.organizationName}
-                          </option>
-                        ))}
-                      </CFormSelect>
+                      <CCol xs>
+                        {values?.organizationName ? (
+                          ''
+                        ) : (
+                          <>
+                            <CFormLabel htmlFor="organizationId">Organization*</CFormLabel>
+                            <CFormSelect
+                              required
+                              aria-describedby="organizationId"
+                              id="organizationId"
+                              feedbackInvalid="Please select an Organization"
+                              type="select"
+                              name="organizationId"
+                              placeholder="Enter Organization"
+                              value={values?.locationOrgId}
+                              onChange={(e) => handleOnChange(e)}
+                              disabled={editData?.locationOrgId}
+                            >
+                              <option value="">Select an Organization</option>
+                              {orgList?.map((item) => (
+                                <option key={item.organizationId} value={item?.organizationId}>
+                                  {item?.organizationName}
+                                </option>
+                              ))}
+                            </CFormSelect>
+                          </>
+                        )}
+                      </CCol>
                     </CCol>
-                  </CCol>
-                </CRow>
-              </div>
-              <div className="mb-3">
-                <CRow>
-                  <CCol xs>
-                    <CFormLabel htmlFor="locationName">Name*</CFormLabel>
-                    <CFormInput
-                      required
-                      aria-describedby="locationName"
-                      id="locationName"
-                      feedbackInvalid="Please provide Location Name"
-                      type="text"
-                      name="locationName"
-                      placeholder="Enter Your Name"
-                      value={values?.locationName}
-                      onChange={(e) => handleOnChange(e)}
-                    />
-                  </CCol>
-                </CRow>
-              </div>
-
-              <div className="mb-3">
-                <CRow>
-                  <CCol xs>
-                    <CFormLabel htmlFor="emailAddress">Email*</CFormLabel>
-                    <CFormInput
-                      required
-                      aria-describedby="emailAddress"
-                      id="emailAddress"
-                      feedbackInvalid="Please provide an Email"
-                      type="email"
-                      name="emailAddress"
-                      pattern="^\S+@\S+\.\S+$"
-                      placeholder="Enter Your Email"
-                      value={values?.emailAddress}
-                      onChange={(e) => handleOnChange(e)}
-                    />
-                  </CCol>
-                  <CCol xs>
-                    <CFormLabel htmlFor="phoneNumber">Phone*</CFormLabel>
-                    <CInputGroup>
-                      <CInputGroupText id="basic-addon1">+1</CInputGroupText>
+                  </CRow>
+                </div>
+                <div className="mb-3">
+                  <CRow>
+                    <CCol xs>
+                      <CFormLabel htmlFor="locationName">Name*</CFormLabel>
                       <CFormInput
                         required
-                        aria-describedby="phoneNumber"
-                        id="phoneNumber"
-                        feedbackInvalid="Please provide a Phone Number"
+                        aria-describedby="locationName"
+                        id="locationName"
+                        feedbackInvalid="Please provide Location Name"
                         type="text"
-                        name="phoneNumber"
-                        placeholder="Enter Your Phone Number"
-                        maxLength={10}
-                        pattern="\d{10}"
-                        value={values?.phoneNumber}
+                        name="locationName"
+                        placeholder="Enter Your Name"
+                        value={values?.locationName}
+                        onChange={(e) => handleOnChange(e)}
+                      />
+                    </CCol>
+                  </CRow>
+                </div>
+
+                <div className="mb-3">
+                  <CRow>
+                    <CCol xs>
+                      <CFormLabel htmlFor="emailAddress">Email*</CFormLabel>
+                      <CFormInput
+                        required
+                        aria-describedby="emailAddress"
+                        id="emailAddress"
+                        feedbackInvalid="Please provide an Email"
+                        type="email"
+                        name="emailAddress"
+                        pattern="^\S+@\S+\.\S+$"
+                        placeholder="Enter Your Email"
+                        value={values?.emailAddress}
+                        onChange={(e) => handleOnChange(e)}
+                      />
+                    </CCol>
+                    <CCol xs>
+                      <CFormLabel htmlFor="phoneNumber">Phone*</CFormLabel>
+                      <CInputGroup>
+                        <CInputGroupText id="basic-addon1">+1</CInputGroupText>
+                        <CFormInput
+                          required
+                          aria-describedby="phoneNumber"
+                          id="phoneNumber"
+                          feedbackInvalid="Please provide a Phone Number"
+                          type="text"
+                          name="phoneNumber"
+                          placeholder="Enter Your Phone Number"
+                          maxLength={10}
+                          pattern="\d{10}"
+                          value={values?.phoneNumber}
+                          onChange={(e) => handleOnChange(e)}
+                          onKeyDown={handleNumberKeyDown}
+                        />
+                      </CInputGroup>
+                    </CCol>
+                  </CRow>
+                </div>
+
+                <div className="mb-3">
+                  <CRow>
+                    <CCol xs>
+                      <CFormLabel htmlFor="addressLine1">Address Line1*</CFormLabel>
+                      <CFormInput
+                        required
+                        aria-describedby="addressLine1"
+                        id="addressLine1"
+                        feedbackInvalid="Please provide an Address"
+                        type="text"
+                        name="addressLine1"
+                        placeholder="Enter Address Line 1"
+                        value={values?.addressLine1}
+                        onChange={(e) => handleOnChange(e)}
+                      />
+                    </CCol>
+                    <CCol xs>
+                      <CFormLabel htmlFor="addressLine2">Address Line2</CFormLabel>
+                      <CFormInput
+                        id="addressLine2"
+                        type="text"
+                        name="addressLine2"
+                        placeholder="Enter Address Line 2"
+                        value={values?.addressLine2}
+                        onChange={(e) => handleOnChange(e)}
+                      />
+                    </CCol>
+                  </CRow>
+                </div>
+
+                <div className="mb-3">
+                  <CRow>
+                    <CCol xs>
+                      <CFormLabel htmlFor="city">City*</CFormLabel>
+                      <CFormInput
+                        required
+                        aria-describedby="city"
+                        id="city"
+                        feedbackInvalid="Please provide City"
+                        type="text"
+                        name="city"
+                        placeholder="Enter Your City"
+                        value={values?.city}
+                        onChange={(e) => handleOnChange(e)}
+                      />
+                    </CCol>
+                    <CCol xs>
+                      <CFormLabel htmlFor="state">State*</CFormLabel>
+                      <CFormInput
+                        required
+                        aria-describedby="state"
+                        id="state"
+                        feedbackInvalid="Please provide State"
+                        type="text"
+                        name="state"
+                        placeholder="Enter Your State"
+                        value={values?.state}
+                        onChange={(e) => handleOnChange(e)}
+                      />
+                    </CCol>
+                    <CCol xs>
+                      <CFormLabel htmlFor="zipCode">Zip*</CFormLabel>
+                      <CFormInput
+                        required
+                        aria-describedby="zipCode"
+                        id="zipCode"
+                        feedbackInvalid="Please provide Zip"
+                        type="text"
+                        name="zipCode"
+                        placeholder="Enter Your Zip"
+                        maxLength={5}
+                        pattern="\d{5}"
+                        value={values?.zipCode}
                         onChange={(e) => handleOnChange(e)}
                         onKeyDown={handleNumberKeyDown}
                       />
-                    </CInputGroup>
-                  </CCol>
-                </CRow>
-              </div>
+                    </CCol>
+                  </CRow>
+                </div>
 
-              <div className="mb-3">
-                <CRow>
-                  <CCol xs>
-                    <CFormLabel htmlFor="addressLine1">Address Line1*</CFormLabel>
-                    <CFormInput
-                      required
-                      aria-describedby="addressLine1"
-                      id="addressLine1"
-                      feedbackInvalid="Please provide an Address"
-                      type="text"
-                      name="addressLine1"
-                      placeholder="Enter Address Line 1"
-                      value={values?.addressLine1}
-                      onChange={(e) => handleOnChange(e)}
-                    />
-                  </CCol>
-                  <CCol xs>
-                    <CFormLabel htmlFor="addressLine2">Address Line2</CFormLabel>
-                    <CFormInput
-                      id="addressLine2"
-                      type="text"
-                      name="addressLine2"
-                      placeholder="Enter Address Line 2"
-                      value={values?.addressLine2}
-                      onChange={(e) => handleOnChange(e)}
-                    />
-                  </CCol>
-                </CRow>
-              </div>
-
-              <div className="mb-3">
-                <CRow>
-                  <CCol xs>
-                    <CFormLabel htmlFor="city">City*</CFormLabel>
-                    <CFormInput
-                      required
-                      aria-describedby="city"
-                      id="city"
-                      feedbackInvalid="Please provide City"
-                      type="text"
-                      name="city"
-                      placeholder="Enter Your City"
-                      value={values?.city}
-                      onChange={(e) => handleOnChange(e)}
-                    />
-                  </CCol>
-                  <CCol xs>
-                    <CFormLabel htmlFor="state">State*</CFormLabel>
-                    <CFormInput
-                      required
-                      aria-describedby="state"
-                      id="state"
-                      feedbackInvalid="Please provide State"
-                      type="text"
-                      name="state"
-                      placeholder="Enter Your State"
-                      value={values?.state}
-                      onChange={(e) => handleOnChange(e)}
-                    />
-                  </CCol>
-                  <CCol xs>
-                    <CFormLabel htmlFor="zipCode">Zip*</CFormLabel>
-                    <CFormInput
-                      required
-                      aria-describedby="zipCode"
-                      id="zipCode"
-                      feedbackInvalid="Please provide Zip"
-                      type="text"
-                      name="zipCode"
-                      placeholder="Enter Your Zip"
-                      maxLength={5}
-                      pattern="\d{5}"
-                      value={values?.zipCode}
-                      onChange={(e) => handleOnChange(e)}
-                      onKeyDown={handleNumberKeyDown}
-                    />
-                  </CCol>
-                </CRow>
-              </div>
-
-              <div className="mb-3">
-                <CRow>
-                  <CCol xs>
-                    <CFormLabel htmlFor="notes">Note</CFormLabel>
-                    <CFormInput
-                      id="notes"
-                      type="text"
-                      name="notes"
-                      placeholder="Enter Notes"
-                      value={values?.notes}
-                      onChange={(e) => handleOnChange(e)}
-                    />
-                  </CCol>
-                </CRow>
-              </div>
-
-              <div className="mb-3">
-                <CTooltip content="Submit Property" placement="bottom">
-                  <CButton
-                    color="primary"
-                    type="submit"
-                    style={{ float: 'right', marginRight: 10, display: 'flex' }}
-                  >
-                    Submit
-                    {loading && (
-                      <div className="clearfix">
-                        <Spinners className="float-end" />
-                      </div>
-                    )}
-                  </CButton>
-                </CTooltip>
-                <CTooltip content="Close Property Form" placement="bottom">
-                  <CButton
-                    color="secondary"
-                    style={{ float: 'right', marginRight: 10, display: 'flex' }}
-                    onClick={(e) => setModal(false)}
-                  >
-                    Cancel
-                  </CButton>
-                </CTooltip>
-              </div>
+                <div className="mb-3">
+                  <CRow>
+                    <CCol xs>
+                      <CFormLabel htmlFor="notes">Note</CFormLabel>
+                      <CFormInput
+                        id="notes"
+                        type="text"
+                        name="notes"
+                        placeholder="Enter Notes"
+                        value={values?.notes}
+                        onChange={(e) => handleOnChange(e)}
+                      />
+                    </CCol>
+                  </CRow>
+                </div>
+                {isFormViewOnly ? (
+                  ''
+                ) : (
+                  <div className="mb-3">
+                    <CTooltip content="Submit Property" placement="bottom">
+                      <CButton
+                        color="primary"
+                        type="submit"
+                        style={{ float: 'right', marginRight: 10, display: 'flex' }}
+                      >
+                        Submit
+                        {loading && (
+                          <div className="clearfix">
+                            <Spinners className="float-end" />
+                          </div>
+                        )}
+                      </CButton>
+                    </CTooltip>
+                    <CTooltip content="Close Property Form" placement="bottom">
+                      <CButton
+                        color="secondary"
+                        style={{ float: 'right', marginRight: 10, display: 'flex' }}
+                        onClick={(e) => setModal(false)}
+                      >
+                        Cancel
+                      </CButton>
+                    </CTooltip>
+                  </div>
+                )}
+              </fieldset>
             </CForm>
           </CCardBody>
         </CCard>

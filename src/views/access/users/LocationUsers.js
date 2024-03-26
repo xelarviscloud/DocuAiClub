@@ -15,6 +15,7 @@ import {
   CFormSelect,
   CInputGroupText,
   CInputGroup,
+  CFormInput,
 } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
 import Spinners from '../../base/spinners/Spinners'
@@ -27,6 +28,7 @@ import { getLocations } from '../../../services/LocationService'
 import CIcon from '@coreui/icons-react'
 import { cibQq, cilPencil } from '@coreui/icons'
 import { jwtDecode } from 'jwt-decode'
+import AppLabel from '../../../components/AppLabel'
 
 function LocationUsers() {
   const [modal, setModal] = useState(false)
@@ -40,8 +42,12 @@ function LocationUsers() {
   const [orgList, setOrgList] = useState([])
   const [locationsList, SetLocationList] = useState([])
   const [editData, setEditData] = useState({})
+  const [currentOrganization, setCurrentOrganization] = useState({})
+
   const token = localStorage.getItem('token')
   const decodedToken = jwtDecode(token)
+  let _userOrgId = decodedToken.organizationId
+
   useEffect(() => {
     fetchOrganizations()
     fetchLocations()
@@ -52,6 +58,7 @@ function LocationUsers() {
     await getOrganizations({ currentPage: '' })
       .then((response) => {
         setOrgList(response?.data)
+        setCurrentOrganization(response?.data?.find((e) => e.organizationId == _userOrgId))
       })
       .catch((error) => {
         console.log('error', error)
@@ -146,7 +153,12 @@ function LocationUsers() {
                           </CInputGroup>
                         </CTooltip>
                       ) : (
-                        ''
+                        <CInputGroup style={{ marginBottom: 5 }}>
+                          <CInputGroupText className="d-flex" id="basic-addon1">
+                            Organization(s)
+                          </CInputGroupText>
+                          <AppLabel text={currentOrganization?.organizationName} />
+                        </CInputGroup>
                       )}
                       <CTooltip content="Select...a Location.">
                         <CInputGroup style={{ marginBottom: 5 }}>

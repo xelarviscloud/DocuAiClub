@@ -8,8 +8,9 @@ function OrganizationDetails() {
   const [organizationData, setOrganizationData] = useState({})
   const token = localStorage.getItem('token')
   const decodedToken = jwtDecode(token)
-  let _userOrgId = decodedToken.organizationId
+  let _userOrgId = decodedToken.userOrganization.organizationId
   useEffect(() => {
+    console.log('org details', decodedToken)
     fetchOrganizationDetails()
   }, [])
 

@@ -602,21 +602,16 @@ const _nav = isUserSuperAdmin
           {
             component: CNavItem,
             name: 'Organization',
-            to: '/access/organization',
+            to: '/access/organization-details',
             icon: <CIcon icon={cilHome} customClassName="nav-icon" />,
           },
           {
             component: CNavItem,
-            name: 'Property',
-            to: '/access/location',
+            name: 'Property user',
+            to: '/access/location-details',
             icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
           },
-          {
-            component: CNavItem,
-            name: 'Profile',
-            to: '/access/profile-display',
-            icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
-          },
+
           {
             component: CNavTitle,
             name: 'Documents',
