@@ -256,7 +256,7 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData }) {
                         placeholder="Enter Your Phone Number"
                         maxLength={10}
                         pattern="\d{10}"
-                        value={values?.mobileNumber}
+                        value={values?.phoneNumber}
                         onChange={(e) => handleOnChange(e)}
                         onKeyDown={handleNumberKeyDown}
                       />

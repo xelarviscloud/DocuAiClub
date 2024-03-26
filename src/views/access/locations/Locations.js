@@ -51,7 +51,8 @@ function Locations() {
       .then((response) => {
         setOrgList(response?.data)
         console.log(orgList)
-        setCurrentOrganization(response?.data?.find((e) => e.organizationId == _userOrgId))
+        if (decodedToken.role !== 'superadmin')
+          setCurrentOrganization(response?.data?.find((e) => e.organizationId == _userOrgId))
       })
       .catch((error) => {
         console.log('error', error)
@@ -64,7 +65,7 @@ function Locations() {
 
   const fetchLocations = async () => {
     setLoading(true)
-    if (decodedToken.role == 'superadmin') {
+    if (decodedToken.role != 'superadmin') {
       setSelectedOrgID(_userOrgId)
     }
     await getLocations({ organizationId: selectedOrgID, currentPage: currentPage })

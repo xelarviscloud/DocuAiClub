@@ -95,57 +95,61 @@ function OrganizationUsers() {
                       </CTableHead>
                       <CTableBody>
                         {orgUserList?.length > 0 ? (
-                          orgUserList?.map((item, key) => {
-                            return (
-                              <CTableRow key={key}>
-                                <CTableHeaderCell scope="row">
-                                  {
-                                    // <img
-                                    //   src={UserNoImage}
-                                    //   alt="User Image"
-                                    //   style={{ width: 30, height: 30, borderRadius: 50 }}
-                                    // />
-                                    <CIcon
-                                      icon={cibQq}
-                                      customClassName="nav-icon"
-                                      style={{
-                                        height: '40',
-                                        width: '40',
-                                        color: '#212631',
-                                        background: '#959fb2',
-                                        borderRadius: 50,
-                                        padding: 6,
-                                      }}
-                                    />
-                                  }
-                                </CTableHeaderCell>
-                                <CTableDataCell>{item?.userName}</CTableDataCell>
-                                <CTableDataCell>{item?.firstName}</CTableDataCell>
-                                <CTableDataCell>{item?.lastName}</CTableDataCell>
-                                <CTableDataCell>{item?.emailAddress}</CTableDataCell>
-                                <CTableDataCell>
-                                  {formatPhoneNumber(item?.phoneNumber)}
-                                </CTableDataCell>
-                                <CTableDataCell>
-                                  {item?.vw_org_users[0]?.organizationName}
-                                </CTableDataCell>
-                                <CTableDataCell>
-                                  <CTooltip content="Edit" placement="bottom">
-                                    <CIcon
-                                      icon={cilPencil}
-                                      size="lg"
-                                      color="primary"
-                                      style={{ cursor: 'pointer' }}
-                                      onClick={() => {
-                                        setModal(true)
-                                        setEditData(item)
-                                      }}
-                                    />
-                                  </CTooltip>
-                                </CTableDataCell>
-                              </CTableRow>
-                            )
-                          })
+                          orgUserList
+                            ?.sort((a, b) => {
+                              return a.userOrganizationId < b.userOrganizationId ? 1 : -1
+                            })
+                            ?.map((item, key) => {
+                              return (
+                                <CTableRow key={key}>
+                                  <CTableHeaderCell scope="row">
+                                    {
+                                      // <img
+                                      //   src={UserNoImage}
+                                      //   alt="User Image"
+                                      //   style={{ width: 30, height: 30, borderRadius: 50 }}
+                                      // />
+                                      <CIcon
+                                        icon={cibQq}
+                                        customClassName="nav-icon"
+                                        style={{
+                                          height: '40',
+                                          width: '40',
+                                          color: '#212631',
+                                          background: '#959fb2',
+                                          borderRadius: 50,
+                                          padding: 6,
+                                        }}
+                                      />
+                                    }
+                                  </CTableHeaderCell>
+                                  <CTableDataCell>{item?.userName}</CTableDataCell>
+                                  <CTableDataCell>{item?.firstName}</CTableDataCell>
+                                  <CTableDataCell>{item?.lastName}</CTableDataCell>
+                                  <CTableDataCell>{item?.emailAddress}</CTableDataCell>
+                                  <CTableDataCell>
+                                    {formatPhoneNumber(item?.phoneNumber)}
+                                  </CTableDataCell>
+                                  <CTableDataCell>
+                                    {item?.vw_org_users[0]?.organizationName}
+                                  </CTableDataCell>
+                                  <CTableDataCell>
+                                    <CTooltip content="Edit" placement="bottom">
+                                      <CIcon
+                                        icon={cilPencil}
+                                        size="lg"
+                                        color="primary"
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => {
+                                          setModal(true)
+                                          setEditData(item)
+                                        }}
+                                      />
+                                    </CTooltip>
+                                  </CTableDataCell>
+                                </CTableRow>
+                              )
+                            })
                         ) : (
                           <CTableRow>
                             <CTableDataCell className="d-flex justify-content-center">
