@@ -19,7 +19,14 @@ import { addLocation, editLocation } from '../../../services/LocationService'
 import toast from 'react-hot-toast'
 import AppLabel from '../../../components/AppLabel'
 
-function RegisterLocation({ setModal, fetchLocations, orgList, editData, isFormViewOnly = false }) {
+function RegisterLocation({
+  setModal,
+  fetchLocations,
+  orgList,
+  editData,
+  header = '',
+  isFormViewOnly = false,
+}) {
   const [values, setValues] = useState(editData)
   const [validated, setValidated] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -96,9 +103,8 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData, isFormV
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>
-              {values?.organizationName ? values?.organizationName : 'Add New Property'}
-            </strong>
+            <strong>{header}</strong>
+            <span>{values?.organizationName ? values?.organizationName : 'Add New Property'}</span>
           </CCardHeader>
           <CCardBody>
             <CForm

@@ -30,7 +30,7 @@ function OrganizationDetails() {
         <RegisterOrganization
           setModal={setModal}
           editData={organizationData}
-          header="Details"
+          header="Organization:"
           hideCancel={true}
         />
       )}

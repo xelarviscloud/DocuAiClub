@@ -33,7 +33,7 @@ function LocationDetails() {
         <RegisterLocation
           setModal={setModal}
           editData={locationData}
-          header="Details"
+          header="Organization: "
           hideCancel={true}
           isFormViewOnly={true}
         />
