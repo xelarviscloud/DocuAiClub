@@ -228,6 +228,7 @@ function RegisterLocationUser({ setModal, fetchLocationUsers, secretKey, editDat
                       placeholder="Enter Your User Name"
                       value={values?.userName}
                       onChange={(e) => handleOnChange(e)}
+                      disabled={values?.userName?.length}
                     />
                   </CCol>
                   <CCol xs>
