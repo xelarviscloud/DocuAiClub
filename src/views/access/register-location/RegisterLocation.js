@@ -118,7 +118,7 @@ function RegisterLocation({ setModal, fetchLocations, orgList, editData }) {
                         placeholder="Enter Organization"
                         value={values?.locationOrgId}
                         onChange={(e) => handleOnChange(e)}
-                        disabled={editData?.locationId}
+                        disabled={editData?.locationOrgId}
                       >
                         <option value="">Select an Organization</option>
                         {orgList?.map((item) => (

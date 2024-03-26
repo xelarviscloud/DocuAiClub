@@ -168,6 +168,7 @@ function RegisterLocationUser({ setModal, fetchLocationUsers, secretKey, editDat
                       name="userLocationId"
                       value={values?.userLocationId}
                       onChange={(e) => handleOnChange(e)}
+                      disabled={values?.userLocationId?.length}
                     >
                       <option value="">Select Property</option>
                       {locationList?.map((item) => (
@@ -225,7 +226,7 @@ function RegisterLocationUser({ setModal, fetchLocationUsers, secretKey, editDat
                       type="text"
                       name="userName"
                       placeholder="Enter Your User Name"
-                      value={values?.username}
+                      value={values?.userName}
                       onChange={(e) => handleOnChange(e)}
                     />
                   </CCol>

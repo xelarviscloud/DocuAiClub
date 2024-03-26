@@ -26,6 +26,7 @@ import { getOrganizations } from '../../../services/OrganizationService'
 import { getLocations } from '../../../services/LocationService'
 import CIcon from '@coreui/icons-react'
 import { cibQq, cilPencil } from '@coreui/icons'
+import { jwtDecode } from 'jwt-decode'
 
 function LocationUsers() {
   const [modal, setModal] = useState(false)
@@ -39,7 +40,8 @@ function LocationUsers() {
   const [orgList, setOrgList] = useState([])
   const [locationsList, SetLocationList] = useState([])
   const [editData, setEditData] = useState({})
-
+  const token = localStorage.getItem('token')
+  const decodedToken = jwtDecode(token)
   useEffect(() => {
     fetchOrganizations()
     fetchLocations()
@@ -68,6 +70,9 @@ function LocationUsers() {
 
   const fetchLocationUsers = async () => {
     setLocationLoading(true)
+    if (decodedToken?.role != 'superadmin') {
+      setSelectedOrgId(decodedToken.organizationId)
+    }
     await getLocationUsers({
       locationId: selectedLocId,
       organizationId: selectedOrgId,
@@ -119,26 +124,30 @@ function LocationUsers() {
 
                   <CCardBody>
                     <div style={{ marginTop: 5 }}>
-                      <CTooltip content="Select...an Organization">
-                        <CInputGroup style={{ marginBottom: 5 }}>
-                          <CInputGroupText id="basic-addon1">Organization(s)</CInputGroupText>
-                          <CFormSelect
-                            id="organizationList"
-                            type="text"
-                            name="organizationList"
-                            placeholder="All Organizations"
-                            value={selectedOrgId}
-                            onChange={(e) => setSelectedOrgId(e.target.value)}
-                          >
-                            <option value="1">Select...one</option>
-                            {orgList?.map((item) => (
-                              <option key={item.organizationId} value={item?.organizationId}>
-                                {item?.organizationName}
-                              </option>
-                            ))}
-                          </CFormSelect>
-                        </CInputGroup>
-                      </CTooltip>
+                      {decodedToken?.role === 'superadmin' ? (
+                        <CTooltip content="Select...an Organization">
+                          <CInputGroup style={{ marginBottom: 5 }}>
+                            <CInputGroupText id="basic-addon1">Organization(s)</CInputGroupText>
+                            <CFormSelect
+                              id="organizationList"
+                              type="text"
+                              name="organizationList"
+                              placeholder="All Organizations"
+                              value={selectedOrgId}
+                              onChange={(e) => setSelectedOrgId(e.target.value)}
+                            >
+                              <option value="1">Select...one</option>
+                              {orgList?.map((item) => (
+                                <option key={item.organizationId} value={item?.organizationId}>
+                                  {item?.organizationName}
+                                </option>
+                              ))}
+                            </CFormSelect>
+                          </CInputGroup>
+                        </CTooltip>
+                      ) : (
+                        ''
+                      )}
                       <CTooltip content="Select...a Location.">
                         <CInputGroup style={{ marginBottom: 5 }}>
                           <CInputGroupText id="basic-addon1" style={{ paddingLeft: 42 }}>

@@ -64,6 +64,9 @@ function Locations() {
 
   const fetchLocations = async () => {
     setLoading(true)
+    if (decodedToken.role == 'superadmin') {
+      setSelectedOrgID(_userOrgId)
+    }
     await getLocations({ organizationId: selectedOrgID, currentPage: currentPage })
       .then((response) => {
         setLocationList(response?.data)
@@ -78,7 +81,11 @@ function Locations() {
 
   const handleAddLocation = (e) => {
     setModal(true)
-    setEditData({})
+    if (decodedToken.role == 'superadmin') {
+      setEditData()
+    } else {
+      setEditData({ locationOrgId: _userOrgId })
+    }
   }
 
   return (
