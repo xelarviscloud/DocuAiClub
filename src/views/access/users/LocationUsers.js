@@ -17,6 +17,7 @@ import {
   CTableHeaderCell,
   CTableRow,
   CTooltip,
+  CCallout,
 } from '@coreui/react'
 import { jwtDecode } from 'jwt-decode'
 import React, { useEffect, useState } from 'react'
@@ -48,9 +49,22 @@ function LocationUsers() {
 
   useEffect(() => {
     fetchOrganizations()
-    fetchLocations()
-    fetchLocationUsers()
-  }, [selectedOrgId, selectedLocId])
+    if (decodedToken?.role != 'superadmin') {
+      setSelectedOrgId(_userOrgId)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (selectedOrgId) {
+      fetchLocations()
+    }
+  }, [selectedOrgId])
+
+  useEffect(() => {
+    if (selectedLocId) {
+      fetchLocationUsers()
+    }
+  }, [selectedLocId])
 
   const fetchOrganizations = async () => {
     await getOrganizations({ currentPage: '' })
@@ -107,6 +121,13 @@ function LocationUsers() {
               ) : (
                 <>
                   <CCardHeader>
+                    {decodedToken?.role != 'superadmin' ? (
+                      ''
+                    ) : (
+                      <CCallout color="warning" className="p-2 m-1">
+                        Select an Organization to add a new Property.
+                      </CCallout>
+                    )}
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <div style={{ marginRight: '20px' }}>
                         <strong className="fontHeader">Users</strong>
@@ -121,6 +142,7 @@ function LocationUsers() {
                             setEditData({})
                             setIsEditUser(false)
                           }}
+                          disabled={!selectedOrgId?.length}
                         >
                           ADD
                         </CButton>
