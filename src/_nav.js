@@ -607,7 +607,7 @@ const _nav = isUserSuperAdmin
           },
           {
             component: CNavItem,
-            name: 'Property user',
+            name: 'Property',
             to: '/access/location-details',
             icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
           },

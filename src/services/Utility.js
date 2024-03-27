@@ -74,3 +74,14 @@ export function validatePassword(value) {
   }
   return ''
 }
+
+/**
+ *
+ */
+
+export const keydownValidNumberCheck = (e) => {
+  const isValidKey = /[0-9]|Backspace|Delete/.test(e.key)
+  if (!isValidKey) {
+    e.preventDefault()
+  }
+}

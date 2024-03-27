@@ -15,12 +15,12 @@ import {
 } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
 import Spinners from '../../base/spinners/Spinners'
+import { addLocationUser, updateLocationUser } from '../../../services/LocationService'
 import {
-  addLocationUser,
-  getLocations,
-  updateLocationUser,
-} from '../../../services/LocationService'
-import { validateConfirmPassword, validatePassword } from '../../../services/Utility'
+  keydownValidNumberCheck,
+  validateConfirmPassword,
+  validatePassword,
+} from '../../../services/Utility'
 
 import toast from 'react-hot-toast'
 
@@ -31,10 +31,9 @@ function RegisterLocationUser({
   refreshLocationUsers,
   isEditUser = false,
 }) {
-  editData.password = 'Test@123'
-  editData.confirmPassword = 'Test@123'
+  editData.password = ''
+  editData.confirmPassword = ''
 
-  console.log('loc user isedit', isEditUser)
   const [loading, setLoading] = useState(false)
   const [values, setValues] = useState(editData)
   const [validated, setValidated] = useState(false)
@@ -108,13 +107,6 @@ function RegisterLocationUser({
     e.stopPropagation()
   }
 
-  const handleNumberKeyDown = (e) => {
-    const isValidKey = /[0-9]|Backspace|Delete/.test(e.key)
-    if (!isValidKey) {
-      e.preventDefault()
-    }
-  }
-
   return (
     <CRow>
       <CCol xs={12}>
@@ -142,7 +134,7 @@ function RegisterLocationUser({
                       name="userLocationId"
                       value={values?.userLocationId}
                       onChange={(e) => handleOnChange(e)}
-                      disabled={values?.userLocationId?.length}
+                      disabled={editData?.userLocationId}
                     >
                       <option value="">Select Property</option>
                       {locationList?.map((item) => (
@@ -236,7 +228,7 @@ function RegisterLocationUser({
                         pattern="\d{10}"
                         value={values?.phoneNumber}
                         onChange={(e) => handleOnChange(e)}
-                        onKeyDown={handleNumberKeyDown}
+                        onKeyDown={keydownValidNumberCheck}
                       />
                     </CInputGroup>
                   </CCol>

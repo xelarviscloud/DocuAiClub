@@ -17,6 +17,7 @@ import Spinners from '../../base/spinners/Spinners'
 import { addOrganization, editOrganization } from '../../../services/OrganizationService'
 import toast from 'react-hot-toast'
 import RequiredTag from '../../../components/RequiredTag'
+import { keydownValidNumberCheck } from '../../../services/Utility'
 
 const RegisterOrganization = ({
   setModal,
@@ -30,7 +31,9 @@ const RegisterOrganization = ({
   const [loading, setLoading] = useState(false)
   const [allowEdit, setAllowEdit] = useState(hideCancel)
 
-  console.log('values', values, editData)
+  const token = localStorage.getItem('token')
+  const decodedToken = jwtDecode(token)
+
   const handleOnChange = (e) => {
     const { name, value } = e.target
     setValues({ ...values, [name]: value })
@@ -59,17 +62,7 @@ const RegisterOrganization = ({
       )
         .then((response) => {
           toast.success(response?.message)
-          // setValues({
-          //   organizationName: '',
-          //   phoneNumber: '',
-          //   emailAddress: '',
-          //   addressLine1: '',
-          //   addressLine2: '',
-          //   city: '',
-          //   state: '',
-          //   zipCode: '',
-          //   notes: '',
-          // })
+
           if (fetchOrganizations) {
             fetchOrganizations()
           }
@@ -84,15 +77,6 @@ const RegisterOrganization = ({
     } else {
       setValidated(true)
       e.stopPropagation()
-    }
-  }
-
-  const handleNumberKeyDown = (e) => {
-    // Allow only numbers (0-9) and backspace/delete key
-    const isValidKey = /[0-9]|Backspace|Delete/.test(e.key)
-
-    if (!isValidKey) {
-      e.preventDefault()
     }
   }
 
@@ -166,7 +150,7 @@ const RegisterOrganization = ({
                           pattern="\d{10}"
                           value={values?.phoneNumber}
                           onChange={(e) => handleOnChange(e)}
-                          onKeyDown={handleNumberKeyDown}
+                          onKeyDown={keydownValidNumberCheck}
                         />
                       </CInputGroup>
                     </CCol>
@@ -247,7 +231,7 @@ const RegisterOrganization = ({
                         pattern="\d{5}"
                         value={values?.zipCode}
                         onChange={(e) => handleOnChange(e)}
-                        onKeyDown={handleNumberKeyDown}
+                        onKeyDown={keydownValidNumberCheck}
                       />
                     </CCol>
                   </CRow>
@@ -269,47 +253,51 @@ const RegisterOrganization = ({
                   </CRow>
                 </div>
               </fieldset>
-              <div className="mb-3">
-                <CTooltip content="Submit Organization" placement="bottom">
-                  <CButton
-                    disabled={allowEdit}
-                    color="primary"
-                    type="submit"
-                    style={{ float: 'right', marginRight: 10, display: 'flex' }}
-                  >
-                    Submit
-                    {loading && (
-                      <div className="clearfix">
-                        <Spinners className="float-end" />
-                      </div>
-                    )}
-                  </CButton>
-                </CTooltip>
-                {allowEdit ? (
-                  <CTooltip content="Close Organization Form" placement="bottom">
+              {decodedToken?.role != 'locationuser' ? (
+                <div className="mb-3">
+                  <CTooltip content="Submit Organization" placement="bottom">
                     <CButton
-                      color="secondary"
+                      disabled={allowEdit}
+                      color="primary"
+                      type="submit"
                       style={{ float: 'right', marginRight: 10, display: 'flex' }}
-                      onClick={(e) => setAllowEdit(false)}
                     >
-                      Edit
+                      Submit
+                      {loading && (
+                        <div className="clearfix">
+                          <Spinners className="float-end" />
+                        </div>
+                      )}
                     </CButton>
                   </CTooltip>
-                ) : (
-                  <CTooltip content="Close Organization Form" placement="bottom">
-                    <CButton
-                      color="secondary"
-                      style={{ float: 'right', marginRight: 10, display: 'flex' }}
-                      onClick={(e) => {
-                        setModal(false)
-                        setAllowEdit(true)
-                      }}
-                    >
-                      Cancel
-                    </CButton>
-                  </CTooltip>
-                )}
-              </div>
+                  {allowEdit ? (
+                    <CTooltip content="Close Organization Form" placement="bottom">
+                      <CButton
+                        color="secondary"
+                        style={{ float: 'right', marginRight: 10, display: 'flex' }}
+                        onClick={(e) => setAllowEdit(false)}
+                      >
+                        Edit
+                      </CButton>
+                    </CTooltip>
+                  ) : (
+                    <CTooltip content="Close Organization Form" placement="bottom">
+                      <CButton
+                        color="secondary"
+                        style={{ float: 'right', marginRight: 10, display: 'flex' }}
+                        onClick={(e) => {
+                          setModal(false)
+                          setAllowEdit(true)
+                        }}
+                      >
+                        Cancel
+                      </CButton>
+                    </CTooltip>
+                  )}
+                </div>
+              ) : (
+                ''
+              )}
             </CForm>
           </CCardBody>
         </CCard>

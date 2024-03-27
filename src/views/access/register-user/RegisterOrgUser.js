@@ -21,7 +21,11 @@ import {
   getOrganizations,
 } from '../../../services/OrganizationService'
 import toast from 'react-hot-toast'
-import { validateConfirmPassword, validatePassword } from '../../../services/Utility'
+import {
+  keydownValidNumberCheck,
+  validateConfirmPassword,
+  validatePassword,
+} from '../../../services/Utility'
 
 function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData, isEditUser = false }) {
   editData.password = ''
@@ -107,14 +111,6 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData, isEditUs
 
     setValidated(true)
     e.stopPropagation()
-  }
-
-  const handleNumberKeyDown = (e) => {
-    // Allow only numbers (0-9) and backspace/delete key
-    const isValidKey = /[0-9]|Backspace|Delete/.test(e.key)
-    if (!isValidKey) {
-      e.preventDefault()
-    }
   }
 
   return (
@@ -239,7 +235,7 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData, isEditUs
                         pattern="\d{10}"
                         value={values?.phoneNumber}
                         onChange={(e) => handleOnChange(e)}
-                        onKeyDown={handleNumberKeyDown}
+                        onKeyDown={keydownValidNumberCheck}
                       />
                     </CInputGroup>
                   </CCol>

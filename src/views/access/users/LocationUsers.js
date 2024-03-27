@@ -205,11 +205,6 @@ function LocationUsers() {
                               <CTableRow key={key}>
                                 <CTableHeaderCell scope="row">
                                   {
-                                    // <img
-                                    //   src={UserNoImage}
-                                    //   alt="User Image"
-                                    //   style={{ width: 30, height: 30, borderRadius: 50 }}
-                                    // />
                                     <CIcon
                                       icon={cibQq}
                                       customClassName="nav-icon"
