@@ -86,7 +86,9 @@ const RegisterOrganization = ({
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>{header?.length > 0 ? header : 'Add New Organization'}</strong>
+            <strong className="fontHeader">
+              {header?.length > 0 ? header : 'Add New Organization'}
+            </strong>
           </CCardHeader>
           <CCardBody>
             <CForm

@@ -129,9 +129,7 @@ function LocationUsers() {
                       </CCallout>
                     )}
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <div style={{ marginRight: '20px' }}>
-                        <strong className="fontHeader">Users</strong>
-                      </div>
+                      <strong className="fontHeader me-2">Users</strong>
 
                       <CTooltip content="Add New Property Admin" placement="bottom">
                         <CButton

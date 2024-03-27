@@ -103,9 +103,7 @@ function Locations() {
                 <>
                   <CCardHeader>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <div style={{ marginRight: '20px' }}>
-                        <strong className="fontHeader">Organization:</strong>
-                      </div>
+                      <strong className="fontHeader me-2">Organization:</strong>
                       {decodedToken?.role === 'superadmin' ? (
                         <CTooltip content="Select an Organization">
                           <CFormSelect
