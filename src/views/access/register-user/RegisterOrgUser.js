@@ -21,6 +21,7 @@ import {
   getOrganizations,
 } from '../../../services/OrganizationService'
 import toast from 'react-hot-toast'
+import { validateConfirmPassword, validatePassword } from '../../../services/Utility'
 
 function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData, isEditUser = false }) {
   editData.password = ''
@@ -59,30 +60,11 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData, isEditUs
     }
 
     if (name === 'password') {
-      const minLength = 8
-      const uppercaseRegex = /[A-Z]/
-      const lowercaseRegex = /[a-z]/
-      const numberRegex = /[0-9]/
-      const specialCharRegex = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/
-      if (
-        value.length < minLength ||
-        !uppercaseRegex.test(value) ||
-        !lowercaseRegex.test(value) ||
-        !numberRegex.test(value) ||
-        !specialCharRegex.test(value)
-      ) {
-        setPasswordError(
-          'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
-        )
-      } else {
-        setPasswordError('')
-      }
-    } else if (name === 'confirmPassword') {
-      if (value !== values.password) {
-        setConfirmPasswordError('Passwords do not match.')
-      } else {
-        setConfirmPasswordError('')
-      }
+      setPasswordError(validatePassword(value))
+    }
+
+    if (name === 'confirmPassword') {
+      setConfirmPasswordError(validateConfirmPassword(value, values.password))
     }
   }
 
