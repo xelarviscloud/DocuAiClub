@@ -1,7 +1,7 @@
 import { jwtDecode } from 'jwt-decode'
 import React, { useEffect, useState } from 'react'
 import { getOrganization } from '../../../services/OrganizationService'
-import RegisterOrganization from '../register-organization/RegisterOrganization'
+import RegisterOrganization from './RegisterOrganization'
 
 function OrganizationDetails() {
   const [modal, setModal] = useState({})

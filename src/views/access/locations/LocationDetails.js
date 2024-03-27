@@ -1,7 +1,7 @@
 import { jwtDecode } from 'jwt-decode'
 import React, { useEffect, useState } from 'react'
 import { getLocation } from '../../../services/LocationService'
-import RegisterLocation from '../register-location/RegisterLocation'
+import RegisterLocation from './RegisterLocation'
 
 function LocationDetails() {
   const [modal, setModal] = useState({})

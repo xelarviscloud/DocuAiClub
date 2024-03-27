@@ -10,7 +10,7 @@ const OrganizationDetails = React.lazy(
   () => import('./views/access/organizations/OrganizationDetails'),
 )
 const RegisterOrganization = React.lazy(
-  () => import('./views/access/register-organization/RegisterOrganization'),
+  () => import('./views/access/organizations/RegisterOrganization'),
 )
 const Locations = React.lazy(() => import('./views/access/locations/Locations'))
 const OrganizationUsers = React.lazy(() => import('./views/access/users/OrganizationUsers'))

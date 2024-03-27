@@ -26,7 +26,7 @@ import { getOrganizations } from '../../../services/OrganizationService'
 import formatPhoneNumber from '../../../services/Utility'
 import Paginations from '../../base/paginations/Paginations'
 import Spinners from '../../base/spinners/Spinners'
-import RegisterLocationUser from '../register-user/RegisterLocationUser'
+import RegisterLocationUser from '../locations/RegisterLocationUser'
 
 function LocationUsers() {
   const [modal, setModal] = useState(false)

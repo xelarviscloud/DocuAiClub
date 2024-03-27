@@ -26,7 +26,7 @@ import { getOrganizations } from '../../../services/OrganizationService'
 import formatPhoneNumber from '../../../services/Utility'
 import Paginations from '../../base/paginations/Paginations'
 import Spinners from '../../base/spinners/Spinners'
-import RegisterLocation from '../register-location/RegisterLocation'
+import RegisterLocation from './RegisterLocation'
 function Locations() {
   const [modal, setModal] = useState(false)
   const [locationList, setLocationList] = useState([])

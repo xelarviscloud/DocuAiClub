@@ -20,7 +20,7 @@ import { getOrganizationUsers } from '../../../services/OrganizationService'
 import formatPhoneNumber from '../../../services/Utility'
 import Paginations from '../../base/paginations/Paginations'
 import Spinners from '../../base/spinners/Spinners'
-import RegisterOrgUser from '../register-user/RegisterOrgUser'
+import RegisterOrganizationUser from '../organizations/RegisterOrganizationUser'
 
 function OrganizationUsers() {
   const [orgLoading, setOrgLoading] = useState(false)
@@ -175,7 +175,7 @@ function OrganizationUsers() {
         </CRow>
       )}
       {modal && (
-        <RegisterOrgUser
+        <RegisterOrganizationUser
           setModal={setModal}
           secretKey={secretKey}
           fetchOrgUser={fetchOrgUser}

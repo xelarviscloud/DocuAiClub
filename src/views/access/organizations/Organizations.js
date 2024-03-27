@@ -22,7 +22,7 @@ import Spinners from '../../base/spinners/Spinners'
 // API
 import { useSpeech } from 'react-text-to-speech'
 import { getOrganizations } from '../../../services/OrganizationService'
-import RegisterOrganization from '../register-organization/RegisterOrganization'
+import RegisterOrganization from './RegisterOrganization'
 
 const Organizations = () => {
   const [modal, setModal] = useState(false)

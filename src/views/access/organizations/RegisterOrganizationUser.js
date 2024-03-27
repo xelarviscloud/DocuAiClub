@@ -27,7 +27,13 @@ import {
 } from '../../../services/Utility'
 import Spinners from '../../base/spinners/Spinners'
 
-function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData, isEditUser = false }) {
+function RegisterOrganizationUser({
+  setModal,
+  secretKey,
+  fetchOrgUser,
+  editData,
+  isEditUser = false,
+}) {
   editData.password = ''
   editData.confirmPassword = ''
 
@@ -347,4 +353,4 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData, isEditUs
   )
 }
 
-export default RegisterOrgUser
+export default RegisterOrganizationUser
