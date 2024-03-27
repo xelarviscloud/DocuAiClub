@@ -126,3 +126,21 @@ export async function addOrganizationUser({ body: body }) {
     throw error
   }
 }
+
+/**
+ * WIP
+ * PUT: Update Org User
+ */
+export async function updateOrganizationUser({ body: body }) {
+  try {
+    const response = await axios.put(`${process.env.REACT_APP_LOCAL_URL}/organizationUser`, body, {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+        'content-type': 'application/x-www-form-urlencoded',
+      },
+    })
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}

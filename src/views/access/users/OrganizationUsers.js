@@ -30,6 +30,7 @@ function OrganizationUsers() {
   const secretKey = 'alibaba1234@Devops&$%'
   const [modal, setModal] = useState(false)
   const [editData, setEditData] = useState({})
+  const [isEditUser, setIsEditUser] = useState(false)
   /**
    * ORGANIZATION USER
    */
@@ -73,6 +74,7 @@ function OrganizationUsers() {
                         onClick={() => {
                           setModal(true)
                           setEditData({})
+                          setIsEditUser(false)
                         }}
                       >
                         ADD
@@ -143,6 +145,7 @@ function OrganizationUsers() {
                                         onClick={() => {
                                           setModal(true)
                                           setEditData(item)
+                                          setIsEditUser(true)
                                         }}
                                       />
                                     </CTooltip>
@@ -177,6 +180,7 @@ function OrganizationUsers() {
           secretKey={secretKey}
           fetchOrgUser={fetchOrgUser}
           editData={editData}
+          isEditUser={isEditUser}
         />
       )}
     </div>

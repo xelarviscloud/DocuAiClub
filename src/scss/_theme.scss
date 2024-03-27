@@ -60,9 +60,7 @@ body {
     opacity: .9;
     font-family: Poppins, sans-serif;
 }
-.form-select{
-  color: #212631!important;
-}
+
 .wrapper {
   width: 100%;
   @include ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));

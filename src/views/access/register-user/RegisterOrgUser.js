@@ -15,10 +15,14 @@ import {
 } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
 import Spinners from '../../base/spinners/Spinners'
-import { addOrganizationUser, getOrganizations } from '../../../services/OrganizationService'
+import {
+  addOrganizationUser,
+  updateOrganizationUser,
+  getOrganizations,
+} from '../../../services/OrganizationService'
 import toast from 'react-hot-toast'
 
-function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData }) {
+function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData, isEditUser = false }) {
   editData.password = ''
   editData.confirmPassword = ''
 
@@ -28,7 +32,6 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData }) {
   const [orgList, setOrgList] = useState([])
   const [passwordError, setPasswordError] = useState('')
   const [confirmPasswordError, setConfirmPasswordError] = useState('')
-  console.log('edit data org user', editData)
 
   useEffect(() => {
     fetchOrganizations()
@@ -95,33 +98,49 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData }) {
       formData.append('phoneNumber', values?.phoneNumber)
       formData.append('password', values?.password)
       formData.append('confirmPassword', values?.confirmPassword)
-      formData.append('organizationId', values?.organizationId)
+      formData.append('organizationId', values?.userOrganizationId)
       formData.append('file', values?.file)
       setLoading(true)
-      await addOrganizationUser({ body: formData })
-        .then((response) => {
-          toast.success(response?.message)
-          setValues({
-            firstName: '',
-            lastName: '',
-            userName: '',
-            emailAddress: '',
-            phoneNumber: '',
-            password: '',
-            confirmPassword: '',
-            organizationId: '',
-            file: '',
-          })
+      console.log('isEditUser', isEditUser)
+      isEditUser
+        ? await updateOrganizationUser({ body: formData })
+            .then((response) => {
+              toast.success(response?.message)
+              setValues({})
 
-          fetchOrgUser()
-          setModal(false)
-          setLoading(false)
-        })
-        .catch((error) => {
-          console.log('err', error)
-          toast.error(error?.response?.data?.error)
-          setLoading(false)
-        })
+              fetchOrgUser()
+              setModal(false)
+              setLoading(false)
+            })
+            .catch((error) => {
+              console.log('err', error)
+              toast.error(error?.response?.data?.error)
+              setLoading(false)
+            })
+        : await addOrganizationUser({ body: formData })
+            .then((response) => {
+              toast.success(response?.message)
+              setValues({
+                firstName: '',
+                lastName: '',
+                userName: '',
+                emailAddress: '',
+                phoneNumber: '',
+                password: '',
+                confirmPassword: '',
+                organizationId: '',
+                file: '',
+              })
+
+              fetchOrgUser()
+              setModal(false)
+              setLoading(false)
+            })
+            .catch((error) => {
+              console.log('err', error)
+              toast.error(error?.response?.data?.error)
+              setLoading(false)
+            })
     } else {
       setValidated(true)
       e.stopPropagation()
@@ -153,14 +172,14 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData }) {
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="organizationId">Organization*</CFormLabel>
+                    <CFormLabel htmlFor="userOrganizationId">Organization*</CFormLabel>
                     <CFormSelect
                       required
-                      aria-describedby="organizationId"
-                      id="organizationId"
+                      aria-describedby="userOrganizationId"
+                      id="userOrganizationId"
                       feedbackInvalid="Please select Organization"
                       type="text"
-                      name="organizationId"
+                      name="userOrganizationId"
                       value={values?.userOrganizationId}
                       onChange={(e) => handleOnChange(e)}
                       disabled={editData?.userOrganizationId}
