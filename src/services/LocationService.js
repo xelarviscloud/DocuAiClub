@@ -62,7 +62,7 @@ export async function addLocation({ body: body }) {
 /**
  * EDIT: Location
  */
-export async function editLocation({ id: id, body: body }) {
+export async function updateLocation({ id: id, body: body }) {
   try {
     const response = await axios.put(
       `${process.env.REACT_APP_LOCAL_URL}/location/edit/${id}`,
@@ -109,6 +109,22 @@ export async function getLocationUsers({
 export async function addLocationUser({ body: body }) {
   try {
     const response = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/locationUser`, body, {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    })
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+/**
+ * PUT: Location User
+ */
+export async function updateLocationUser({ body: body }) {
+  try {
+    const response = await axios.put(`${process.env.REACT_APP_LOCAL_URL}/locationUser`, body, {
       headers: {
         Authorization: localStorage.getItem('token'),
       },

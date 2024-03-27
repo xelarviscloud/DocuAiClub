@@ -36,13 +36,13 @@ function LocationUsers() {
   const [locationUserList, setLocationUserList] = useState([])
   const [locationUserCurrentPage, setLocationUserCurrentPage] = useState(1)
   const [locationCount, setLocationCount] = useState()
-  const secretKey = 'alibaba1234@Devops&$%'
   const [selectedOrgId, setSelectedOrgId] = useState()
-  const [selectedLocId, SetSelectedLocId] = useState()
+  const [selectedLocId, setSelectedLocId] = useState()
   const [orgList, setOrgList] = useState([])
-  const [locationsList, SetLocationList] = useState([])
+  const [locationsList, setLocationList] = useState([])
   const [editData, setEditData] = useState({})
   const [currentOrganization, setCurrentOrganization] = useState({})
+  const [isEditUser, setIsEditUser] = useState(false)
 
   const token = localStorage.getItem('token')
   const decodedToken = jwtDecode(token)
@@ -68,7 +68,7 @@ function LocationUsers() {
   const fetchLocations = async () => {
     await getLocations({ organizationId: selectedOrgId })
       .then((response) => {
-        SetLocationList(response?.data)
+        setLocationList(response?.data)
       })
       .catch((error) => {
         console.log('error', error)
@@ -121,6 +121,7 @@ function LocationUsers() {
                           onClick={() => {
                             setModal(true)
                             setEditData({})
+                            setIsEditUser(false)
                           }}
                         >
                           ADD
@@ -171,7 +172,7 @@ function LocationUsers() {
                             name="locationList"
                             placeholder="All"
                             value={selectedLocId}
-                            onChange={(e) => SetSelectedLocId(e.target.value)}
+                            onChange={(e) => setSelectedLocId(e.target.value)}
                           >
                             <option value="1">Select...one</option>
                             {locationsList?.map((item) => (
@@ -246,6 +247,7 @@ function LocationUsers() {
                                       onClick={() => {
                                         setModal(true)
                                         setEditData(item)
+                                        setIsEditUser(true)
                                       }}
                                     />
                                   </CTooltip>
@@ -275,9 +277,10 @@ function LocationUsers() {
       {modal && (
         <RegisterLocationUser
           setModal={setModal}
-          fetchLocationUsers={fetchLocationUsers}
-          secretKey={secretKey}
           editData={editData}
+          locationList={locationsList}
+          isEditUser={isEditUser}
+          refreshLocationUsers={fetchLocationUsers}
         />
       )}
     </div>

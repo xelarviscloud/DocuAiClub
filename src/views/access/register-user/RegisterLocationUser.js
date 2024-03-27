@@ -15,34 +15,34 @@ import {
 } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
 import Spinners from '../../base/spinners/Spinners'
-import { addLocationUser, getLocations } from '../../../services/LocationService'
+import {
+  addLocationUser,
+  getLocations,
+  updateLocationUser,
+} from '../../../services/LocationService'
+import { validateConfirmPassword, validatePassword } from '../../../services/Utility'
+
 import toast from 'react-hot-toast'
 
-function RegisterLocationUser({ setModal, fetchLocationUsers, secretKey, editData }) {
-  editData.password = ''
-  editData.confirmPassword = ''
+function RegisterLocationUser({
+  setModal,
+  editData,
+  locationList,
+  refreshLocationUsers,
+  isEditUser = false,
+}) {
+  editData.password = 'Test@123'
+  editData.confirmPassword = 'Test@123'
+
+  console.log('loc user isedit', isEditUser)
+  const [loading, setLoading] = useState(false)
   const [values, setValues] = useState(editData)
   const [validated, setValidated] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [locationList, setLocationList] = useState([])
 
   const [passwordError, setPasswordError] = useState('')
   const [confirmPasswordError, setConfirmPasswordError] = useState('')
 
-  console.log('edit data loc user', editData)
-  useEffect(() => {
-    fetchLocations()
-  }, [])
-
-  const fetchLocations = async () => {
-    await getLocations({ currentPage: '' })
-      .then((response) => {
-        setLocationList(response?.data)
-      })
-      .catch((error) => {
-        console.log('error', error)
-      })
-  }
+  useEffect(() => {}, [])
 
   const handleOnChange = (e) => {
     const { name, value, files } = e.target
@@ -63,12 +63,10 @@ function RegisterLocationUser({ setModal, fetchLocationUsers, secretKey, editDat
       setConfirmPasswordError(validateConfirmPassword(value, values.password))
     }
   }
-  /**
-   * ADD Organization User Api Calling
-   */
+
   const handleOnSubmit = async (e) => {
     e.preventDefault()
-    console.log('values', values)
+
     const form = e.currentTarget
     if (!form.checkValidity() === false && !passwordError && !confirmPasswordError) {
       var formData = new FormData()
@@ -82,41 +80,36 @@ function RegisterLocationUser({ setModal, fetchLocationUsers, secretKey, editDat
       formData.append('locationId', values?.userLocationId)
       formData.append('organizationId', values.organizationId)
       formData.append('file', values?.file)
+
       setLoading(true)
-      await addLocationUser({ body: formData })
+
+      let func = isEditUser
+        ? updateLocationUser({ body: formData })
+        : addLocationUser({ body: formData })
+
+      await func
         .then((response) => {
           toast.success(response?.message)
-          setValues({
-            firstName: '',
-            lastName: '',
-            userName: '',
-            emailAddress: '',
-            phoneNumber: '',
-            password: '',
-            confirmPassword: '',
-            userLocationId: '',
-            organizationId: '',
-            file: '',
-          })
-          fetchLocationUsers()
+          setValues({})
           setModal(false)
           setLoading(false)
+          refreshLocationUsers()
         })
         .catch((error) => {
           console.log('err', error)
           toast.error(error?.response?.data?.error)
           setLoading(false)
         })
-    } else {
-      setValidated(true)
-      e.stopPropagation()
+
+      return
     }
+
+    setValidated(true)
+    e.stopPropagation()
   }
 
   const handleNumberKeyDown = (e) => {
-    // Allow only numbers (0-9) and backspace/delete key
     const isValidKey = /[0-9]|Backspace|Delete/.test(e.key)
-
     if (!isValidKey) {
       e.preventDefault()
     }
@@ -209,7 +202,7 @@ function RegisterLocationUser({ setModal, fetchLocationUsers, secretKey, editDat
                       placeholder="Enter Your User Name"
                       value={values?.userName}
                       onChange={(e) => handleOnChange(e)}
-                      disabled={values?.userName?.length}
+                      disabled={editData?.userName?.length}
                     />
                   </CCol>
                   <CCol xs>
@@ -266,6 +259,7 @@ function RegisterLocationUser({ setModal, fetchLocationUsers, secretKey, editDat
                       value={values?.password}
                       onChange={(e) => handleOnChange(e)}
                       invalid={passwordError}
+                      autoComplete="new-password"
                     />
                   </CCol>
                   <CCol xs>

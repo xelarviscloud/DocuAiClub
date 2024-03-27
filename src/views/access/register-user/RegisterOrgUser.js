@@ -82,51 +82,31 @@ function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData, isEditUs
       formData.append('confirmPassword', values?.confirmPassword)
       formData.append('organizationId', values?.userOrganizationId)
       formData.append('file', values?.file)
+
       setLoading(true)
-      console.log('isEditUser', isEditUser)
-      isEditUser
-        ? await updateOrganizationUser({ body: formData })
-            .then((response) => {
-              toast.success(response?.message)
-              setValues({})
+      let func = isEditUser
+        ? updateOrganizationUser({ body: formData })
+        : addOrganizationUser({ body: formData })
 
-              fetchOrgUser()
-              setModal(false)
-              setLoading(false)
-            })
-            .catch((error) => {
-              console.log('err', error)
-              toast.error(error?.response?.data?.error)
-              setLoading(false)
-            })
-        : await addOrganizationUser({ body: formData })
-            .then((response) => {
-              toast.success(response?.message)
-              setValues({
-                firstName: '',
-                lastName: '',
-                userName: '',
-                emailAddress: '',
-                phoneNumber: '',
-                password: '',
-                confirmPassword: '',
-                organizationId: '',
-                file: '',
-              })
+      await func
+        .then((response) => {
+          toast.success(response?.message)
+          setValues({})
 
-              fetchOrgUser()
-              setModal(false)
-              setLoading(false)
-            })
-            .catch((error) => {
-              console.log('err', error)
-              toast.error(error?.response?.data?.error)
-              setLoading(false)
-            })
-    } else {
-      setValidated(true)
-      e.stopPropagation()
+          fetchOrgUser()
+          setModal(false)
+          setLoading(false)
+        })
+        .catch((error) => {
+          console.log('err', error)
+          toast.error(error?.response?.data?.error)
+          setLoading(false)
+        })
+      return
     }
+
+    setValidated(true)
+    e.stopPropagation()
   }
 
   const handleNumberKeyDown = (e) => {

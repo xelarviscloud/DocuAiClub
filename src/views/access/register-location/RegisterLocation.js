@@ -15,7 +15,7 @@ import {
 } from '@coreui/react'
 import React, { useState } from 'react'
 import Spinners from '../../base/spinners/Spinners'
-import { addLocation, editLocation } from '../../../services/LocationService'
+import { addLocation, updateLocation } from '../../../services/LocationService'
 import toast from 'react-hot-toast'
 import AppLabel from '../../../components/AppLabel'
 
@@ -56,7 +56,7 @@ function RegisterLocation({
       setLoading(true)
       await (
         editData?.locationId
-          ? editLocation({ id: editData?.locationId, body: formLocation })
+          ? updateLocation({ id: editData?.locationId, body: formLocation })
           : addLocation({ body: formLocation })
       )
         .then((response) => {
