@@ -1,41 +1,41 @@
 body {
   background-color: var(--cui-tertiary-bg);
 }
-.bg-primary{
-  background-color: #2f3640!important;
+.bg-primary {
+  background-color: #2f3640 !important;
 }
-.fontHeader{
+.fontHeader {
   font-size: 22px;
 }
-.form-control{
-  border-color: #6b7689!important;
+.form-control {
+  border-color: #6b7689 !important;
 }
-.coin { 
-  border-radius: 100px;  
+.coin {
+  border-radius: 100px;
   animation: coin-rotate 15s both infinite;
 }
-.card{
+.card {
   border-top-left-radius: 0;
 }
 @media only screen and (max-width: 800px) {
-  .table{
-  overflow-x: auto;
-  display: block;
-}
+  .table {
+    overflow-x: auto;
+    display: block;
+  }
 }
 @media only screen and (max-width: 600px) {
-  .table{
-  overflow-x: auto;
-  display: block;
-}
+  .table {
+    overflow-x: auto;
+    display: block;
+  }
 }
 .sidebar-brand {
-  text-decoration: none!important;
+  text-decoration: none !important;
 }
 
 .btn-primary {
-  --cui-btn-bg: #4a90e2!important;
-  --cui-btn-background:#4a90e2!important;
+  --cui-btn-bg: #4a90e2 !important;
+  --cui-btn-background: #4a90e2 !important;
 }
 @keyframes coin-rotate {
   from {
@@ -46,27 +46,27 @@ body {
     transform: rotateY(180deg);
   }
 }
-.sidebar-header{
+.sidebar-header {
   padding: 3px;
 }
-.sidebar-nav .nav-title{
+.sidebar-nav .nav-title {
   border-bottom: 1px solid gray;
 }
-.bg-before{
+.bg-before {
   background: #eef3f9;
-    color: #023b6d;
-    padding: 49px;
-    border-radius: 4px;
-    opacity: .9;
-    font-family: Poppins, sans-serif;
+  color: #023b6d;
+  padding: 49px;
+  border-radius: 4px;
+  opacity: 0.9;
+  font-family: Poppins, sans-serif;
 }
 
 .wrapper {
   width: 100%;
-  @include ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));
-  @include ltr-rtl("padding-right", var(--cui-sidebar-occupy-end, 0));
+  @include ltr-rtl('padding-left', var(--cui-sidebar-occupy-start, 0));
+  @include ltr-rtl('padding-right', var(--cui-sidebar-occupy-end, 0));
   will-change: auto;
-  @include transition(padding .15s);
+  @include transition(padding 0.15s);
 }
 
 .header > .container-fluid,
@@ -92,13 +92,13 @@ body {
 }
 
 .sidebar-toggler {
-  @include ltr-rtl("margin-left", auto);
+  @include ltr-rtl('margin-left', auto);
 }
 
 .sidebar-narrow,
 .sidebar-narrow-unfoldable:not(:hover) {
   .sidebar-toggler {
-    @include ltr-rtl("margin-right", auto);
+    @include ltr-rtl('margin-right', auto);
   }
 }
 

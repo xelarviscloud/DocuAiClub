@@ -1,4 +1,5 @@
 import React from 'react'
+import LocationDetails from './views/access/locations/LocationDetails'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -59,7 +60,6 @@ const Modals = React.lazy(() => import('./views/notifications/modals/Modals'))
 const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
-import LocationDetails from './views/access/locations/LocationDetails'
 
 const routes = [
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },

@@ -14,13 +14,13 @@ import {
   CTooltip,
 } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
-import Spinners from '../../base/spinners/Spinners'
 import { addLocationUser, updateLocationUser } from '../../../services/LocationService'
 import {
   keydownValidNumberCheck,
   validateConfirmPassword,
   validatePassword,
 } from '../../../services/Utility'
+import Spinners from '../../base/spinners/Spinners'
 
 import toast from 'react-hot-toast'
 

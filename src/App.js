@@ -1,10 +1,10 @@
 import React, { Suspense, useEffect } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { CSpinner, useColorModes } from '@coreui/react'
-import './scss/style.scss'
 import { Toaster } from 'react-hot-toast'
+import './scss/style.scss'
 
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))

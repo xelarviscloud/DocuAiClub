@@ -1,3 +1,5 @@
+import { cibQq, cilPencil } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 import {
   CButton,
   CCard,
@@ -14,13 +16,11 @@ import {
   CTooltip,
 } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
-import Spinners from '../../base/spinners/Spinners'
-import Paginations from '../../base/paginations/Paginations'
-import formatPhoneNumber, { decryptData } from '../../../services/Utility'
-import RegisterOrgUser from '../register-user/RegisterOrgUser'
 import { getOrganizationUsers } from '../../../services/OrganizationService'
-import CIcon from '@coreui/icons-react'
-import { cibQq, cilBell, cilUser, cilPencil } from '@coreui/icons'
+import formatPhoneNumber from '../../../services/Utility'
+import Paginations from '../../base/paginations/Paginations'
+import Spinners from '../../base/spinners/Spinners'
+import RegisterOrgUser from '../register-user/RegisterOrgUser'
 
 function OrganizationUsers() {
   const [orgLoading, setOrgLoading] = useState(false)

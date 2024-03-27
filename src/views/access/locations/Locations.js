@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import Paginations from '../../base/paginations/Paginations'
-import Spinners from '../../base/spinners/Spinners'
+import { cilPencil } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 import {
+  CBreadcrumb,
+  CBreadcrumbItem,
   CButton,
   CCard,
   CCardBody,
@@ -16,17 +17,16 @@ import {
   CTableHeaderCell,
   CTableRow,
   CTooltip,
-  CBreadcrumb,
-  CBreadcrumbItem,
 } from '@coreui/react'
-import formatPhoneNumber from '../../../services/Utility'
-import CIcon from '@coreui/icons-react'
-import { cilPencil } from '@coreui/icons'
+import { jwtDecode } from 'jwt-decode'
+import React, { useEffect, useState } from 'react'
+import AppLabel from '../../../components/AppLabel'
 import { getLocations } from '../../../services/LocationService'
 import { getOrganizations } from '../../../services/OrganizationService'
+import formatPhoneNumber from '../../../services/Utility'
+import Paginations from '../../base/paginations/Paginations'
+import Spinners from '../../base/spinners/Spinners'
 import RegisterLocation from '../register-location/RegisterLocation'
-import { jwtDecode } from 'jwt-decode'
-import AppLabel from '../../../components/AppLabel'
 function Locations() {
   const [modal, setModal] = useState(false)
   const [locationList, setLocationList] = useState([])

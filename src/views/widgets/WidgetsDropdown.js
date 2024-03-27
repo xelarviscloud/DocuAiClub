@@ -1,19 +1,19 @@
-import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
+import React, { useEffect, useRef } from 'react'
 
+import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 import {
-  CRow,
   CCol,
   CDropdown,
-  CDropdownMenu,
   CDropdownItem,
+  CDropdownMenu,
   CDropdownToggle,
+  CRow,
   CWidgetStatsA,
 } from '@coreui/react'
-import { getStyle } from '@coreui/utils'
 import { CChartBar, CChartLine } from '@coreui/react-chartjs'
-import CIcon from '@coreui/icons-react'
-import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
+import { getStyle } from '@coreui/utils'
 
 const WidgetsDropdown = (props) => {
   const widgetChartRef1 = useRef(null)

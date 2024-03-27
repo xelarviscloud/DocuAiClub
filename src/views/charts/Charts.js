@@ -1,5 +1,4 @@
-import React from 'react'
-import { CCard, CCardBody, CCol, CCardHeader, CRow } from '@coreui/react'
+import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react'
 import {
   CChartBar,
   CChartDoughnut,
@@ -8,6 +7,7 @@ import {
   CChartPolarArea,
   CChartRadar,
 } from '@coreui/react-chartjs'
+import React from 'react'
 import { DocsCallout } from 'src/components'
 
 const Charts = () => {

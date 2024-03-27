@@ -14,18 +14,18 @@ import {
   CTooltip,
 } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
-import Spinners from '../../base/spinners/Spinners'
+import toast from 'react-hot-toast'
 import {
   addOrganizationUser,
-  updateOrganizationUser,
   getOrganizations,
+  updateOrganizationUser,
 } from '../../../services/OrganizationService'
-import toast from 'react-hot-toast'
 import {
   keydownValidNumberCheck,
   validateConfirmPassword,
   validatePassword,
 } from '../../../services/Utility'
+import Spinners from '../../base/spinners/Spinners'
 
 function RegisterOrgUser({ setModal, secretKey, fetchOrgUser, editData, isEditUser = false }) {
   editData.password = ''

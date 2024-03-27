@@ -1,20 +1,3 @@
-import React, { useEffect, useRef } from 'react'
-import { NavLink } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import {
-  CContainer,
-  CDropdown,
-  CDropdownItem,
-  CDropdownMenu,
-  CDropdownToggle,
-  CHeader,
-  CHeaderNav,
-  CHeaderToggler,
-  CNavLink,
-  CNavItem,
-  useColorModes,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
 import {
   cilBell,
   cilContrast,
@@ -24,9 +7,26 @@ import {
   cilMoon,
   cilSun,
 } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
+import {
+  CContainer,
+  CDropdown,
+  CDropdownItem,
+  CDropdownMenu,
+  CDropdownToggle,
+  CHeader,
+  CHeaderNav,
+  CHeaderToggler,
+  CNavItem,
+  CNavLink,
+  useColorModes,
+} from '@coreui/react'
+import React, { useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 
-import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
+import { AppBreadcrumb } from './index'
 
 const AppHeader = () => {
   const headerRef = useRef()

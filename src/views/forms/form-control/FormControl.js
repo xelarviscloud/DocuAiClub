@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   CButton,
   CCard,
@@ -11,6 +10,7 @@ import {
   CFormTextarea,
   CRow,
 } from '@coreui/react'
+import React from 'react'
 import { DocsExample } from 'src/components'
 
 const FormControl = () => {

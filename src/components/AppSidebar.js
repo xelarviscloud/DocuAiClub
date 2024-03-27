@@ -1,14 +1,14 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
+  CCardImage,
   CCloseButton,
   CSidebar,
   CSidebarBrand,
   CSidebarFooter,
   CSidebarHeader,
   CSidebarToggler,
-  CCardImage,
 } from '@coreui/react'
 import Logo from '../assets/logo-bg-2.png'
 import { AppSidebarNav } from './AppSidebarNav'

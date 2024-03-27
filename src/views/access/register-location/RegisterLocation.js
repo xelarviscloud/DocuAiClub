@@ -14,10 +14,9 @@ import {
   CTooltip,
 } from '@coreui/react'
 import React, { useState } from 'react'
-import Spinners from '../../base/spinners/Spinners'
-import { addLocation, updateLocation } from '../../../services/LocationService'
 import toast from 'react-hot-toast'
-import AppLabel from '../../../components/AppLabel'
+import { addLocation, updateLocation } from '../../../services/LocationService'
+import Spinners from '../../base/spinners/Spinners'
 
 function RegisterLocation({
   setModal,

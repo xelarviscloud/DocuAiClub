@@ -1,24 +1,20 @@
-import React, { useState } from 'react'
-import CIcon from '@coreui/icons-react'
 import {
   cilBell,
   cilCalculator,
   cilChartPie,
   cilCursor,
-  cilDescription,
   cilDrop,
   cilGroup,
   cilHome,
   cilNotes,
-  cilObjectGroup,
-  cilPencil,
   cilPuzzle,
   cilSpeedometer,
   cilStar,
-  cilUser,
 } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 import { jwtDecode } from 'jwt-decode'
+import React from 'react'
 
 const token = localStorage.getItem('token')
 const decodedToken = jwtDecode(token)

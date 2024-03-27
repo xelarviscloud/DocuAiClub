@@ -1,7 +1,7 @@
-import React from 'react'
-import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
 import { brandSet } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
+import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react'
+import React from 'react'
 import { DocsCallout } from 'src/components'
 
 const toKebabCase = (str) => {

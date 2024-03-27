@@ -1,5 +1,5 @@
-import React from 'react'
 import { CCol, CPagination, CPaginationItem, CRow } from '@coreui/react'
+import React from 'react'
 
 const Paginations = ({ currentPage, setCurrentPage, count }) => {
   const totalPages = Math.ceil(count / 10)

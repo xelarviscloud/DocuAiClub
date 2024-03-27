@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   CBadge,
   CCard,
@@ -10,6 +9,7 @@ import {
   CListGroupItem,
   CRow,
 } from '@coreui/react'
+import React from 'react'
 import { DocsExample } from 'src/components'
 
 const ListGroups = () => {

@@ -1,24 +1,22 @@
-import React, { useState } from 'react'
 import {
   CButton,
+  CCard,
+  CCardBody,
+  CCardImage,
   CCol,
   CForm,
   CFormInput,
-  CRow,
   CFormLabel,
-  CCardImage,
-  CCard,
-  CCardHeader,
-  CCardBody,
+  CRow,
 } from '@coreui/react'
-import { useNavigate } from 'react-router-dom'
-import { userLogin } from '../../../services/LoginService'
-import Logo from '../../../assets/logo-bg-1.png'
-import Background from '../../../assets/Register.png'
-import toast from 'react-hot-toast'
-import Spinners from '../../base/spinners/Spinners'
 import { jwtDecode } from 'jwt-decode'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import Logo from '../../../assets/logo-bg-1.png'
 import { setCookie } from '../../../resources/utility'
+import { userLogin } from '../../../services/LoginService'
+import Spinners from '../../base/spinners/Spinners'
 
 function Login() {
   const navigate = useNavigate()

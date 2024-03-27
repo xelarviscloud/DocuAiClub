@@ -1,9 +1,14 @@
+import { cibQq, cilPencil } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 import {
   CButton,
   CCard,
   CCardBody,
   CCardHeader,
   CCol,
+  CFormSelect,
+  CInputGroup,
+  CInputGroupText,
   CRow,
   CTable,
   CTableBody,
@@ -12,23 +17,16 @@ import {
   CTableHeaderCell,
   CTableRow,
   CTooltip,
-  CFormSelect,
-  CInputGroupText,
-  CInputGroup,
-  CFormInput,
 } from '@coreui/react'
-import React, { useEffect, useState } from 'react'
-import Spinners from '../../base/spinners/Spinners'
-import Paginations from '../../base/paginations/Paginations'
-import formatPhoneNumber, { decryptData } from '../../../services/Utility'
-import { getLocationUsers } from '../../../services/LocationService'
-import RegisterLocationUser from '../register-user/RegisterLocationUser'
-import { getOrganizations } from '../../../services/OrganizationService'
-import { getLocations } from '../../../services/LocationService'
-import CIcon from '@coreui/icons-react'
-import { cibQq, cilPencil } from '@coreui/icons'
 import { jwtDecode } from 'jwt-decode'
+import React, { useEffect, useState } from 'react'
 import AppLabel from '../../../components/AppLabel'
+import { getLocationUsers, getLocations } from '../../../services/LocationService'
+import { getOrganizations } from '../../../services/OrganizationService'
+import formatPhoneNumber from '../../../services/Utility'
+import Paginations from '../../base/paginations/Paginations'
+import Spinners from '../../base/spinners/Spinners'
+import RegisterLocationUser from '../register-user/RegisterLocationUser'
 
 function LocationUsers() {
   const [modal, setModal] = useState(false)

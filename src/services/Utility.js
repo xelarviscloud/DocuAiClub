@@ -1,5 +1,5 @@
-import { jwtDecode } from 'jwt-decode'
 import CryptoJS from 'crypto-js'
+import { jwtDecode } from 'jwt-decode'
 
 /**
  * Format PhoneNumber: US Standard Format

@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import {
   CButton,
   CCard,
@@ -15,6 +14,7 @@ import {
   CRow,
   CTooltip,
 } from '@coreui/react'
+import React, { useState } from 'react'
 import { DocsExample } from 'src/components'
 
 const LiveDemo = () => {

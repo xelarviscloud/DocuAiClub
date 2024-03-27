@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import {
   CButton,
   CCard,
@@ -13,11 +12,12 @@ import {
   CRow,
   CTooltip,
 } from '@coreui/react'
-import Spinners from '../../base/spinners/Spinners'
-import { addOrganization, editOrganization } from '../../../services/OrganizationService'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import RequiredTag from '../../../components/RequiredTag'
+import { addOrganization, editOrganization } from '../../../services/OrganizationService'
 import { keydownValidNumberCheck } from '../../../services/Utility'
+import Spinners from '../../base/spinners/Spinners'
 
 const RegisterOrganization = ({
   setModal,

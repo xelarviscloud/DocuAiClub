@@ -1,5 +1,5 @@
-import React from 'react'
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CContainer, CRow } from '@coreui/react'
+import React from 'react'
 import { DocsLink } from 'src/components'
 
 const Jumbotrons = () => {

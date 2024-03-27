@@ -1,16 +1,16 @@
-import React from 'react'
 import {
   CCard,
   CCardBody,
   CCardHeader,
   CCol,
+  CFormFloating,
   CFormInput,
   CFormLabel,
-  CFormFloating,
   CFormSelect,
   CFormTextarea,
   CRow,
 } from '@coreui/react'
+import React from 'react'
 import { DocsExample } from 'src/components'
 
 const FloatingLabels = () => {

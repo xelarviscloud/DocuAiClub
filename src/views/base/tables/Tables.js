@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   CCard,
   CCardBody,
@@ -13,6 +12,7 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
+import React from 'react'
 import { DocsExample } from 'src/components'
 
 const Tables = () => {

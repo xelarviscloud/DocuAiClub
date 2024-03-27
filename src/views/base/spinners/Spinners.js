@@ -1,5 +1,5 @@
+import { CCol, CRow, CSpinner } from '@coreui/react'
 import React from 'react'
-import { CCol, CSpinner, CRow } from '@coreui/react'
 
 const Spinners = ({ className }) => {
   return (
