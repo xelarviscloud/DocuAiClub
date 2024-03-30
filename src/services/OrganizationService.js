@@ -144,3 +144,22 @@ export async function updateOrganizationUser({ body: body }) {
     throw error
   }
 }
+
+axios.interceptors.request.use((config) => {
+  window.localStorage.setItem('spinner-state', '1')
+  window.dispatchEvent(new Event('storage'))
+  return config
+})
+
+axios.interceptors.response.use(
+  (response) => {
+    window.localStorage.setItem('spinner-state', '0')
+    window.dispatchEvent(new Event('storage'))
+    return response
+  },
+  (error) => {
+    window.localStorage.setItem('spinner-state', '0')
+    window.dispatchEvent(new Event('storage'))
+    return Promise.reject(error)
+  },
+)

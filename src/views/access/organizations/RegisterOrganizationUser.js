@@ -25,7 +25,6 @@ import {
   validateConfirmPassword,
   validatePassword,
 } from '../../../services/Utility'
-import Spinners from '../../base/spinners/Spinners'
 
 function RegisterOrganizationUser({
   setModal,
@@ -328,11 +327,6 @@ function RegisterOrganizationUser({
                     style={{ float: 'right', marginRight: 10, display: 'flex' }}
                   >
                     Submit
-                    {loading && (
-                      <div className="clearfix">
-                        <Spinners className="float-end" />
-                      </div>
-                    )}
                   </CButton>
                 </CTooltip>
                 <CTooltip content="Close Organization Admin Form" placement="bottom">

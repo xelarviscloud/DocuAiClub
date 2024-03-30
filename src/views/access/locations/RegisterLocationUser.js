@@ -20,7 +20,6 @@ import {
   validateConfirmPassword,
   validatePassword,
 } from '../../../services/Utility'
-import Spinners from '../../base/spinners/Spinners'
 
 import toast from 'react-hot-toast'
 
@@ -34,7 +33,6 @@ function RegisterLocationUser({
   editData.password = ''
   editData.confirmPassword = ''
 
-  const [loading, setLoading] = useState(false)
   const [values, setValues] = useState(editData)
   const [validated, setValidated] = useState(false)
 
@@ -80,8 +78,6 @@ function RegisterLocationUser({
       formData.append('organizationId', values.organizationId)
       formData.append('file', values?.file)
 
-      setLoading(true)
-
       let func = isEditUser
         ? updateLocationUser({ body: formData })
         : addLocationUser({ body: formData })
@@ -91,13 +87,11 @@ function RegisterLocationUser({
           toast.success(response?.message)
           setValues({})
           setModal(false)
-          setLoading(false)
           refreshLocationUsers()
         })
         .catch((error) => {
           console.log('err', error)
           toast.error(error?.response?.data?.error)
-          setLoading(false)
         })
 
       return
@@ -316,11 +310,6 @@ function RegisterLocationUser({
                     style={{ float: 'right', marginRight: 10, display: 'flex' }}
                   >
                     Submit
-                    {loading && (
-                      <div className="clearfix">
-                        <Spinners className="float-end" />
-                      </div>
-                    )}
                   </CButton>
                 </CTooltip>
                 <CTooltip content="Close Property Admin Form" placement="bottom">

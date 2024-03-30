@@ -33,7 +33,6 @@ function Login() {
     e.preventDefault()
     const form = e.currentTarget
     if (!form.checkValidity() === false) {
-      setLoading(true)
       // Let's get user logged in here.
       const credentials = {
         username: values?.username,
@@ -50,13 +49,11 @@ function Login() {
             // assume user is logged in successful.
             navigate('/dashboard')
           }
-          setLoading(false)
           setValues({})
           toast.success(response?.message)
         })
         .catch((error) => {
           toast.error(error?.response?.data?.error)
-          setLoading(false)
         })
     } else {
       setValidated(true)

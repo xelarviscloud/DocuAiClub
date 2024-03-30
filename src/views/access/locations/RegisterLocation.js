@@ -16,7 +16,6 @@ import {
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { addLocation, updateLocation } from '../../../services/LocationService'
-import Spinners from '../../base/spinners/Spinners'
 
 function RegisterLocation({
   setModal,
@@ -28,8 +27,6 @@ function RegisterLocation({
 }) {
   const [values, setValues] = useState(editData)
   const [validated, setValidated] = useState(false)
-  const [loading, setLoading] = useState(false)
-  console.log('loca', values)
   const handleOnChange = (e) => {
     const { name, value } = e.target
     setValues({ ...values, [name]: value })
@@ -41,18 +38,7 @@ function RegisterLocation({
     if (!form.checkValidity() === false) {
       const formLocation = {
         ...values,
-        // locationName: values?.locationName,
-        // phoneNumber: values?.phoneNumber,
-        // emailAddress: values?.emailAddress,
-        // addressLine1: values?.addressLine1,
-        // addressLine2: values?.addressLine2,
-        // state: values?.state,
-        // city: values?.city,
-        // zipCode: values?.zipCode,
-        // notes: values?.notes,
-        // organizationId: values?.organizationId,
       }
-      setLoading(true)
       await (
         editData?.locationId
           ? updateLocation({ id: editData?.locationId, body: formLocation })
@@ -75,12 +61,10 @@ function RegisterLocation({
           })
           fetchLocations()
           setModal(false)
-          setLoading(false)
         })
         .catch((error) => {
           console.log('err', error)
           toast.error(error?.response?.data?.error)
-          setLoading(false)
         })
     } else {
       setValidated(true)
@@ -312,18 +296,13 @@ function RegisterLocation({
                         style={{ float: 'right', marginRight: 10, display: 'flex' }}
                       >
                         Submit
-                        {loading && (
-                          <div className="clearfix">
-                            <Spinners className="float-end" />
-                          </div>
-                        )}
                       </CButton>
                     </CTooltip>
                     <CTooltip content="Close Property Form" placement="bottom">
                       <CButton
                         color="secondary"
                         style={{ float: 'right', marginRight: 10, display: 'flex' }}
-                        onClick={(e) => setModal(false)}
+                        onClick={() => setModal(false)}
                       >
                         Cancel
                       </CButton>

@@ -60,7 +60,11 @@ body {
   opacity: 0.9;
   font-family: Poppins, sans-serif;
 }
-
+.test {
+  position: relative;
+  z-index: 99999;
+  margin-left: 55%;
+}
 .wrapper {
   width: 100%;
   @include ltr-rtl('padding-left', var(--cui-sidebar-occupy-start, 0));

@@ -18,7 +18,6 @@ import toast from 'react-hot-toast'
 import RequiredTag from '../../../components/RequiredTag'
 import { addOrganization, editOrganization } from '../../../services/OrganizationService'
 import { keydownValidNumberCheck } from '../../../services/Utility'
-import Spinners from '../../base/spinners/Spinners'
 
 const RegisterOrganization = ({
   setModal,
@@ -29,7 +28,6 @@ const RegisterOrganization = ({
 }) => {
   const [values, setValues] = useState(editData)
   const [validated, setValidated] = useState(false)
-  const [loading, setLoading] = useState(false)
   const [allowEdit, setAllowEdit] = useState(hideCancel)
 
   const token = localStorage.getItem('token')
@@ -55,7 +53,6 @@ const RegisterOrganization = ({
         zipCode: values?.zipCode,
         notes: values?.notes,
       }
-      setLoading(true)
       await (
         editData?.organizationId
           ? editOrganization({ id: editData?.organizationId, body: formOrganization })
@@ -68,12 +65,10 @@ const RegisterOrganization = ({
             fetchOrganizations()
           }
           setModal(false)
-          setLoading(false)
         })
         .catch((error) => {
           console.log('err', error)
           toast.error(error?.response?.data?.error)
-          setLoading(false)
         })
     } else {
       setValidated(true)
@@ -266,11 +261,6 @@ const RegisterOrganization = ({
                       style={{ float: 'right', marginRight: 10, display: 'flex' }}
                     >
                       Submit
-                      {loading && (
-                        <div className="clearfix">
-                          <Spinners className="float-end" />
-                        </div>
-                      )}
                     </CButton>
                   </CTooltip>
                   {allowEdit ? (
