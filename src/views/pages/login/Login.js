@@ -155,6 +155,9 @@ function Login() {
           <CCard style={{ margin: 5 }}>
             <CCardBody>Search</CCardBody>
           </CCard>
+          <CCard style={{ margin: 5 }}>
+            <CCardBody>Version</CCardBody>
+          </CCard>
         </CCol>
       </CRow>
     </>
