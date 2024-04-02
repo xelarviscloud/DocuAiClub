@@ -15,6 +15,7 @@ const RegisterOrganization = React.lazy(
 const Locations = React.lazy(() => import('./views/access/locations/Locations'))
 const OrganizationUsers = React.lazy(() => import('./views/access/users/OrganizationUsers'))
 const LocationUsers = React.lazy(() => import('./views/access/users/LocationUsers'))
+const FileUpload = React.lazy(() => import('./views/access/documents/FileUpload'))
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
@@ -84,7 +85,7 @@ const routes = [
     name: 'Register Organization',
     element: RegisterOrganization,
   },
-
+  { path: '/access/search', name: 'Search', element: FileUpload },
   { path: '/access/locations', name: 'Properties', element: Locations },
   { path: '/access/organization-users', name: 'Organization Admin', element: OrganizationUsers },
   { path: '/access/location-users', name: 'Property Admin', element: LocationUsers },

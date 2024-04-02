@@ -263,6 +263,7 @@ function RegisterOrganizationUser({
                       value={values?.password}
                       onChange={(e) => handleOnChange(e)}
                       invalid={passwordError}
+                      autoComplete="new-password"
                     />
                   </CCol>
                   <CCol xs>

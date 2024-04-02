@@ -19,6 +19,7 @@ import {
   cifPl,
   cifUs,
   cilCloudDownload,
+  cilCloudUpload,
   cilPeople,
   cilUser,
   cilUserFemale,
@@ -52,6 +53,7 @@ import avatar6 from 'src/assets/images/avatars/6.jpg'
 
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 
+import FileUpload from '../access/documents/FileUpload'
 const Dashboard = () => {
   const progressExample = [
     { title: 'Visits', value: '29.703 Users', percent: 40, color: 'primary' },
@@ -180,16 +182,16 @@ const Dashboard = () => {
       <CCard className="mb-4">
         <CCardBody>
           <CRow>
-            <CCol sm={5}>
-              <h4 id="traffic" className="card-title mb-0">
-                Traffic
+            <CCol sm={3}>
+              <h4 id="documentManager" className="card-title mb-0">
+                Documents
               </h4>
               <div className="small text-body-secondary">January - July 2023</div>
             </CCol>
-            <CCol sm={7} className="d-none d-md-block">
-              <CButton color="primary" className="float-end">
-                <CIcon icon={cilCloudDownload} />
-              </CButton>
+            <CCol>
+              <FileUpload className="float-end" />
+            </CCol>
+            <CCol sm={3} className="d-none d-md-block">
               <CButtonGroup className="float-end me-3">
                 {['Day', 'Month', 'Year'].map((value) => (
                   <CButton
