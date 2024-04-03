@@ -1,4 +1,4 @@
-import { CButton, CForm, CFormInput, CCol, CTooltip, CSpinner } from '@coreui/react'
+import { CButton, CForm, CFormInput, CCol, CTooltip, CSpinner, CRow } from '@coreui/react'
 import React, { useState } from 'react'
 import { uploadFile } from '../../../services/FileService'
 import { jwtDecode } from 'jwt-decode'
@@ -46,33 +46,39 @@ function FileUpload() {
     setShowSpinner(false)
   }
   return (
-    <CForm onSubmit={handleSubmit} className="row g-3 align-items-baseline">
-      <CCol>
-        <div>
+    <CForm onSubmit={handleSubmit} className="align-items-baseline">
+      <CRow>
+        <CCol xs>
           <CFormInput
             ref={ref}
             type="file"
             onChange={handleChange}
-            style={{ fontSize: 14, fontStyle: 'italic', color: 'orangered', fontWeight: 500 }}
+            style={{
+              fontSize: 14,
+              fontStyle: 'italic',
+              color: 'orangered',
+              fontWeight: 500,
+              padding: 8,
+            }}
           />
-          <div style={{ fontSize: 12 }}>
-            {uploadState
-              ? 'AI Text extraction has started and you will be notified once completed.'
-              : ''}
-          </div>
-        </div>
-      </CCol>
-      <CCol>
-        <CTooltip content="Choose a file first then click on upload.">
-          <CButton color="primary" type="submit" disabled={!file}>
-            {showSpinner ? (
-              <CSpinner size="sm" color="dark" variant="grow" />
-            ) : (
-              <CIcon icon={cilCloudUpload} />
-            )}
-          </CButton>
-        </CTooltip>
-      </CCol>
+        </CCol>
+        <CCol xs>
+          <CTooltip content="Choose a file first then click on upload.">
+            <CButton color="primary" type="submit" disabled={!file}>
+              {showSpinner ? (
+                <CSpinner size="sm" color="dark" variant="grow" />
+              ) : (
+                <CIcon icon={cilCloudUpload} />
+              )}
+            </CButton>
+          </CTooltip>
+        </CCol>
+      </CRow>
+      <div style={{ fontSize: 12 }}>
+        {uploadState
+          ? "AI Text extraction has started. You will be notified after it's completed."
+          : ''}
+      </div>
     </CForm>
   )
 }
