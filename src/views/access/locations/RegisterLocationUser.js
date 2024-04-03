@@ -63,7 +63,7 @@ function RegisterLocationUser({
 
   const handleOnSubmit = async (e) => {
     e.preventDefault()
-
+    console.log('User Org Id', values.organizationId)
     const form = e.currentTarget
     if (!form.checkValidity() === false && !passwordError && !confirmPasswordError) {
       var formData = new FormData()

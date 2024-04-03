@@ -131,7 +131,7 @@ function LocationUsers() {
                         style={{ float: 'right', marginRight: 0 }}
                         onClick={() => {
                           setModal(true)
-                          setEditData({})
+                          setEditData({ organizationId: selectedOrgId })
                           setIsEditUser(false)
                         }}
                         disabled={!selectedOrgId?.length}
