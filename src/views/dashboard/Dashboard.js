@@ -1,6 +1,5 @@
 import classNames from 'classnames'
-import React from 'react'
-
+import React, { useEffect, useState } from 'react'
 import {
   cibCcAmex,
   cibCcApplePay,
@@ -18,17 +17,11 @@ import {
   cifIn,
   cifPl,
   cifUs,
-  cilCloudDownload,
-  cilCloudUpload,
-  cilPeople,
   cilUser,
   cilUserFemale,
 } from '@coreui/icons'
-import CIcon from '@coreui/icons-react'
 import {
-  CAvatar,
   CButton,
-  CButtonGroup,
   CCard,
   CCardBody,
   CCardFooter,
@@ -36,12 +29,7 @@ import {
   CCol,
   CProgress,
   CRow,
-  CTable,
-  CTableBody,
-  CTableDataCell,
-  CTableHead,
-  CTableHeaderCell,
-  CTableRow,
+  CTooltip,
 } from '@coreui/react'
 
 import avatar1 from 'src/assets/images/avatars/1.jpg'
@@ -55,7 +43,14 @@ import WidgetsDropdown from '../widgets/WidgetsDropdown'
 
 import FileUpload from '../access/documents/FileUpload'
 import DocumentsTable from '../../components/DocumentsTable'
+import { downloadFile } from '../../services/FileService'
+import PDFViewer from '../access/documents/PDFViewer'
+import { Buffer } from 'buffer'
+
 const Dashboard = () => {
+  const [modal, setModal] = useState(false)
+  const [downloaded, setDownloaded] = useState()
+
   const progressExample = [
     { title: 'Visits', value: '29.703 Users', percent: 40, color: 'primary' },
     { title: 'Unique', value: '24.093 Users', percent: 20, color: 'info' },
@@ -177,6 +172,20 @@ const Dashboard = () => {
     },
   ]
 
+  async function downloadPdfFile(e) {
+    await downloadFile(e).then((res) => {
+      console.log('downloaded file', res.data)
+      const file = new Blob([res.data], { type: 'application/pdf' })
+      const fileURL = URL.createObjectURL(file)
+      // window.open(fileURL)
+      setModal(true)
+      setDownloaded(fileURL)
+    })
+  }
+
+  async function closePdfView() {
+    setModal(false)
+  }
   return (
     <>
       <WidgetsDropdown className="mb-4" />
@@ -185,14 +194,14 @@ const Dashboard = () => {
           <CRow>
             <CCol sm={3}>
               <h4 id="documentManager" className="card-title mb-0">
-                Documents
+                Upload
               </h4>
               <div className="small text-body-secondary">January - July 2023</div>
             </CCol>
             <CCol>
               <FileUpload className="float-end" />
             </CCol>
-            <CCol sm={3} className="d-none d-md-block">
+            {/* <CCol sm={3} className="d-none d-md-block">
               <CButtonGroup className="float-end me-3">
                 {['Day', 'Month', 'Year'].map((value) => (
                   <CButton
@@ -205,7 +214,7 @@ const Dashboard = () => {
                   </CButton>
                 ))}
               </CButtonGroup>
-            </CCol>
+            </CCol> */}
           </CRow>
         </CCardBody>
         <CCardFooter>
@@ -235,12 +244,35 @@ const Dashboard = () => {
       </CCard>
       <CRow>
         <CCol xs>
-          <CCard className="mb-4">
-            <CCardHeader>Traffic {' & '} Sales</CCardHeader>
-            <CCardBody>
-              <DocumentsTable />
-            </CCardBody>
-          </CCard>
+          {!modal ? (
+            <CCard className="mb-4">
+              <CCardHeader>Documents</CCardHeader>
+              <CCardBody>
+                <DocumentsTable downloadPdfFile={downloadPdfFile} />
+              </CCardBody>
+            </CCard>
+          ) : (
+            <CCard>
+              <CCardHeader>
+                <span>View PDF</span>
+                <CTooltip content="Add New Organization" placement="left">
+                  <CButton
+                    color="primary"
+                    variant="outline"
+                    style={{ float: 'right', marginRight: 0 }}
+                    onClick={closePdfView}
+                    onMouseOver={(e) => handleSpeech('Click to Close PDF View.')}
+                  >
+                    Close
+                  </CButton>
+                </CTooltip>
+              </CCardHeader>
+
+              <CCardBody>
+                <PDFViewer style={{ height: 400, width: 500 }} blob={downloaded}></PDFViewer>
+              </CCardBody>
+            </CCard>
+          )}
         </CCol>
       </CRow>
     </>

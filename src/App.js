@@ -2,7 +2,7 @@ import React, { Suspense, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import { CSpinner, useColorModes } from '@coreui/react'
+import { useColorModes } from '@coreui/react'
 import { Toaster } from 'react-hot-toast'
 import './scss/style.scss'
 
@@ -37,13 +37,7 @@ const App = () => {
     <>
       <Toaster position="top-center" />
       <BrowserRouter>
-        <Suspense
-          fallback={
-            <div className="pt-3 text-center">
-              <CSpinner color="primary" variant="grow" />
-            </div>
-          }
-        >
+        <Suspense>
           <Routes>
             <Route exact path="/" name="Login Page" element={<Login />} />
             <Route exact path="/register" name="Register Page" element={<Register />} />

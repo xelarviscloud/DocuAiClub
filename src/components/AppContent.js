@@ -23,7 +23,7 @@ const AppContent = () => {
       ) : (
         ''
       )}
-      <Suspense fallback={<CSpinner color="primary" />}>
+      <Suspense>
         <Routes>
           {routes.map((route, idx) => {
             return (

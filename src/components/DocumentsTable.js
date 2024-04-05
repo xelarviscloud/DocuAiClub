@@ -24,7 +24,7 @@ import moment from 'moment'
 const token = localStorage.getItem('token')
 const decodedToken = jwtDecode(token)
 
-function DocumentsTable() {
+function DocumentsTable({ downloadPdfFile }) {
   const [tableExample, setTableExample] = useState([])
   console.log(decodedToken)
   const _userLocId = decodedToken.locationId
@@ -83,6 +83,7 @@ function DocumentsTable() {
               status: 'New',
               created: _cDate,
               locationName: d.locationName,
+              blobPath: d.blobPath,
             },
             user: { firstName: d.firstName, lastName: d.lastName },
             usage: {
@@ -124,6 +125,11 @@ function DocumentsTable() {
       newDetails = [...details, index]
     }
     setDetails(newDetails)
+  }
+
+  function handleViewFile(bPath) {
+    //alert(bPath)
+    downloadPdfFile(bPath)
   }
   return (
     <CTable align="middle" className="mb-0 border" hover responsive>
@@ -173,7 +179,13 @@ function DocumentsTable() {
               </span>
             </CTableDataCell>
             <CTableDataCell>
-              <div className="small text-body-secondary text-nowrap">Last login</div>
+              <div
+                style={{ cursor: 'pointer' }}
+                className="small text-body-secondary text-nowrap text-decoration-underline"
+                onClick={() => handleViewFile(item.document.blobPath)}
+              >
+                View PDF
+              </div>
               <div className="fw-semibold text-nowrap">{item.activity}</div>
             </CTableDataCell>
           </CTableRow>

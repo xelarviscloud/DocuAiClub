@@ -6,7 +6,21 @@ export async function uploadFile(body) {
       Authorization: localStorage.getItem('token'),
     },
   }
-  return axios.post(`${process.env.REACT_APP_LOCAL_URL}/file`, body, config)
+  return axios.post(`${process.env.REACT_APP_LOCAL_URL}/file/upload`, body, config)
+}
+
+export async function downloadFile(blobPath) {
+  const config = {
+    responseType: 'blob',
+    headers: {
+      Authorization: localStorage.getItem('token'),
+    },
+  }
+  console.log('blobPath', blobPath)
+  return axios.get(
+    `${process.env.REACT_APP_LOCAL_URL}/blob/downloadPdf?blobPath=${blobPath}`,
+    config,
+  )
 }
 
 export async function getDocumentsByLocationId(locationId) {
