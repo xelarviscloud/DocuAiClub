@@ -8,7 +8,7 @@ import { cilCloudUpload } from '@coreui/icons'
 const token = localStorage.getItem('token')
 const decodedToken = jwtDecode(token)
 
-function FileUpload() {
+function FileUpload({ refreshFiles }) {
   const [file, setFile] = useState()
   const [uploadState, setUploadState] = useState(false)
   const [showSpinner, setShowSpinner] = useState(false)
@@ -44,11 +44,13 @@ function FileUpload() {
     ref.current.value = ''
     setFile(null)
     setShowSpinner(false)
+    refreshFiles()
   }
+
   return (
     <CForm onSubmit={handleSubmit} className="align-items-baseline">
       <CRow>
-        <CCol xs>
+        <CCol>
           <CFormInput
             ref={ref}
             type="file"
@@ -62,7 +64,7 @@ function FileUpload() {
             }}
           />
         </CCol>
-        <CCol xs>
+        <CCol>
           <CTooltip content="Choose a file first then click on upload.">
             <CButton color="primary" type="submit" disabled={!file}>
               {showSpinner ? (
