@@ -140,7 +140,7 @@ const _nav = isUserSuperAdmin
           {
             component: CNavItem,
             name: 'Pages',
-            to: '/access/pages',
+            to: '',
           },
           {
             component: CNavItem,
@@ -167,7 +167,7 @@ const _nav = isUserSuperAdmin
           {
             component: CNavItem,
             name: 'Pages',
-            to: '/access/pages',
+            to: '',
           },
           {
             component: CNavItem,
@@ -488,7 +488,7 @@ const _nav = isUserSuperAdmin
             {
               component: CNavItem,
               name: 'Pages',
-              to: '/access/pages',
+              to: '',
             },
             {
               component: CNavItem,
@@ -515,7 +515,7 @@ const _nav = isUserSuperAdmin
             {
               component: CNavItem,
               name: 'Pages',
-              to: '/access/pages',
+              to: '',
             },
             {
               component: CNavItem,
@@ -542,7 +542,7 @@ const _nav = isUserSuperAdmin
             {
               component: CNavItem,
               name: 'Pages',
-              to: '/access/pages',
+              to: '',
             },
             {
               component: CNavItem,
@@ -569,7 +569,7 @@ const _nav = isUserSuperAdmin
             {
               component: CNavItem,
               name: 'Pages',
-              to: '/access/pages',
+              to: '',
             },
             {
               component: CNavItem,
@@ -626,7 +626,7 @@ const _nav = isUserSuperAdmin
               {
                 component: CNavItem,
                 name: 'Pages',
-                to: '/access/pages',
+                to: '/access/page-list',
               },
               {
                 component: CNavItem,
@@ -653,7 +653,7 @@ const _nav = isUserSuperAdmin
               {
                 component: CNavItem,
                 name: 'Pages',
-                to: '/access/pages',
+                to: '',
               },
               {
                 component: CNavItem,
@@ -680,7 +680,7 @@ const _nav = isUserSuperAdmin
               {
                 component: CNavItem,
                 name: 'Pages',
-                to: '/access/pages',
+                to: '',
               },
               {
                 component: CNavItem,
@@ -707,7 +707,7 @@ const _nav = isUserSuperAdmin
               {
                 component: CNavItem,
                 name: 'Pages',
-                to: '/access/pages',
+                to: '',
               },
               {
                 component: CNavItem,

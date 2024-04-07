@@ -16,6 +16,7 @@ const Locations = React.lazy(() => import('./views/access/locations/Locations'))
 const OrganizationUsers = React.lazy(() => import('./views/access/users/OrganizationUsers'))
 const LocationUsers = React.lazy(() => import('./views/access/users/LocationUsers'))
 const FileUpload = React.lazy(() => import('./views/access/documents/FileUpload'))
+const PageList = React.lazy(() => import('./views/access/pages/PageList'))
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
@@ -89,6 +90,8 @@ const routes = [
   { path: '/access/locations', name: 'Properties', element: Locations },
   { path: '/access/organization-users', name: 'Organization Admin', element: OrganizationUsers },
   { path: '/access/location-users', name: 'Property Admin', element: LocationUsers },
+
+  { path: '/access/page-list', name: 'Pages', element: PageList },
 
   { path: '/base', name: 'Base', element: Cards, exact: true },
   { path: '/base/accordion', name: 'Accordion', element: Accordion },

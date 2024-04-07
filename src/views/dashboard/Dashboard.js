@@ -35,9 +35,9 @@ const Dashboard = () => {
 
   const progressExample = [
     { title: 'Documents', value: '10', percent: 100, color: 'primary', showPercentage: false },
-    { title: 'Pages', value: '86', percent: 20, color: 'info', showPercentage: true },
-    { title: 'Subscription', value: 'Free', percent: 60, color: 'warning', showPercentage: true },
-    { title: 'Limit', value: '100 Pages', percent: 80, color: 'danger', showPercentage: true },
+    { title: 'Pages', value: '86', percent: 20, color: 'info', showPercentage: false },
+    { title: 'Subscription', value: 'Free', percent: 100, color: 'warning', showPercentage: false },
+    { title: 'Limit', value: '100 Pages', percent: 100, color: 'danger', showPercentage: false },
     {
       title: 'Remaining',
       value: '14 Pages',
