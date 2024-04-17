@@ -1,5 +1,6 @@
 import React from 'react'
 import LocationDetails from './views/access/locations/LocationDetails'
+import react from 'react'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -17,6 +18,7 @@ const OrganizationUsers = React.lazy(() => import('./views/access/users/Organiza
 const LocationUsers = React.lazy(() => import('./views/access/users/LocationUsers'))
 const FileUpload = React.lazy(() => import('./views/access/documents/FileUpload'))
 const PageList = React.lazy(() => import('./views/access/pages/PageList'))
+const SearchPages = React.lazy(() => import('./views/access/pages/SearchPages'))
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
@@ -86,7 +88,7 @@ const routes = [
     name: 'Register Organization',
     element: RegisterOrganization,
   },
-  { path: '/access/search', name: 'Search', element: FileUpload },
+  { path: '/access/search', name: 'Search', element: SearchPages },
   { path: '/access/locations', name: 'Properties', element: Locations },
   { path: '/access/organization-users', name: 'Organization Admin', element: OrganizationUsers },
   { path: '/access/location-users', name: 'Property Admin', element: LocationUsers },
