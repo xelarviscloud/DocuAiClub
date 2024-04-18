@@ -11,6 +11,10 @@ import {
   CProgress,
   CRow,
   CTooltip,
+  CModal,
+  CModalTitle,
+  CModalBody,
+  CModalHeader,
 } from '@coreui/react'
 
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
@@ -21,14 +25,17 @@ import { downloadFile } from '../../services/FileService'
 import PDFViewer from '../access/documents/PDFViewer'
 import { jwtDecode } from 'jwt-decode'
 import { getDocumentsByLocationId } from '../../services/FileService'
-import pdfAvatar from '../../assets/pdf.png'
+import pdfAvatarNew from '../../assets/pdfNew.png'
+import pdfAvatarProgress from '../../assets/pdfProgress.png'
+import pdfAvatarCompleted from '../../assets/pdfCompleted.png'
+import pdfAvatarError from '../../assets/pdfError.png'
 import moment from 'moment'
 
 const Dashboard = () => {
   const token = localStorage.getItem('token')
   const decodedToken = jwtDecode(token)
 
-  const [modal, setModal] = useState(false)
+  const [visible, setVisible] = useState(false)
   const [downloaded, setDownloaded] = useState()
   const [userLocationId, setUserLocationId] = useState(decodedToken.locationId)
   const [tableExample, setTableExample] = useState([])
@@ -53,13 +60,13 @@ const Dashboard = () => {
       const file = new Blob([res.data], { type: 'application/pdf' })
       const fileURL = URL.createObjectURL(file)
       // window.open(fileURL)
-      setModal(true)
+      setVisible(true)
       setDownloaded(fileURL)
     })
   }
 
   async function closePdfView() {
-    setModal(false)
+    setVisible(false)
   }
 
   async function refreshFiles() {
@@ -76,12 +83,33 @@ const Dashboard = () => {
       .then((response) => {
         var dd = response.data.documents.map((d, e) => {
           let _cDate = moment(d.createdAt).format('MMM D, YYYY')
+          let _pdfIcon = pdfAvatarNew
+          let _pdfStatusColor = 'danger'
+          switch (d.status) {
+            case 'New':
+              _pdfIcon = pdfAvatarNew
+              _pdfStatusColor = 'info'
+              break
 
+            case 'Processing':
+              _pdfIcon = pdfAvatarProgress
+              _pdfStatusColor = 'warning'
+              break
+
+            case 'Completed':
+              _pdfIcon = pdfAvatarCompleted
+              _pdfStatusColor = 'success'
+              break
+            default:
+              _pdfIcon = pdfAvatarError
+              _pdfStatusColor = 'danger'
+              break
+          }
           return {
-            avatar: { src: pdfAvatar, status: 'danger' },
+            avatar: { src: _pdfIcon, status: _pdfStatusColor },
             document: {
               name: d.fileName,
-              status: 'New',
+              status: d.status,
               created: _cDate,
               locationName: d.locationName,
               blobPath: d.blobPath,
@@ -147,7 +175,7 @@ const Dashboard = () => {
       </CCard>
       <CRow>
         <CCol xs>
-          {!modal ? (
+          {!visible ? (
             <CCard className="mb-4">
               <CCardHeader>Documents</CCardHeader>
               <CCardBody>
@@ -155,26 +183,18 @@ const Dashboard = () => {
               </CCardBody>
             </CCard>
           ) : (
-            <CCard>
-              <CCardHeader>
-                <span>View PDF</span>
-                <CTooltip content="View PDF File" placement="left">
-                  <CButton
-                    color="primary"
-                    variant="outline"
-                    style={{ float: 'right', marginRight: 0 }}
-                    onClick={closePdfView}
-                    onMouseOver={(e) => handleSpeech('Click to close PDF View.')}
-                  >
-                    Close
-                  </CButton>
-                </CTooltip>
-              </CCardHeader>
-
-              <CCardBody>
-                <PDFViewer style={{ height: 400, width: 500 }} blob={downloaded}></PDFViewer>
-              </CCardBody>
-            </CCard>
+            <CModal
+              visible={visible}
+              onClose={() => setVisible(false)}
+              aria-labelledby="View PDF Page"
+            >
+              <CModalHeader onClose={() => setVisible(false)}>
+                <CModalTitle id="viewPdfPage">Modal title</CModalTitle>
+              </CModalHeader>
+              <CModalBody>
+                <PDFViewer blob={downloaded}></PDFViewer>
+              </CModalBody>
+            </CModal>
           )}
         </CCol>
       </CRow>

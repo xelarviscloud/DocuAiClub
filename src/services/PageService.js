@@ -19,10 +19,13 @@ export async function searchPagesByCriteria(searchCriteria) {
   console.log('searchCriteria', searchCriteria)
   let params = `?arrivalDate=${searchCriteria.arrivalDate}`
   params += `&departureDate=${searchCriteria.departureDate}`
+  params += `&createdDate=${searchCriteria.createdDate}`
   params += `&confirmationNumber=${searchCriteria.confirmationNumber}`
   params += `&name=${searchCriteria.name}`
+  params += `&content=${searchCriteria.content}`
+  params += `&locationId=${searchCriteria.locationId}`
+
   const url = `${process.env.REACT_APP_LOCAL_URL}/pages/search${params}`
-  console.log('url', url)
   const response = await axios.get(url, {
     headers: {
       Authorization: localStorage.getItem('token'),

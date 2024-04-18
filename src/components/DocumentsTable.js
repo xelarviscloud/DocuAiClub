@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
-import { cibCcVisa, cilFile } from '@coreui/icons'
+import { cilFile } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import {
   CAvatar,
@@ -12,9 +12,6 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
-
-import pdfAvatar from '../assets/pdf.png'
-import moment from 'moment'
 
 function DocumentsTable({ downloadPdfFile, tableExampleData }) {
   function handleViewFile(bPath) {

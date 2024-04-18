@@ -14,9 +14,9 @@ body {
   border-radius: 100px;
   animation: coin-rotate 15s both infinite;
 }
-.card {
-  border-top-left-radius: 0;
-}
+// .card {
+//   border-top-left-radius: 0;
+// }
 @media only screen and (max-width: 800px) {
   .table {
     overflow-x: auto;
@@ -131,4 +131,10 @@ body {
   font-size: x-large;
   color: red;
   text-decoration: underline;
+}
+
+#more-filters button {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background: none !important;
 }
