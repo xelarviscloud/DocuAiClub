@@ -79,68 +79,69 @@ function SearchPages() {
           </CModalBody>
         </CModal>
       ) : (
-        <CAccordion activeItemKey={-1}>
-          {pagesList?.map((item, key) => {
-            return (
-              <CAccordionItem itemKey={key} key={key}>
-                <CAccordionHeader>
-                  {item.pageName}#{item.data.content.substring(1, 40)} {key}
-                </CAccordionHeader>
-                <CAccordionBody>
-                  <CRow key={key}>
-                    <CCol md={9}>
-                      <Highlighter
-                        highlightClassName="search-text-highlight"
-                        autoEscape={true}
-                        searchWords={Object.keys(values).map((key) => values[key])}
-                        textToHighlight={item.data.content}
-                      >
-                        {}
-                      </Highlighter>
-                    </CCol>
-                    <CCol md={3}>
-                      <CCard className="text-center">
-                        <CCardBody>
-                          <CCardTitle>
-                            {item.documentName.split('/')[1]} {item.pageName}
-                          </CCardTitle>
-                          <CCardText>
-                            {Object.keys(item?.tags).map((key) => (
-                              <span key={key} className="d-block" style={{ fontWeight: 500 }}>
-                                {dicPageTagsDisplayName[key]}:<i> {item?.tags[key]}</i>
-                              </span>
-                            ))}
-                          </CCardText>
-                          <div className="position-relative">
-                            <CBadge color="success" shape="rounded-pill" style={{ fontSize: 10 }}>
-                              PDF Action Bar
-                            </CBadge>{' '}
-                          </div>
-                          <CButton
-                            color="primary"
-                            href="#"
-                            style={{ marginRight: 3 }}
-                            onClick={() => handleViewFile(item.pageBlobPath, true)}
-                          >
-                            View
-                          </CButton>
-                          <CButton
-                            color="primary"
-                            href="#"
-                            onClick={() => handleViewFile(item.pageBlobPath, false)}
-                          >
-                            Download
-                          </CButton>
-                        </CCardBody>
-                      </CCard>
-                    </CCol>
-                  </CRow>
-                </CAccordionBody>
-              </CAccordionItem>
-            )
-          })}
-        </CAccordion>
+        ''
       )}
+      <CAccordion activeItemKey={-1}>
+        {pagesList?.map((item, key) => {
+          return (
+            <CAccordionItem itemKey={key} key={key}>
+              <CAccordionHeader>
+                {item.pageName}#{item.data.content.substring(1, 40)} {key}
+              </CAccordionHeader>
+              <CAccordionBody>
+                <CRow key={key}>
+                  <CCol md={9}>
+                    <Highlighter
+                      highlightClassName="search-text-highlight"
+                      autoEscape={true}
+                      searchWords={Object.keys(values).map((key) => values[key])}
+                      textToHighlight={item.data.content}
+                    >
+                      {}
+                    </Highlighter>
+                  </CCol>
+                  <CCol md={3}>
+                    <CCard className="text-center">
+                      <CCardBody>
+                        <CCardTitle>
+                          {item.documentName.split('/')[1]} {item.pageName}
+                        </CCardTitle>
+                        <CCardText>
+                          {Object.keys(item?.tags).map((key) => (
+                            <span key={key} className="d-block" style={{ fontWeight: 500 }}>
+                              {dicPageTagsDisplayName[key]}:<i> {item?.tags[key]}</i>
+                            </span>
+                          ))}
+                        </CCardText>
+                        <div className="position-relative">
+                          <CBadge color="success" shape="rounded-pill" style={{ fontSize: 10 }}>
+                            PDF Action Bar
+                          </CBadge>{' '}
+                        </div>
+                        <CButton
+                          color="primary"
+                          href="#"
+                          style={{ marginRight: 3 }}
+                          onClick={() => handleViewFile(item.pageBlobPath, true)}
+                        >
+                          View
+                        </CButton>
+                        <CButton
+                          color="primary"
+                          href="#"
+                          onClick={() => handleViewFile(item.pageBlobPath, false)}
+                        >
+                          Download
+                        </CButton>
+                      </CCardBody>
+                    </CCard>
+                  </CCol>
+                </CRow>
+              </CAccordionBody>
+            </CAccordionItem>
+          )
+        })}
+      </CAccordion>
     </div>
   )
 }
