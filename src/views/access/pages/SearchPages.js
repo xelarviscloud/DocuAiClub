@@ -19,15 +19,23 @@ import {
   CModalTitle,
   CModalBody,
   CModalHeader,
+  COffcanvas,
+  COffcanvasHeader,
+  COffcanvasTitle,
+  COffcanvasBody,
+  CCloseButton,
 } from '@coreui/react'
 import SearchPagePanel from '../../../components/SearchPagePanel'
 import { downloadFile } from '../../../services/FileService'
 import { dicPageTagsDisplayName } from '../../../services/Utility'
+import Tables from './../../base/tables/Tables'
 
 function SearchPages() {
   const [pagesList, setPagesList] = useState([])
   const [values, setValues] = useState({})
   const [visible, setVisible] = useState(false)
+  const [sidebarVisible, setSidebarVisible] = useState(false)
+  const [sidebarDetails, setSidebarDetails] = useState({})
   const [downloaded, setDownloaded] = useState()
 
   const fetchSearchPages = async (_params) => {
@@ -71,6 +79,36 @@ function SearchPages() {
         fetchSearchPages={onSearchPages}
         pageCounts={pagesList?.length > 0 ? pagesList.length : ''}
       ></SearchPagePanel>
+      {sidebarVisible ? (
+        <>
+          {/* <CButton color="primary" onClick={() => setSidebarVisible(true)}>
+            Toggle offcanvas
+          </CButton> */}
+          <COffcanvas
+            placement="end"
+            visible={sidebarVisible}
+            onHide={() => setSidebarVisible(false)}
+          >
+            <COffcanvasHeader className="justify-content-between">
+              <COffcanvasTitle>Details</COffcanvasTitle>
+              <CCloseButton
+                className="text-reset"
+                onClick={() => {
+                  document.body.style.overflow = 'auto'
+                  setSidebarVisible(false)
+                }}
+              />
+            </COffcanvasHeader>
+            <COffcanvasBody>
+              {sidebarDetails[0]?.cells?.map((cell) => (
+                <p>{cell.content}</p>
+              ))}
+            </COffcanvasBody>
+          </COffcanvas>
+        </>
+      ) : (
+        ''
+      )}
       {visible ? (
         <CModal visible={visible} onClose={() => setVisible(false)} aria-labelledby="View PDF Page">
           <CModalHeader onClose={() => setVisible(false)}></CModalHeader>
@@ -132,6 +170,16 @@ function SearchPages() {
                           onClick={() => handleViewFile(item.pageBlobPath, false)}
                         >
                           Download
+                        </CButton>
+                        <CButton
+                          color="link"
+                          shape="rounded-0"
+                          onClick={() => {
+                            setSidebarVisible(true)
+                            setSidebarDetails(item?.data?.tables)
+                          }}
+                        >
+                          Details
                         </CButton>
                       </CCardBody>
                     </CCard>
