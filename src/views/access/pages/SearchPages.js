@@ -73,9 +73,7 @@ function SearchPages() {
       ></SearchPagePanel>
       {visible ? (
         <CModal visible={visible} onClose={() => setVisible(false)} aria-labelledby="View PDF Page">
-          <CModalHeader onClose={() => setVisible(false)}>
-            {/* <CModalTitle id="viewPdfPage">Modal title</CModalTitle> */}
-          </CModalHeader>
+          <CModalHeader onClose={() => setVisible(false)}></CModalHeader>
           <CModalBody>
             <PDFViewer blob={downloaded}></PDFViewer>
           </CModalBody>
@@ -108,11 +106,7 @@ function SearchPages() {
                           </CCardTitle>
                           <CCardText>
                             {Object.keys(item?.tags).map((key) => (
-                              <span
-                                key={key}
-                                className="d-block"
-                                style={{ fontWeight: 500, color: 'darkred' }}
-                              >
+                              <span key={key} className="d-block" style={{ fontWeight: 500 }}>
                                 {dicPageTagsDisplayName[key]}:<i> {item?.tags[key]}</i>
                               </span>
                             ))}
