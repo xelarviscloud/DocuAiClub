@@ -74,7 +74,7 @@ function SearchPages() {
       {visible ? (
         <CModal visible={visible} onClose={() => setVisible(false)} aria-labelledby="View PDF Page">
           <CModalHeader onClose={() => setVisible(false)}>
-            <CModalTitle id="viewPdfPage">Modal title</CModalTitle>
+            {/* <CModalTitle id="viewPdfPage">Modal title</CModalTitle> */}
           </CModalHeader>
           <CModalBody>
             <PDFViewer blob={downloaded}></PDFViewer>
