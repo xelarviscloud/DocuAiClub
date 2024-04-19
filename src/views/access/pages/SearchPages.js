@@ -109,16 +109,14 @@ function SearchPages() {
       ) : (
         ''
       )}
-      {visible ? (
+      {
         <CModal visible={visible} onClose={() => setVisible(false)}>
           <CModalHeader onClose={() => setVisible(false)}></CModalHeader>
           <CModalBody style={{ padding: 0 }}>
             <PDFViewer blob={downloaded}></PDFViewer>
           </CModalBody>
         </CModal>
-      ) : (
-        ''
-      )}
+      }
       <CAccordion activeItemKey={-1}>
         {pagesList?.map((item, key) => {
           return (

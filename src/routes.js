@@ -71,29 +71,29 @@ const routes = [
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
 
-  { path: '/access/documents', name: 'Documents', element: Colors },
-  { path: '/access/organizations', name: 'Organizations', element: Organizations },
+  { path: '/documents', name: 'Documents', element: Colors },
+  { path: '/organizations', name: 'Organizations', element: Organizations },
   {
-    path: '/access/organization-details',
+    path: '/organization-details',
     name: 'Organization Details',
     element: OrganizationDetails,
   },
   {
-    path: '/access/location-details',
+    path: '/location-details',
     name: 'Location Details',
     element: LocationDetails,
   },
   {
-    path: '/access/register-organization',
+    path: '/register-organization',
     name: 'Register Organization',
     element: RegisterOrganization,
   },
   { path: '/search', name: 'Search', element: SearchPages },
-  { path: '/access/locations', name: 'Properties', element: Locations },
-  { path: '/access/organization-users', name: 'Organization Admin', element: OrganizationUsers },
-  { path: '/access/location-users', name: 'Property Admin', element: LocationUsers },
+  { path: '/locations', name: 'Properties', element: Locations },
+  { path: '/organization-users', name: 'Organization Admin', element: OrganizationUsers },
+  { path: '/location-users', name: 'Property Admin', element: LocationUsers },
 
-  { path: '/access/page-list', name: 'Pages', element: PageList },
+  { path: '/page-list', name: 'Pages', element: PageList },
 
   { path: '/base', name: 'Base', element: Cards, exact: true },
   { path: '/base/accordion', name: 'Accordion', element: Accordion },

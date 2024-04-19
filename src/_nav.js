@@ -41,30 +41,30 @@ const _nav = isUserSuperAdmin
       {
         component: CNavItem,
         name: 'Organizations',
-        to: '/access/organizations',
+        to: '/organizations',
         icon: <CIcon icon={cilHome} customClassName="nav-icon" />,
       },
       {
         component: CNavItem,
         name: 'Properties',
-        to: '/access/locations',
+        to: '/locations',
         icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
       },
       {
         component: CNavGroup,
         name: 'Users',
-        to: '/access/users',
+        to: '/users',
         icon: <CIcon icon={cilGroup} customClassName="nav-icon" />,
         items: [
           {
             component: CNavItem,
             name: 'Organization',
-            to: '/access/organization-users',
+            to: '/organization-users',
           },
           {
             component: CNavItem,
             name: 'Property',
-            to: '/access/location-users',
+            to: '/location-users',
           },
         ],
       },
@@ -75,23 +75,18 @@ const _nav = isUserSuperAdmin
       {
         component: CNavGroup,
         name: 'Manage',
-        to: '/access/Documents',
+        to: '/Documents',
         icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
         items: [
           {
             component: CNavItem,
             name: 'Search',
-            to: '/access/search',
+            to: '/search',
           },
           {
             component: CNavItem,
             name: 'Pages',
-            to: '/access/pages',
-          },
-          {
-            component: CNavItem,
-            name: 'View',
-            to: '/access/view',
+            to: '/pages',
           },
         ],
       },
@@ -102,23 +97,18 @@ const _nav = isUserSuperAdmin
       {
         component: CNavGroup,
         name: 'Manage',
-        to: '/access/Documents',
+        to: '/Documents',
         icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
         items: [
           {
             component: CNavItem,
             name: 'Search',
-            to: '/access/search',
+            to: '/search',
           },
           {
             component: CNavItem,
             name: 'Pages',
-            to: '/access/pages',
-          },
-          {
-            component: CNavItem,
-            name: 'View',
-            to: '/access/view',
+            to: '/pages',
           },
         ],
       },
@@ -129,23 +119,18 @@ const _nav = isUserSuperAdmin
       {
         component: CNavGroup,
         name: 'Maintenance',
-        to: '/access/Documents',
+        to: '/Documents',
         icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
         items: [
           {
             component: CNavItem,
             name: 'Search',
-            to: '/access/search',
+            to: '/search',
           },
           {
             component: CNavItem,
             name: 'Pages',
             to: '',
-          },
-          {
-            component: CNavItem,
-            name: 'View',
-            to: '/access/view',
           },
         ],
       },
@@ -156,13 +141,13 @@ const _nav = isUserSuperAdmin
       {
         component: CNavGroup,
         name: 'Expense',
-        to: '/access/Documents',
+        to: '/Documents',
         icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
         items: [
           {
             component: CNavItem,
             name: 'Search',
-            to: '/access/search',
+            to: '/search',
           },
           {
             component: CNavItem,
@@ -172,7 +157,7 @@ const _nav = isUserSuperAdmin
           {
             component: CNavItem,
             name: 'View',
-            to: '/access/view',
+            to: '/view',
           },
         ],
       },
@@ -448,25 +433,25 @@ const _nav = isUserSuperAdmin
         {
           component: CNavItem,
           name: 'Organization',
-          to: '/access/organization-details',
+          to: '/organization-details',
           icon: <CIcon icon={cilHome} customClassName="nav-icon" />,
         },
         {
           component: CNavItem,
           name: 'Properties',
-          to: '/access/locations',
+          to: '/locations',
           icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
         },
         {
           component: CNavGroup,
           name: 'Users',
-          to: '/access/users',
+          to: '/users',
           icon: <CIcon icon={cilGroup} customClassName="nav-icon" />,
           items: [
             {
               component: CNavItem,
               name: 'Property',
-              to: '/access/location-users',
+              to: '/location-users',
             },
           ],
         },
@@ -477,13 +462,13 @@ const _nav = isUserSuperAdmin
         {
           component: CNavGroup,
           name: 'Manage',
-          to: '/access/Documents',
+          to: '/Documents',
           icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
           items: [
             {
               component: CNavItem,
               name: 'Search',
-              to: '/access/search',
+              to: '/search',
             },
             {
               component: CNavItem,
@@ -493,7 +478,7 @@ const _nav = isUserSuperAdmin
             {
               component: CNavItem,
               name: 'View',
-              to: '/access/view',
+              to: '/view',
             },
           ],
         },
@@ -504,13 +489,13 @@ const _nav = isUserSuperAdmin
         {
           component: CNavGroup,
           name: 'Manage',
-          to: '/access/Documents',
+          to: '/Documents',
           icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
           items: [
             {
               component: CNavItem,
               name: 'Search',
-              to: '/access/search',
+              to: '/search',
             },
             {
               component: CNavItem,
@@ -520,7 +505,7 @@ const _nav = isUserSuperAdmin
             {
               component: CNavItem,
               name: 'View',
-              to: '/access/view',
+              to: '/view',
             },
           ],
         },
@@ -531,23 +516,18 @@ const _nav = isUserSuperAdmin
         {
           component: CNavGroup,
           name: 'Maintenance',
-          to: '/access/Documents',
+          to: '/Documents',
           icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
           items: [
             {
               component: CNavItem,
               name: 'Search',
-              to: '/access/search',
+              to: '/search',
             },
             {
               component: CNavItem,
               name: 'Pages',
               to: '',
-            },
-            {
-              component: CNavItem,
-              name: 'View',
-              to: '/access/view',
             },
           ],
         },
@@ -558,23 +538,18 @@ const _nav = isUserSuperAdmin
         {
           component: CNavGroup,
           name: 'Expense',
-          to: '/access/Documents',
+          to: '/Documents',
           icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
           items: [
             {
               component: CNavItem,
               name: 'Search',
-              to: '/access/search',
+              to: '/search',
             },
             {
               component: CNavItem,
               name: 'Pages',
               to: '',
-            },
-            {
-              component: CNavItem,
-              name: 'View',
-              to: '/access/view',
             },
           ],
         },
@@ -598,13 +573,13 @@ const _nav = isUserSuperAdmin
           {
             component: CNavItem,
             name: 'Organization',
-            to: '/access/organization-details',
+            to: '/organization-details',
             icon: <CIcon icon={cilHome} customClassName="nav-icon" />,
           },
           {
             component: CNavItem,
             name: 'Property',
-            to: '/access/location-details',
+            to: '/location-details',
             icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
           },
 
@@ -615,7 +590,7 @@ const _nav = isUserSuperAdmin
           {
             component: CNavGroup,
             name: 'Manage',
-            to: '/access/Documents',
+            to: '/Documents',
             icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
             items: [
               {
@@ -626,12 +601,7 @@ const _nav = isUserSuperAdmin
               {
                 component: CNavItem,
                 name: 'Pages',
-                to: '/access/page-list',
-              },
-              {
-                component: CNavItem,
-                name: 'View',
-                to: '/access/view',
+                to: '/page-list',
               },
             ],
           },
@@ -642,13 +612,13 @@ const _nav = isUserSuperAdmin
           {
             component: CNavGroup,
             name: 'Manage',
-            to: '/access/Documents',
+            to: '/Documents',
             icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
             items: [
               {
                 component: CNavItem,
                 name: 'Search',
-                to: '/access/search',
+                to: '/search',
               },
               {
                 component: CNavItem,
@@ -658,7 +628,7 @@ const _nav = isUserSuperAdmin
               {
                 component: CNavItem,
                 name: 'View',
-                to: '/access/view',
+                to: '/view',
               },
             ],
           },
@@ -669,23 +639,18 @@ const _nav = isUserSuperAdmin
           {
             component: CNavGroup,
             name: 'Maintenance',
-            to: '/access/Documents',
+            to: '/Documents',
             icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
             items: [
               {
                 component: CNavItem,
                 name: 'Search',
-                to: '/access/search',
+                to: '/search',
               },
               {
                 component: CNavItem,
                 name: 'Pages',
                 to: '',
-              },
-              {
-                component: CNavItem,
-                name: 'View',
-                to: '/access/view',
               },
             ],
           },
@@ -696,13 +661,13 @@ const _nav = isUserSuperAdmin
           {
             component: CNavGroup,
             name: 'Expense',
-            to: '/access/Documents',
+            to: '/Documents',
             icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
             items: [
               {
                 component: CNavItem,
                 name: 'Search',
-                to: '/access/search',
+                to: '/search',
               },
               {
                 component: CNavItem,
@@ -712,7 +677,7 @@ const _nav = isUserSuperAdmin
               {
                 component: CNavItem,
                 name: 'View',
-                to: '/access/view',
+                to: '/view',
               },
             ],
           },
