@@ -22,6 +22,7 @@ import {
 } from '@coreui/react'
 import SearchPagePanel from '../../../components/SearchPagePanel'
 import { downloadFile } from '../../../services/FileService'
+import { dicPageTagsDisplayName } from '../../../services/Utility'
 
 function SearchPages() {
   const [pagesList, setPagesList] = useState([])
@@ -45,14 +46,23 @@ function SearchPages() {
     await fetchSearchPages(_params)
   }
 
-  async function handleViewFile(bPath) {
+  async function handleViewFile(bPath, isView = true) {
+    let _fileName = bPath.split('/')[1]
+
     await downloadFile(bPath).then((res) => {
       console.log('downloaded file', res.data)
       const file = new Blob([res.data], { type: 'application/pdf' })
       const fileURL = URL.createObjectURL(file)
-      //window.open(fileURL)
-      setVisible(true)
-      setDownloaded(fileURL)
+      if (isView) {
+        setVisible(true)
+        setDownloaded(fileURL)
+      } else {
+        const link = document.createElement('a')
+        link.href = fileURL
+        link.setAttribute('download', _fileName) //or any other extension
+        document.body.appendChild(link)
+        link.click()
+      }
     })
   }
   return (
@@ -76,10 +86,10 @@ function SearchPages() {
             return (
               <CAccordionItem itemKey={key} key={key}>
                 <CAccordionHeader>
-                  {item.pageName}#{item.data.content.substring(1, 40)}
+                  {item.pageName}#{item.data.content.substring(1, 40)} {key}
                 </CAccordionHeader>
                 <CAccordionBody>
-                  <CRow>
+                  <CRow key={key}>
                     <CCol md={9}>
                       <Highlighter
                         highlightClassName="search-text-highlight"
@@ -98,9 +108,13 @@ function SearchPages() {
                           </CCardTitle>
                           <CCardText>
                             {Object.keys(item?.tags).map((key) => (
-                              <div>
-                                {key}: {item?.tags[key]}
-                              </div>
+                              <span
+                                key={key}
+                                className="d-block"
+                                style={{ fontWeight: 500, color: 'darkred' }}
+                              >
+                                {dicPageTagsDisplayName[key]}:<i> {item?.tags[key]}</i>
+                              </span>
                             ))}
                           </CCardText>
                           <div className="position-relative">
@@ -112,11 +126,15 @@ function SearchPages() {
                             color="primary"
                             href="#"
                             style={{ marginRight: 3 }}
-                            onClick={() => handleViewFile(item.pageBlobPath)}
+                            onClick={() => handleViewFile(item.pageBlobPath, true)}
                           >
                             View
                           </CButton>
-                          <CButton color="primary" href="#">
+                          <CButton
+                            color="primary"
+                            href="#"
+                            onClick={() => handleViewFile(item.pageBlobPath, false)}
+                          >
                             Download
                           </CButton>
                         </CCardBody>

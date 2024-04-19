@@ -85,3 +85,17 @@ export const keydownValidNumberCheck = (e) => {
     e.preventDefault()
   }
 }
+
+/**
+ * Page Tags: Key >> Key Display Name
+ */
+
+export const dicPageTagsDisplayName = {
+  name: 'Name',
+  confirmationNumber: 'Confirmation#',
+  arrivalDate: 'Arrival Date',
+  departureDate: 'Departure Date',
+  createdDate: 'Created Date',
+  content: 'Content',
+  phone: 'Phone#',
+}
