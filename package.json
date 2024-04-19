@@ -57,8 +57,5 @@
     "prettier": "3.2.5",
     "sass": "^1.71.1",
     "vite": "^5.1.6"
-  },
-  "assets": [
-    "src/web.config"
-  ]
+  }
 }
