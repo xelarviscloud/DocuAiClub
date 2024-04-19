@@ -621,7 +621,7 @@ const _nav = isUserSuperAdmin
               {
                 component: CNavItem,
                 name: 'Search',
-                to: '/access/search',
+                to: '/search',
               },
               {
                 component: CNavItem,
