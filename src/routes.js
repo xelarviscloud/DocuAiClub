@@ -134,6 +134,11 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
+  {
+    route: '/*',
+    serve: '/index.html',
+    statusCode: 200,
+  },
 ]
 
 export default routes
