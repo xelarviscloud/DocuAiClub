@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 
 import { useColorModes } from '@coreui/react'
 import { Toaster } from 'react-hot-toast'
@@ -36,7 +36,7 @@ const App = () => {
   return (
     <>
       <Toaster position="top-center" />
-      <BrowserRouter>
+      <HashRouter>
         <Suspense>
           <Routes>
             <Route exact path="/" name="Login Page" element={<Login />} />
@@ -46,7 +46,7 @@ const App = () => {
             <Route path="*" name="Home" element={<DefaultLayout />} />
           </Routes>
         </Suspense>
-      </BrowserRouter>
+      </HashRouter>
     </>
   )
 }
