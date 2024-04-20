@@ -110,12 +110,37 @@ function SearchPages() {
         ''
       )}
       {
-        <CModal visible={visible} onClose={() => setVisible(false)}>
-          <CModalHeader onClose={() => setVisible(false)}></CModalHeader>
-          <CModalBody style={{ padding: 0 }}>
-            <PDFViewer blob={downloaded}></PDFViewer>
-          </CModalBody>
-        </CModal>
+        // <CModal visible={visible} onClose={() => setVisible(false)}>
+        //   <CModalHeader onClose={() => setVisible(false)}></CModalHeader>
+        //   <CModalBody style={{ padding: 0 }}>
+        //     <PDFViewer blob={downloaded}></PDFViewer>
+        //   </CModalBody>
+        // </CModal>
+        <>
+          {/* <CButton color="primary" onClick={() => setSidebarVisible(true)}>
+            Toggle offcanvas
+          </CButton> */}
+          <COffcanvas
+            id="pdfView"
+            placement="end"
+            visible={visible}
+            onHide={() => setVisible(false)}
+          >
+            <COffcanvasHeader className="justify-content-between">
+              <COffcanvasTitle>Details</COffcanvasTitle>
+              <CCloseButton
+                className="text-reset"
+                onClick={() => {
+                  document.body.style.overflow = 'auto'
+                  setVisible(false)
+                }}
+              />
+            </COffcanvasHeader>
+            <COffcanvasBody>
+              <PDFViewer blob={downloaded}></PDFViewer>
+            </COffcanvasBody>
+          </COffcanvas>
+        </>
       }
       <CAccordion activeItemKey={-1}>
         {pagesList?.map((item, key) => {

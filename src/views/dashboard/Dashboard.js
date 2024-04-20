@@ -15,6 +15,11 @@ import {
   CModalTitle,
   CModalBody,
   CModalHeader,
+  COffcanvas,
+  COffcanvasHeader,
+  COffcanvasTitle,
+  COffcanvasBody,
+  CCloseButton,
 } from '@coreui/react'
 
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
@@ -35,7 +40,7 @@ const Dashboard = () => {
   const token = localStorage.getItem('token')
   const decodedToken = jwtDecode(token)
 
-  const [visible, setVisible] = useState(false)
+  const [sidebarVisible, setSidebarVisible] = useState(false)
   const [downloaded, setDownloaded] = useState()
   const [userLocationId, setUserLocationId] = useState(decodedToken.locationId)
   const [tableExample, setTableExample] = useState([])
@@ -60,13 +65,13 @@ const Dashboard = () => {
       const file = new Blob([res.data], { type: 'application/pdf' })
       const fileURL = URL.createObjectURL(file)
       // window.open(fileURL)
-      setVisible(true)
+      setSidebarVisible(true)
       setDownloaded(fileURL)
     })
   }
 
   async function closePdfView() {
-    setVisible(false)
+    setSidebarVisible(false)
   }
 
   async function refreshFiles() {
@@ -175,7 +180,7 @@ const Dashboard = () => {
       </CCard>
       <CRow>
         <CCol xs>
-          {!visible ? (
+          {!sidebarVisible ? (
             <CCard className="mb-4">
               <CCardHeader>Documents</CCardHeader>
               <CCardBody>
@@ -183,16 +188,34 @@ const Dashboard = () => {
               </CCardBody>
             </CCard>
           ) : (
-            <CModal
-              visible={visible}
-              onClose={() => setVisible(false)}
-              aria-labelledby="View PDF Page"
-            >
-              <CModalHeader onClose={() => setVisible(false)}></CModalHeader>
-              <CModalBody>
-                <PDFViewer blob={downloaded}></PDFViewer>
-              </CModalBody>
-            </CModal>
+            // <CModal visible={visible} onClose={() => setVisible(false)}>
+            //   <CModalHeader onClose={() => setVisible(false)}></CModalHeader>
+            //   <CModalBody>
+            //     <PDFViewer blob={downloaded}></PDFViewer>
+            //   </CModalBody>
+            // </CModal>
+            <>
+              <COffcanvas
+                id="pdfView"
+                placement="end"
+                visible={sidebarVisible}
+                onHide={() => setSidebarVisible(false)}
+              >
+                <COffcanvasHeader className="justify-content-between">
+                  <COffcanvasTitle>Details</COffcanvasTitle>
+                  <CCloseButton
+                    className="text-reset"
+                    onClick={() => {
+                      document.body.style.overflow = 'auto'
+                      setSidebarVisible(false)
+                    }}
+                  />
+                </COffcanvasHeader>
+                <COffcanvasBody>
+                  <PDFViewer blob={downloaded}></PDFViewer>
+                </COffcanvasBody>
+              </COffcanvas>
+            </>
           )}
         </CCol>
       </CRow>
