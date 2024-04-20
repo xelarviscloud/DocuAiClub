@@ -180,45 +180,36 @@ const Dashboard = () => {
       </CCard>
       <CRow>
         <CCol xs>
-          {!sidebarVisible ? (
-            <CCard className="mb-4">
-              <CCardHeader>Documents</CCardHeader>
-              <CCardBody>
-                <DocumentsTable downloadPdfFile={downloadPdfFile} tableExampleData={tableExample} />
-              </CCardBody>
-            </CCard>
-          ) : (
-            // <CModal visible={visible} onClose={() => setVisible(false)}>
-            //   <CModalHeader onClose={() => setVisible(false)}></CModalHeader>
-            //   <CModalBody>
-            //     <PDFViewer blob={downloaded}></PDFViewer>
-            //   </CModalBody>
-            // </CModal>
-            <>
-              <COffcanvas
-                id="pdfView"
-                placement="end"
-                visible={sidebarVisible}
-                onHide={() => setSidebarVisible(false)}
-              >
-                <COffcanvasHeader className="justify-content-between">
-                  <COffcanvasTitle>Details</COffcanvasTitle>
-                  <CCloseButton
-                    className="text-reset"
-                    onClick={() => {
-                      document.body.style.overflow = 'auto'
-                      setSidebarVisible(false)
-                    }}
-                  />
-                </COffcanvasHeader>
-                <COffcanvasBody>
-                  <PDFViewer blob={downloaded}></PDFViewer>
-                </COffcanvasBody>
-              </COffcanvas>
-            </>
-          )}
+          <CCard className="mb-4">
+            <CCardHeader>Documents</CCardHeader>
+            <CCardBody>
+              <DocumentsTable downloadPdfFile={downloadPdfFile} tableExampleData={tableExample} />
+            </CCardBody>
+          </CCard>
         </CCol>
       </CRow>
+      <>
+        <COffcanvas
+          id="pdfView"
+          placement="end"
+          visible={sidebarVisible}
+          onHide={() => setSidebarVisible(false)}
+        >
+          <COffcanvasHeader className="justify-content-between">
+            <COffcanvasTitle>Details</COffcanvasTitle>
+            <CCloseButton
+              className="text-reset"
+              onClick={() => {
+                document.body.style.overflow = 'auto'
+                setSidebarVisible(false)
+              }}
+            />
+          </COffcanvasHeader>
+          <COffcanvasBody>
+            <PDFViewer blob={downloaded}></PDFViewer>
+          </COffcanvasBody>
+        </COffcanvas>
+      </>
     </>
   )
 }
