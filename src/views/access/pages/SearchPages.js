@@ -81,9 +81,6 @@ function SearchPages() {
       ></SearchPagePanel>
       {sidebarVisible ? (
         <>
-          {/* <CButton color="primary" onClick={() => setSidebarVisible(true)}>
-            Toggle offcanvas
-          </CButton> */}
           <COffcanvas
             placement="end"
             visible={sidebarVisible}
@@ -110,16 +107,7 @@ function SearchPages() {
         ''
       )}
       {
-        // <CModal visible={visible} onClose={() => setVisible(false)}>
-        //   <CModalHeader onClose={() => setVisible(false)}></CModalHeader>
-        //   <CModalBody style={{ padding: 0 }}>
-        //     <PDFViewer blob={downloaded}></PDFViewer>
-        //   </CModalBody>
-        // </CModal>
         <>
-          {/* <CButton color="primary" onClick={() => setSidebarVisible(true)}>
-            Toggle offcanvas
-          </CButton> */}
           <COffcanvas
             id="pdfView"
             placement="end"
@@ -182,12 +170,13 @@ function SearchPages() {
                         <CButton
                           color="primary"
                           href="#"
-                          style={{ marginRight: 3 }}
+                          style={{ margin: 3 }}
                           onClick={() => handleViewFile(item.pageBlobPath, true)}
                         >
                           View
                         </CButton>
                         <CButton
+                          style={{ margin: 3 }}
                           color="primary"
                           href="#"
                           onClick={() => handleViewFile(item.pageBlobPath, false)}
@@ -195,6 +184,7 @@ function SearchPages() {
                           Download
                         </CButton>
                         <CButton
+                          style={{ margin: 3 }}
                           color="link"
                           shape="rounded-0"
                           onClick={() => {
