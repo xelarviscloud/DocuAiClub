@@ -1,4 +1,5 @@
 import {
+  cilAppsSettings,
   cilBell,
   cilCommentSquare,
   cilEnvelopeOpen,
@@ -77,9 +78,13 @@ const AppHeaderDropdown = () => {
           </CBadge>
         </CDropdownItem> */}
         {/* <CDropdownHeader className="bg-body-secondary fw-semibold my-2">Settings</CDropdownHeader> */}
-        <CDropdownItem href="/">
+        <CDropdownItem href="/user-profile">
           <CIcon icon={cilUser} className="me-2" />
           Profile
+        </CDropdownItem>
+        <CDropdownItem href="/change-password">
+          <CIcon icon={cilSettings} className="me-2" />
+          Change Password
         </CDropdownItem>
         {/* <CDropdownItem href="/">
           <CIcon icon={cilSettings} className="me-2" />
