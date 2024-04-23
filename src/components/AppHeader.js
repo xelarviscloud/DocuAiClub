@@ -5,7 +5,9 @@ import {
   cilList,
   cilMenu,
   cilMoon,
+  cilPowerStandby,
   cilSun,
+  cilUser,
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import {
@@ -72,13 +74,11 @@ const AppHeader = () => {
         <CHeaderNav className=" d-none d-sm-flex flex-column ms-auto me-2 text-center">
           <CNavItem>
             <CNavbarText>
-              Welcome {decodedToken?.firstName + " " + decodedToken?.lastName} !!
+              Welcome <i>{decodedToken?.firstName + ', ' + decodedToken?.lastName}</i>
             </CNavbarText>
           </CNavItem>
           <CNavItem>
-            <CNavbarText>
-              {decodedToken?.role}
-            </CNavbarText>
+            <CNavbarText>{decodedToken?.roleDescription}</CNavbarText>
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav className="ms-auto ms-sm-0">
