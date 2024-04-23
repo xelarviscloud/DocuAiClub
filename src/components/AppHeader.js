@@ -17,6 +17,7 @@ import {
   CHeader,
   CHeaderNav,
   CHeaderToggler,
+  CNavbarText,
   CNavItem,
   CNavLink,
   useColorModes,
@@ -27,6 +28,7 @@ import { NavLink } from 'react-router-dom'
 
 import { AppHeaderDropdown } from './header/index'
 import { AppBreadcrumb } from './index'
+import { jwtDecode } from 'jwt-decode'
 
 const AppHeader = () => {
   const headerRef = useRef()
@@ -41,6 +43,9 @@ const AppHeader = () => {
         headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
     })
   }, [])
+
+  const token = localStorage.getItem('token')
+  const decodedToken = jwtDecode(token)
 
   return (
     <CHeader position="sticky" className="mb-4 p-0" ref={headerRef}>
@@ -64,7 +69,19 @@ const AppHeader = () => {
             <CNavLink href="/">Settings</CNavLink>
           </CNavItem> */}
         </CHeaderNav>
-        <CHeaderNav className="ms-auto">
+        <CHeaderNav className=" d-none d-sm-flex flex-column ms-auto me-2 text-center">
+          <CNavItem>
+            <CNavbarText>
+              Welcome {decodedToken?.firstName + " " + decodedToken?.lastName} !!
+            </CNavbarText>
+          </CNavItem>
+          <CNavItem>
+            <CNavbarText>
+              {decodedToken?.role}
+            </CNavbarText>
+          </CNavItem>
+        </CHeaderNav>
+        <CHeaderNav className="ms-auto ms-sm-0">
           <CNavItem>
             <CNavLink href="/">
               <CIcon icon={cilBell} size="lg" />
