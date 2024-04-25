@@ -50,7 +50,7 @@ function Login() {
             navigate('/dashboard')
           }
           setValues({})
-          //toast.success(response?.message)
+          toast.success(response?.message)
         })
         .catch((error) => {
           toast.error(error?.response?.data?.error)
