@@ -23,7 +23,8 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm install anylibirary --legacy-peer-deps
+          npm config set legacy-peer-deps true
+          npm install --legacy-peer-deps
           npm run build --if-present
           npm run test --if-present
 
