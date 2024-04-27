@@ -2,7 +2,7 @@
   "name": "@coreui/coreui-free-react-admin-template",
   "version": "5.0.0-rc.0",
   "description": "CoreUI Free React Admin Template",
-  "homepage": ".",
+  "homepage": "/",
   "bugs": {
     "url": "https://github.com/coreui/coreui-free-react-admin-template/issues"
   },
@@ -31,13 +31,17 @@
     "chart.js": "^4.4.2",
     "classnames": "^2.5.1",
     "core-js": "^3.36.0",
+    "crypto-js": "^4.2.0",
     "jwt-decode": "^4.0.0",
+    "moment": "^2.30.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-highlight-words": "^0.20.0",
     "react-hot-toast": "^2.4.1",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.22.3",
+    "react-text-to-speech": "^0.12.0",
     "redux": "5.0.1",
     "simplebar-react": "^3.2.4"
   },

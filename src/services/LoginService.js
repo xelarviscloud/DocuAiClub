@@ -9,3 +9,27 @@ export async function userLogin(body) {
     throw error
   }
 }
+
+/**
+ * VERIFY EMAIL
+ */
+export async function addVerifyEmail(body) {
+  try {
+    const response = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/verification`, body, {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    })
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export async function updateUserProfile(body) {
+  return await axios.put(`${process.env.REACT_APP_LOCAL_URL}/user/updateUserProfile`, body, {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+    },
+  })
+}

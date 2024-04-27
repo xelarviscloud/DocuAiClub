@@ -1,17 +1,17 @@
-import React, { useRef, useState } from 'react'
 import {
-  CCard,
-  CCardHeader,
-  CCardBody,
   CButton,
-  CRow,
+  CCard,
+  CCardBody,
+  CCardHeader,
   CCol,
+  CRow,
   CToast,
   CToastBody,
   CToastClose,
   CToastHeader,
   CToaster,
 } from '@coreui/react'
+import React, { useRef, useState } from 'react'
 import { DocsExample } from 'src/components'
 
 const ExampleToast = () => {

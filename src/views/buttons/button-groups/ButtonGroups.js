@@ -1,23 +1,23 @@
-import React from 'react'
 import {
   CButton,
-  CDropdown,
-  CDropdownDivider,
-  CDropdownItem,
-  CDropdownMenu,
-  CDropdownToggle,
   CButtonGroup,
   CButtonToolbar,
   CCard,
   CCardBody,
   CCardHeader,
   CCol,
+  CDropdown,
+  CDropdownDivider,
+  CDropdownItem,
+  CDropdownMenu,
+  CDropdownToggle,
   CFormCheck,
   CFormInput,
   CInputGroup,
   CInputGroupText,
   CRow,
 } from '@coreui/react'
+import React from 'react'
 import { DocsExample } from 'src/components'
 
 const ButtonGroups = () => {

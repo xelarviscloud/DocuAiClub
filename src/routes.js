@@ -1,15 +1,26 @@
 import React from 'react'
+import LocationDetails from './views/access/locations/LocationDetails'
+import react from 'react'
+import { element } from 'prop-types'
+import UpdateUserProfile from './views/access/users/UpdateUserProfile'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 // Access
 const Organizations = React.lazy(() => import('./views/access/organizations/Organizations'))
-const RegisterOrganization = React.lazy(
-  () => import('./views/access/register-organization/RegisterOrganization'),
+const OrganizationDetails = React.lazy(
+  () => import('./views/access/organizations/OrganizationDetails'),
 )
-const Users = React.lazy(() => import('./views/access/users/Users'))
-
+const RegisterOrganization = React.lazy(
+  () => import('./views/access/organizations/RegisterOrganization'),
+)
+const Locations = React.lazy(() => import('./views/access/locations/Locations'))
+const OrganizationUsers = React.lazy(() => import('./views/access/users/OrganizationUsers'))
+const LocationUsers = React.lazy(() => import('./views/access/users/LocationUsers'))
+const FileUpload = React.lazy(() => import('./views/access/documents/FileUpload'))
+const PageList = React.lazy(() => import('./views/access/pages/PageList'))
+const SearchPages = React.lazy(() => import('./views/access/pages/SearchPages'))
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
@@ -62,15 +73,34 @@ const routes = [
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
 
-  { path: '/access/documents', name: 'Documents', element: Colors },
-  { path: '/access/organizations', name: 'Organizations', element: Organizations },
+  { path: '/documents', name: 'Documents', element: Colors },
+  { path: '/organizations', name: 'Organizations', element: Organizations },
   {
-    path: '/access/register-organization',
+    path: '/organization-details',
+    name: 'Organization Details',
+    element: OrganizationDetails,
+  },
+  {
+    path: '/location-details',
+    name: 'Location Details',
+    element: LocationDetails,
+  },
+  {
+    path: '/register-organization',
     name: 'Register Organization',
     element: RegisterOrganization,
   },
-  { path: '/access/locations', name: 'Locations', element: Colors },
-  { path: '/access/users', name: 'Users', element: Users },
+  {
+    path: '/user-profile',
+    name: 'User Profile',
+    element: UpdateUserProfile,
+  },
+  { path: '/search', name: 'Search', element: SearchPages },
+  { path: '/locations', name: 'Properties', element: Locations },
+  { path: '/organization-users', name: 'Organization Admin', element: OrganizationUsers },
+  { path: '/location-users', name: 'Property Admin', element: LocationUsers },
+
+  { path: '/page-list', name: 'Pages', element: PageList },
 
   { path: '/base', name: 'Base', element: Cards, exact: true },
   { path: '/base/accordion', name: 'Accordion', element: Accordion },

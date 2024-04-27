@@ -1,10 +1,8 @@
-import React from 'react'
 import {
-  CRow,
-  CCol,
   CCard,
   CCardBody,
   CCardHeader,
+  CCol,
   CDropdown,
   CDropdownItem,
   CDropdownMenu,
@@ -12,7 +10,9 @@ import {
   CNav,
   CNavItem,
   CNavLink,
+  CRow,
 } from '@coreui/react'
+import React from 'react'
 import { DocsExample } from 'src/components'
 
 const Navs = () => {

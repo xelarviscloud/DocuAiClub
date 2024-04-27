@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CCollapse, CRow } from '@coreui/react'
+import React, { useState } from 'react'
 import { DocsExample } from 'src/components'
 
 const Collapses = () => {

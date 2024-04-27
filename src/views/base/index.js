@@ -22,10 +22,9 @@ export {
   Jumbotrons,
   ListGroups,
   Navbars,
-  Navs,
-  Popovers,
+  Navs, Paginations, Popovers,
   ProgressBar,
   Tabs,
-  Tooltips,
-  Paginations,
+  Tooltips
 }
+

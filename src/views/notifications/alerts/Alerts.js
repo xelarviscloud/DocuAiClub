@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   CAlert,
   CAlertHeading,
@@ -9,6 +8,7 @@ import {
   CCol,
   CRow,
 } from '@coreui/react'
+import React from 'react'
 import { DocsExample } from 'src/components'
 
 const Alerts = () => {

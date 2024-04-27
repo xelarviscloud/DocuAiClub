@@ -1,15 +1,15 @@
-import React from 'react'
 import {
+  CAccordion,
+  CAccordionBody,
+  CAccordionHeader,
+  CAccordionItem,
   CCard,
   CCardBody,
   CCardHeader,
   CCol,
   CRow,
-  CAccordion,
-  CAccordionBody,
-  CAccordionHeader,
-  CAccordionItem,
 } from '@coreui/react'
+import React from 'react'
 import { DocsExample } from 'src/components'
 
 const Accordion = () => {

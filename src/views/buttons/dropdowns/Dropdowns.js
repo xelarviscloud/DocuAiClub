@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   CButton,
   CButtonGroup,
@@ -13,6 +12,7 @@ import {
   CDropdownToggle,
   CRow,
 } from '@coreui/react'
+import React from 'react'
 import { DocsExample } from 'src/components'
 
 const Dropdowns = () => {

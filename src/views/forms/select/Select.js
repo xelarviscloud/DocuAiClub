@@ -1,5 +1,5 @@
-import React from 'react'
 import { CCard, CCardBody, CCardHeader, CCol, CFormSelect, CRow } from '@coreui/react'
+import React from 'react'
 import { DocsExample } from 'src/components'
 
 const Select = () => {

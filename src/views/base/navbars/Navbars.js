@@ -1,24 +1,24 @@
-import React, { useState } from 'react'
 import {
+  CButton,
   CCard,
   CCardBody,
   CCardHeader,
   CCollapse,
+  CDropdown,
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
   CForm,
   CFormInput,
   CImage,
+  CNavLink,
   CNavbar,
-  CNavbarNav,
   CNavbarBrand,
+  CNavbarNav,
   CNavbarText,
   CNavbarToggler,
-  CNavLink,
-  CDropdown,
-  CButton,
 } from '@coreui/react'
+import React, { useState } from 'react'
 import { DocsLink } from 'src/components'
 
 const CNavbars = () => {

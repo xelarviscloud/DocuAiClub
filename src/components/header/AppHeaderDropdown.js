@@ -1,6 +1,15 @@
-import React from 'react'
 import {
-  CAvatar,
+  cilAppsSettings,
+  cilBell,
+  cilCommentSquare,
+  cilEnvelopeOpen,
+  cilLockLocked,
+  cilSettings,
+  cilTask,
+  cilUser,
+} from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
+import {
   CBadge,
   CDropdown,
   CDropdownDivider,
@@ -9,61 +18,20 @@ import {
   CDropdownMenu,
   CDropdownToggle,
 } from '@coreui/react'
-import {
-  cilBell,
-  cilCreditCard,
-  cilCommentSquare,
-  cilEnvelopeOpen,
-  cilFile,
-  cilLockLocked,
-  cilSettings,
-  cilTask,
-  cilUser,
-  cilUserX,
-} from '@coreui/icons'
-import CIcon from '@coreui/icons-react'
+import React from 'react'
 
-import avatar8 from './../../assets/images/avatars/8.jpg'
 import { useNavigate } from 'react-router-dom'
+import { removeCookie } from '../../resources/utility'
 
 const AppHeaderDropdown = () => {
   const navigate = useNavigate()
-  const Role = localStorage.getItem('role')
-
-  function removeCookie(name) {
-    const expirationDate = new Date() // A past date
-
-    const expires = 'expires=' + expirationDate.toUTCString()
-    document.cookie = `${name}=; ${expires}; path=/`
-  }
 
   const handleOnClick = () => {
     localStorage.removeItem('token')
     removeCookie('token')
-    if (Role === 'superadmin') {
-      localStorage.removeItem('role')
-      localStorage.removeItem('username')
-      localStorage.removeItem('email')
-      navigate('/')
-    } else if (Role === 'organizationuser') {
-      localStorage.removeItem('role')
-      localStorage.removeItem('username')
-      localStorage.removeItem('email')
-      localStorage.removeItem('is_verified')
-      localStorage.removeItem('organizationid')
-      localStorage.removeItem('organizationuserid')
-      navigate('/')
-    } else if (Role === 'locationuser') {
-      localStorage.removeItem('role')
-      localStorage.removeItem('username')
-      localStorage.removeItem('email')
-      localStorage.removeItem('is_verified')
-      localStorage.removeItem('locationid')
-      localStorage.removeItem('locationuserid')
-      localStorage.removeItem('organizationid')
-      navigate('/')
-    }
+    navigate('/')
   }
+
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>
@@ -80,8 +48,8 @@ const AppHeaderDropdown = () => {
         />
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
-        <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">Account</CDropdownHeader>
-        <CDropdownItem href="/">
+        {/* <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">Account</CDropdownHeader> */}
+        {/* <CDropdownItem href="/">
           <CIcon icon={cilBell} className="me-2" />
           Updates
           <CBadge color="info" className="ms-2">
@@ -108,16 +76,20 @@ const AppHeaderDropdown = () => {
           <CBadge color="warning" className="ms-2">
             42
           </CBadge>
-        </CDropdownItem>
-        <CDropdownHeader className="bg-body-secondary fw-semibold my-2">Settings</CDropdownHeader>
-        <CDropdownItem href="/">
+        </CDropdownItem> */}
+        {/* <CDropdownHeader className="bg-body-secondary fw-semibold my-2">Settings</CDropdownHeader> */}
+        <CDropdownItem href="/user-profile">
           <CIcon icon={cilUser} className="me-2" />
           Profile
         </CDropdownItem>
-        <CDropdownItem href="/">
+        <CDropdownItem href="/change-password">
+          <CIcon icon={cilSettings} className="me-2" />
+          Change Password
+        </CDropdownItem>
+        {/* <CDropdownItem href="/">
           <CIcon icon={cilSettings} className="me-2" />
           Settings
-        </CDropdownItem>
+        </CDropdownItem> */}
         {/* <CDropdownItem href="/">
           <CIcon icon={cilCreditCard} className="me-2" />
           Payments

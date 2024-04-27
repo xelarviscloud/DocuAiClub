@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   CCard,
   CCardBody,
@@ -9,6 +8,7 @@ import {
   CCol,
   CRow,
 } from '@coreui/react'
+import React from 'react'
 import { DocsExample } from 'src/components'
 
 import AngularImg from 'src/assets/images/angular.jpg'

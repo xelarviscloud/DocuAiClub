@@ -1,4 +1,4 @@
-function setCookie(name, value, hours) {
+export function setCookie(name, value, hours) {
   const now = new Date()
   const expirationDate = new Date(now.getTime() + hours * 60 * 60 * 1000)
 
@@ -6,4 +6,9 @@ function setCookie(name, value, hours) {
   document.cookie = `${name}=${value}; ${expires}; path=/`
 }
 
-export default setCookie
+export function removeCookie(name) {
+  const expirationDate = new Date() // A past date
+
+  const expires = 'expires=' + expirationDate.toUTCString()
+  document.cookie = `${name}=; ${expires}; path=/`
+}

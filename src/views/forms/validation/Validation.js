@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import {
   CButton,
   CCard,
@@ -7,8 +6,8 @@ import {
   CCol,
   CForm,
   CFormCheck,
-  CFormInput,
   CFormFeedback,
+  CFormInput,
   CFormLabel,
   CFormSelect,
   CFormTextarea,
@@ -16,6 +15,7 @@ import {
   CInputGroupText,
   CRow,
 } from '@coreui/react'
+import React, { useState } from 'react'
 import { DocsExample } from 'src/components'
 
 const CustomStyles = () => {

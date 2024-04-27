@@ -1,6 +1,15 @@
-import React, { useEffect, useRef } from 'react'
-import { NavLink } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import {
+  cilBell,
+  cilContrast,
+  cilEnvelopeOpen,
+  cilList,
+  cilMenu,
+  cilMoon,
+  cilPowerStandby,
+  cilSun,
+  cilUser,
+} from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 import {
   CContainer,
   CDropdown,
@@ -10,25 +19,20 @@ import {
   CHeader,
   CHeaderNav,
   CHeaderToggler,
-  CNavLink,
+  CNavbarText,
   CNavItem,
+  CNavLink,
   useColorModes,
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import {
-  cilBell,
-  cilContrast,
-  cilEnvelopeOpen,
-  cilList,
-  cilMenu,
-  cilMoon,
-  cilSun,
-} from '@coreui/icons'
+import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 
-import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
+import { AppBreadcrumb } from './index'
 
 const AppHeader = () => {
+  const [decodedToken, setDecodedToken] = useState({})
   const headerRef = useRef()
   const { colorMode, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
 
@@ -36,11 +40,16 @@ const AppHeader = () => {
   const sidebarShow = useSelector((state) => state.sidebarShow)
 
   useEffect(() => {
+    setDecodedToken(JSON.parse(localStorage.getItem('userInfo')))
     document.addEventListener('scroll', () => {
       headerRef.current &&
         headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
     })
   }, [])
+
+  window.addEventListener('userInfo', () => {
+    setDecodedToken(JSON.parse(localStorage.getItem('userInfo')))
+  })
 
   return (
     <CHeader position="sticky" className="mb-4 p-0" ref={headerRef}>
@@ -64,13 +73,23 @@ const AppHeader = () => {
             <CNavLink href="/">Settings</CNavLink>
           </CNavItem> */}
         </CHeaderNav>
-        <CHeaderNav className="ms-auto">
+        <CHeaderNav className=" d-none d-sm-flex flex-column ms-auto me-2 text-center">
+          <CNavItem>
+            <CNavbarText>
+              Welcome <i>{decodedToken?.firstName + ', ' + decodedToken?.lastName}</i>
+            </CNavbarText>
+          </CNavItem>
+          <CNavItem>
+            <CNavbarText>{decodedToken?.roleDescription}</CNavbarText>
+          </CNavItem>
+        </CHeaderNav>
+        <CHeaderNav className="ms-auto ms-sm-0">
           <CNavItem>
             <CNavLink href="/">
               <CIcon icon={cilBell} size="lg" />
             </CNavLink>
           </CNavItem>
-          <CNavItem>
+          {/* <CNavItem>
             <CNavLink href="/">
               <CIcon icon={cilList} size="lg" />
             </CNavLink>
@@ -79,7 +98,7 @@ const AppHeader = () => {
             <CNavLink href="/">
               <CIcon icon={cilEnvelopeOpen} size="lg" />
             </CNavLink>
-          </CNavItem>
+          </CNavItem> */}
         </CHeaderNav>
         <CHeaderNav>
           <li className="nav-item py-1">

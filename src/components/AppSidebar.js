@@ -1,16 +1,16 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
+  CCardImage,
   CCloseButton,
   CSidebar,
   CSidebarBrand,
   CSidebarFooter,
   CSidebarHeader,
   CSidebarToggler,
-  CCardImage,
 } from '@coreui/react'
-import Logo from '../assets/logo-bg-1.png'
+import Logo from '../assets/logo-bg-2.png'
 import { AppSidebarNav } from './AppSidebarNav'
 
 // sidebar nav config
@@ -37,13 +37,14 @@ const AppSidebar = () => {
           <CCardImage
             src={Logo}
             style={{
-              borderRadius: '100%',
-              width: 50,
-              background: 'white',
-              padding: 1,
+              borderRadius: '5%',
+              width: 45,
+              height: 50,
+              margin: 5,
+              marginRight: 2,
             }}
           />
-          <h5 style={{ marginTop: '12px' }}>DocuAiClub</h5>
+          <h5 style={{ marginTop: '16px' }}>DocuAiClub</h5>
         </CSidebarBrand>
         <CCloseButton
           className="d-lg-none"

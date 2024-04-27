@@ -1,28 +1,26 @@
-import React, { useState } from 'react'
 import {
   CButton,
+  CCard,
+  CCardBody,
+  CCardImage,
   CCol,
   CForm,
   CFormInput,
-  CRow,
   CFormLabel,
-  CCardImage,
-  CCard,
-  CCardHeader,
-  CCardBody,
+  CRow,
 } from '@coreui/react'
-import { useNavigate } from 'react-router-dom'
-import { userLogin } from '../../../services/LoginService'
-import setCookie from '../../../resources/utility'
-import Logo from '../../../assets/logo-bg-1.png'
-import Background from '../../../assets/doc-bg.png'
 import { jwtDecode } from 'jwt-decode'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import Logo from '../../../assets/logo-bg-1.png'
+import { setCookie } from '../../../resources/utility'
+import { userLogin } from '../../../services/LoginService'
 import Spinners from '../../base/spinners/Spinners'
 
-const Login = () => {
+function Login() {
   const navigate = useNavigate()
-  const [values, setValues] = useState({})
+  const [values, setValues] = useState({ userName: '', password: '' })
   const [validated, setValidated] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -35,7 +33,6 @@ const Login = () => {
     e.preventDefault()
     const form = e.currentTarget
     if (!form.checkValidity() === false) {
-      setLoading(true)
       // Let's get user logged in here.
       const credentials = {
         username: values?.username,
@@ -47,39 +44,15 @@ const Login = () => {
           const decoded = jwtDecode(response?.accessToken)
           setCookie('token', response?.accessToken, 24)
           localStorage.setItem('token', response?.accessToken)
-          if (decoded?.role === 'superadmin') {
-            localStorage.setItem('role', decoded?.role)
-            localStorage.setItem('username', decoded?.username)
-            localStorage.setItem('email', decoded?.email)
-          } else if (decoded?.role === 'organizationuser') {
-            localStorage.setItem('role', decoded?.role)
-            localStorage.setItem('username', decoded?.username)
-            localStorage.setItem('email', decoded?.email)
-            localStorage.setItem('is_verified', decoded?.is_verified)
-            localStorage.setItem('organizationid', decoded?.organizationid)
-            localStorage.setItem('organizationuserid', decoded?.organizationuserid)
-          } else if (decoded?.role === 'locationuser') {
-            localStorage.setItem('role', decoded?.role)
-            localStorage.setItem('username', decoded?.username)
-            localStorage.setItem('email', decoded?.email)
-            localStorage.setItem('is_verified', decoded?.is_verified)
-            localStorage.setItem('locationid', decoded?.locationid)
-            localStorage.setItem('locationuserid', decoded?.locationuserid)
-            localStorage.setItem('organizationid', decoded?.organizationid)
-          }
-          if (localStorage.getItem('token') && localStorage.getItem('role')) {
-            // assume user is logged in successful.
+          localStorage.setItem('userInfo', JSON.stringify(response?.userInfo))
+          if (localStorage.getItem('token') && decoded?.role) {
             navigate('/dashboard')
           }
-          setLoading(false)
           setValues({})
           toast.success(response?.message)
         })
         .catch((error) => {
-          console.log('error', error)
-          console.log('err', error)
           toast.error(error?.response?.data?.error)
-          setLoading(false)
         })
     } else {
       setValidated(true)
@@ -87,117 +60,106 @@ const Login = () => {
   }
 
   return (
-    <CRow>
-      <div
-        style={{
-          height: 60,
-          width: '100%',
-          backgroundImage: `url(${Background})`,
-          backgroundSize: 'fit',
-
-          //background: '#ffffff',
-        }}
-      ></div>
-      <CCol
-        xs={7}
-        style={{ borderRight: '1px solid gray' }}
-        className="min-vh-100 d-flex  align-items-center  justify-content-center"
-      >
-        <CCard style={{ margin: 5 }}>
-          <CCardBody>Documents</CCardBody>
-        </CCard>
-        <CCard style={{ margin: 5 }}>
-          <CCardBody>Ai</CCardBody>
-        </CCard>
-        <CCard style={{ margin: 5 }}>
-          <CCardBody>Search</CCardBody>
-        </CCard>
-      </CCol>
-      <CCol xs={5}>
-        <div style={{ margin: 50 }} className="bg-before">
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: 40,
-            }}
-          >
-            <CCardImage
-              src={Logo}
+    <>
+      <CRow style={{ background: '#eff6ff' }}>
+        <CCol xs={12} className="d-flex flex-row align-items-center  justify-content-center">
+          <div style={{ marginTop: 60 }}>
+            <div
               style={{
-                width: 80,
-                alignSelf: 'stretch',
-                borderRadius: 3,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 40,
               }}
-            />
+            >
+              <CCardImage
+                src={Logo}
+                style={{
+                  width: 80,
+                  alignSelf: 'stretch',
+                  borderRadius: 3,
+                }}
+              />
+            </div>
+            <CForm noValidate validated={validated} onSubmit={handleLogin}>
+              <h4 style={{ color: '#023b6d !important' }}>Sign In.</h4>
+              <div className="mb-3">
+                <CFormLabel htmlFor="Username">User Name</CFormLabel>
+                <CFormInput
+                  size="lg"
+                  placeholder="Username"
+                  name="username"
+                  value={values?.email}
+                  onChange={(e) => handleOnChange(e)}
+                  aria-describedby="validationEmail"
+                  id="validationEmail"
+                  feedbackInvalid="Please provide a username."
+                  required
+                  style={{ borderRadius: '0' }}
+                />
+              </div>
+              <div className="mb-3">
+                <CFormLabel htmlFor="Password">Password</CFormLabel>
+                <CFormInput
+                  size="lg"
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={values?.password}
+                  onChange={(e) => handleOnChange(e)}
+                  aria-describedby="validationPassword"
+                  id="validationPassword"
+                  feedbackInvalid="Please provide a password."
+                  required
+                  style={{ borderRadius: '0' }}
+                />
+              </div>
+              <CRow>
+                <CCol xs={5}>
+                  <CButton
+                    color="primary"
+                    type="submit"
+                    className="px-4"
+                    style={{ display: 'flex', marginRight: '4px' }}
+                  >
+                    Login
+                    {loading && (
+                      <div className="clearfix">
+                        <Spinners className="float-end" />
+                      </div>
+                    )}
+                  </CButton>
+                </CCol>
+                <CCol xs={7} className="text-right">
+                  <CButton color="link" className="px-0">
+                    Forgot password?
+                  </CButton>
+                </CCol>
+              </CRow>
+            </CForm>
           </div>
-          <CForm
-            // className="g-3 needs-validation"
-
-            noValidate
-            validated={validated}
-            onSubmit={handleLogin}
-          >
-            <h4 style={{ color: '#023b6d !important' }}>Sign In.</h4>
-
-            <div className="mb-3">
-              <CFormLabel htmlFor="Username">User Name</CFormLabel>
-              <CFormInput
-                size="lg"
-                placeholder="Username"
-                name="username"
-                value={values?.email}
-                onChange={(e) => handleOnChange(e)}
-                aria-describedby="validationEmail"
-                id="validationEmail"
-                feedbackInvalid="Please provide a username."
-                required
-                style={{ borderRadius: '0' }}
-              />
-            </div>
-            <div className="mb-3">
-              <CFormLabel htmlFor="Password">Password</CFormLabel>
-              <CFormInput
-                size="lg"
-                type="password"
-                placeholder="Password"
-                name="password"
-                value={values?.password}
-                onChange={(e) => handleOnChange(e)}
-                aria-describedby="validationPassword"
-                id="validationPassword"
-                feedbackInvalid="Please provide a password."
-                required
-                style={{ borderRadius: '0' }}
-              />
-            </div>
-            <CRow>
-              <CCol xs={5}>
-                <CButton
-                  color="primary"
-                  type="submit"
-                  className="px-4"
-                  style={{ display: 'flex', marginRight: '4px' }}
-                >
-                  Login
-                  {loading && (
-                    <div className="clearfix">
-                      <Spinners className="float-end" />
-                    </div>
-                  )}
-                </CButton>
-              </CCol>
-              <CCol xs={7} className="text-right">
-                <CButton color="link" className="px-0">
-                  Forgot password?
-                </CButton>
-              </CCol>
-            </CRow>
-          </CForm>
-        </div>
-      </CCol>
-    </CRow>
+        </CCol>
+      </CRow>
+      <CRow>
+        <CCol
+          style={{ marginTop: 30 }}
+          className="d-flex  align-items-center  justify-content-center"
+        >
+          <CCard style={{ margin: 5 }}>
+            <CCardBody>Documents</CCardBody>
+          </CCard>
+          <CCard style={{ margin: 5 }}>
+            <CCardBody>Ai</CCardBody>
+          </CCard>
+          <CCard style={{ margin: 5 }}>
+            <CCardBody>Search</CCardBody>
+          </CCard>
+          <CCard style={{ margin: 5 }}>
+            <CCardBody>Version</CCardBody>
+          </CCard>
+        </CCol>
+      </CRow>
+    </>
   )
 }
 
