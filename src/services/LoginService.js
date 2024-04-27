@@ -41,7 +41,7 @@ export async function updateUserProfile(body) {
  * CHANGE PASSWORD
  */
 export async function changePassword(body) {
-  return await axios.put(`${process.env.REACT_APP_LOCAL_URL}/user/updateUserProfile`, body, {
+  return await axios.put(`${process.env.REACT_APP_LOCAL_URL}/user/changePassword`, body, {
     headers: {
       Authorization: localStorage.getItem('token'),
     },
