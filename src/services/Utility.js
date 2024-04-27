@@ -46,7 +46,7 @@ export function decryptData(secretKey) {
  * Confirm Password Validator
  */
 export function validateConfirmPassword(password, confirmPassword) {
-  if (value !== values.password) {
+  if (password !== confirmPassword) {
     return 'Passwords do not match.'
   }
 

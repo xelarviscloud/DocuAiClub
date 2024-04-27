@@ -26,8 +26,22 @@ export async function addVerifyEmail(body) {
   }
 }
 
+/**
+ * UPDATE USER PROFILE
+ */
 export async function updateUserProfile(body) {
   return await axios.put(`${process.env.REACT_APP_LOCAL_URL}/user/updateUserProfile`, body, {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+    },
+  })
+}
+
+/**
+ * CHANGE PASSWORD
+ */
+export async function changePassword(body) {
+  return await axios.put(`${process.env.REACT_APP_LOCAL_URL}/user/changePassword`, body, {
     headers: {
       Authorization: localStorage.getItem('token'),
     },
