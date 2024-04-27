@@ -14,13 +14,15 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { changePassword } from '../../../services/LoginService'
-import {
-  validateConfirmPassword,
-  validatePassword,
-} from '../../../services/Utility'
+import { validateConfirmPassword, validatePassword } from '../../../services/Utility'
 
 function UpdatePassword() {
-  const [values, setValues] = useState()
+  const [values, setValues] = useState({
+    userName: '',
+    currentPassword: '',
+    newPassword: '',
+    newConfirmedPassword: '',
+  })
   const [validated, setValidated] = useState(false)
   const [currentPasswordError, setCurrentPasswordError] = useState('')
   const [newPasswordError, setNewPasswordError] = useState('')
@@ -48,7 +50,12 @@ function UpdatePassword() {
   const handleOnSubmit = async (e) => {
     e.preventDefault()
     const form = e.currentTarget
-    if (!form.checkValidity() === false && !currentPasswordError && !newPasswordError && !newConfirmedPasswordError) {
+    if (
+      !form.checkValidity() === false &&
+      !currentPasswordError &&
+      !newPasswordError &&
+      !newConfirmedPasswordError
+    ) {
       var formData = new FormData()
       formData.append('userName', userInfo?.userName)
       formData.append('currentPassword', values?.currentPassword)
@@ -59,10 +66,9 @@ function UpdatePassword() {
 
       await func
         .then((response) => {
-          toast.success(response?.message)
+          toast.success(response?.data?.message)
         })
         .catch((error) => {
-          console.log('err', error)
           toast.error(error?.response?.data?.error)
         })
       return
@@ -84,7 +90,8 @@ function UpdatePassword() {
               className="row needs-validation"
               noValidate
               validated={validated}
-              onSubmit={handleOnSubmit}>
+              onSubmit={handleOnSubmit}
+            >
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
@@ -93,14 +100,18 @@ function UpdatePassword() {
                       required
                       aria-describedby="currentPassword"
                       id="currentPassword"
-                      feedbackInvalid={currentPasswordError ? currentPasswordError : 'Please provide a Current Password'}
+                      feedbackInvalid={
+                        currentPasswordError
+                          ? currentPasswordError
+                          : 'Please provide a Current Password'
+                      }
                       type="password"
                       name="currentPassword"
                       minLength={8}
                       placeholder="Enter Your Current Password"
                       value={values?.currentPassword}
                       onChange={(e) => handleOnChange(e)}
-                      invalid={currentPasswordError}
+                      invalid={currentPasswordError?.length > 0}
                       autoComplete="current-password"
                     />
                   </CCol>
@@ -115,9 +126,7 @@ function UpdatePassword() {
                       aria-describedby="newPassword"
                       id="newPassword"
                       feedbackInvalid={
-                        newPasswordError
-                          ? newPasswordError
-                          : 'Please provide New Password'
+                        newPasswordError ? newPasswordError : 'Please provide New Password'
                       }
                       type="password"
                       name="newPassword"
@@ -125,7 +134,7 @@ function UpdatePassword() {
                       placeholder="Enter Your New Password"
                       value={values?.newPassword}
                       onChange={(e) => handleOnChange(e)}
-                      invalid={newPasswordError}
+                      invalid={newPasswordError?.length > 0}
                     />
                   </CCol>
                 </CRow>
@@ -149,7 +158,7 @@ function UpdatePassword() {
                       placeholder="Enter Your Confirm New Password"
                       value={values?.newConfirmedPassword}
                       onChange={(e) => handleOnChange(e)}
-                      invalid={newConfirmedPasswordError}
+                      invalid={newConfirmedPasswordError?.length > 0}
                     />
                   </CCol>
                 </CRow>
