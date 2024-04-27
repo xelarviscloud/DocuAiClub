@@ -25,3 +25,11 @@ export async function addVerifyEmail(body) {
     throw error
   }
 }
+
+export async function updateUserProfile(body) {
+  return await axios.put(`${process.env.REACT_APP_LOCAL_URL}/user/updateUserProfile`, body, {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+    },
+  })
+}

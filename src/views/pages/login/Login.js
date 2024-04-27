@@ -20,7 +20,7 @@ import Spinners from '../../base/spinners/Spinners'
 
 function Login() {
   const navigate = useNavigate()
-  const [values, setValues] = useState({})
+  const [values, setValues] = useState({ userName: '', password: '' })
   const [validated, setValidated] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -44,9 +44,8 @@ function Login() {
           const decoded = jwtDecode(response?.accessToken)
           setCookie('token', response?.accessToken, 24)
           localStorage.setItem('token', response?.accessToken)
-
+          localStorage.setItem('userInfo', JSON.stringify(response?.userInfo))
           if (localStorage.getItem('token') && decoded?.role) {
-            // assume user is logged in successful.
             navigate('/dashboard')
           }
           setValues({})

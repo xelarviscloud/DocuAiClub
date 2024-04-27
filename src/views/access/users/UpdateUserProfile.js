@@ -7,7 +7,6 @@ import {
   CForm,
   CFormInput,
   CFormLabel,
-  CFormSelect,
   CInputGroup,
   CInputGroupText,
   CRow,
@@ -15,19 +14,30 @@ import {
 } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import {
-  addOrganizationUser,
-  getOrganizations,
-  updateOrganizationUser,
-} from '../../../services/OrganizationService'
 import { keydownValidNumberCheck } from '../../../services/Utility'
-
+import { useNavigate } from 'react-router-dom'
+import { updateUserProfile } from '../../../services/LoginService'
 function UpdateUserProfile() {
-  const [values, setValues] = useState()
+  const [values, setValues] = useState({
+    emailAddress: '',
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    userName: '',
+  })
   const [validated, setValidated] = useState(false)
-  const [loading, setLoading] = useState(false)
-
-  useEffect(() => {}, [])
+  const navigate = useNavigate()
+  let decodedToken = JSON.parse(localStorage.getItem('userInfo'))
+  useEffect(() => {
+    let { emailAddress, firstName, lastName, phoneNumber, userName } = decodedToken
+    setValues({
+      emailAddress,
+      firstName,
+      lastName,
+      phoneNumber,
+      userName,
+    })
+  }, [])
 
   const handleOnChange = (e) => {
     const { name, value, files } = e.target
@@ -53,24 +63,22 @@ function UpdateUserProfile() {
       formData.append('phoneNumber', values?.phoneNumber)
       formData.append('file', values?.file)
 
-      setLoading(true)
-      let func = isEditUser
-        ? updateOrganizationUser({ body: formData })
-        : addOrganizationUser({ body: formData })
+      let func = updateUserProfile(formData)
 
       await func
         .then((response) => {
-          toast.success(response?.message)
-          setValues({})
+          decodedToken.emailAddress = values?.emailAddress
+          decodedToken.firstName = values?.firstName
+          decodedToken.lastName = values?.lastName
+          decodedToken.phoneNumber = values?.phoneNumber
 
-          fetchOrgUser()
-          setModal(false)
-          setLoading(false)
+          localStorage.setItem('userInfo', JSON.stringify(decodedToken))
+          window.dispatchEvent(new Event('userInfo'))
+          toast.success(response.data?.message)
         })
         .catch((error) => {
           console.log('err', error)
           toast.error(error?.response?.data?.error)
-          setLoading(false)
         })
       return
     }
@@ -226,9 +234,9 @@ function UpdateUserProfile() {
                   <CButton
                     color="secondary"
                     style={{ float: 'right', marginRight: 10, display: 'flex' }}
-                    onClick={() => navigator('/dashboard')}
+                    onClick={() => navigate('/dashboard')}
                   >
-                    Cancel
+                    Close
                   </CButton>
                 </CTooltip>
               </div>

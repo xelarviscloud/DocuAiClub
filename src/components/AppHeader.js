@@ -24,15 +24,15 @@ import {
   CNavLink,
   useColorModes,
 } from '@coreui/react'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 import { AppHeaderDropdown } from './header/index'
 import { AppBreadcrumb } from './index'
-import { jwtDecode } from 'jwt-decode'
 
 const AppHeader = () => {
+  const [decodedToken, setDecodedToken] = useState({})
   const headerRef = useRef()
   const { colorMode, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
 
@@ -40,14 +40,16 @@ const AppHeader = () => {
   const sidebarShow = useSelector((state) => state.sidebarShow)
 
   useEffect(() => {
+    setDecodedToken(JSON.parse(localStorage.getItem('userInfo')))
     document.addEventListener('scroll', () => {
       headerRef.current &&
         headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
     })
   }, [])
 
-  const token = localStorage.getItem('token')
-  const decodedToken = jwtDecode(token)
+  window.addEventListener('userInfo', () => {
+    setDecodedToken(JSON.parse(localStorage.getItem('userInfo')))
+  })
 
   return (
     <CHeader position="sticky" className="mb-4 p-0" ref={headerRef}>
