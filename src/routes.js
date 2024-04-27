@@ -1,6 +1,8 @@
 import React from 'react'
 import LocationDetails from './views/access/locations/LocationDetails'
 import react from 'react'
+import { element } from 'prop-types'
+import UpdateUserProfile from './views/access/users/UpdateUserProfile'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -19,7 +21,6 @@ const LocationUsers = React.lazy(() => import('./views/access/users/LocationUser
 const FileUpload = React.lazy(() => import('./views/access/documents/FileUpload'))
 const PageList = React.lazy(() => import('./views/access/pages/PageList'))
 const SearchPages = React.lazy(() => import('./views/access/pages/SearchPages'))
-const UserProfile = react.lazy(() => import('./views/access/users/UserProfile'))
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
@@ -92,7 +93,7 @@ const routes = [
   {
     path: '/user-profile',
     name: 'User Profile',
-    element: UserProfile,
+    element: UpdateUserProfile,
   },
   { path: '/search', name: 'Search', element: SearchPages },
   { path: '/locations', name: 'Properties', element: Locations },
