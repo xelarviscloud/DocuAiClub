@@ -39,7 +39,7 @@ import moment from 'moment'
 const Dashboard = () => {
   const token = localStorage.getItem('token')
   const decodedToken = jwtDecode(token)
-
+  console.log('decoded token', decodedToken)
   const [sidebarVisible, setSidebarVisible] = useState(false)
   const [downloaded, setDownloaded] = useState()
   const [userLocationId, setUserLocationId] = useState(decodedToken.locationId)

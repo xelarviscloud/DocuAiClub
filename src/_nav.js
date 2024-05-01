@@ -8,6 +8,7 @@ import {
   cilHome,
   cilNotes,
   cilPuzzle,
+  cilSearch,
   cilSpeedometer,
   cilStar,
 } from '@coreui/icons'
@@ -70,25 +71,19 @@ const _nav = isUserSuperAdmin
       },
       {
         component: CNavTitle,
-        name: 'Documents',
+        name: 'Search',
       },
       {
-        component: CNavGroup,
-        name: 'Manage',
-        to: '/Documents',
-        icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
-        items: [
-          {
-            component: CNavItem,
-            name: 'Search',
-            to: '/search',
-          },
-          {
-            component: CNavItem,
-            name: 'Pages',
-            to: '/pages',
-          },
-        ],
+        component: CNavItem,
+        name: 'Pages',
+        to: '/search-pages',
+        icon: <CIcon icon={cilSearch} customClassName="nav-icon" />,
+      },
+      {
+        component: CNavItem,
+        name: 'Documents',
+        to: '/search-documents',
+        icon: <CIcon icon={cilSearch} customClassName="nav-icon" />,
       },
     ]
   : isUserOrgAdmin
@@ -134,25 +129,19 @@ const _nav = isUserSuperAdmin
         },
         {
           component: CNavTitle,
-          name: 'Documents',
+          name: 'Search',
         },
         {
-          component: CNavGroup,
-          name: 'Manage',
-          to: '/Documents',
-          icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
-          items: [
-            {
-              component: CNavItem,
-              name: 'Search',
-              to: '/search',
-            },
-            {
-              component: CNavItem,
-              name: 'Pages',
-              to: '',
-            },
-          ],
+          component: CNavItem,
+          name: 'Pages',
+          to: '/search-pages',
+          icon: <CIcon icon={cilSearch} customClassName="nav-icon" />,
+        },
+        {
+          component: CNavItem,
+          name: 'Documents',
+          to: '/search-documents',
+          icon: <CIcon icon={cilSearch} customClassName="nav-icon" />,
         },
       ]
     : isUserLocAdmin
@@ -186,25 +175,19 @@ const _nav = isUserSuperAdmin
 
           {
             component: CNavTitle,
-            name: 'Documents',
+            name: 'Search',
           },
           {
-            component: CNavGroup,
-            name: 'Manage',
-            to: '/Documents',
-            icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
-            items: [
-              {
-                component: CNavItem,
-                name: 'Search',
-                to: '/search',
-              },
-              {
-                component: CNavItem,
-                name: 'Pages',
-                to: '/page-list',
-              },
-            ],
+            component: CNavItem,
+            name: 'Pages',
+            to: '/search-pages',
+            icon: <CIcon icon={cilSearch} customClassName="nav-icon" />,
+          },
+          {
+            component: CNavItem,
+            name: 'Documents',
+            to: '/search-documents',
+            icon: <CIcon icon={cilSearch} customClassName="nav-icon" />,
           },
         ]
       : []

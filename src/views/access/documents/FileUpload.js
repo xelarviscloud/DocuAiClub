@@ -29,6 +29,7 @@ function FileUpload({ refreshFiles }) {
     formData.append('userId', decodedToken.userId)
     formData.append('userName', decodedToken.userName)
     formData.append('locationId', decodedToken.locationId)
+    formData.append('organizationId', decodedToken.organizationId)
 
     let res = await uploadFile(formData)
       .then((response) => {

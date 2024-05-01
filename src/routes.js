@@ -101,12 +101,12 @@ const routes = [
     name: 'Change Password',
     element: UpdatePassword,
   },
-  { path: '/search', name: 'Search', element: SearchPages },
+  { path: '/search-pages', name: 'Search Pages', element: SearchPages },
   { path: '/locations', name: 'Properties', element: Locations },
   { path: '/organization-users', name: 'Organization Admin', element: OrganizationUsers },
   { path: '/location-users', name: 'Property Admin', element: LocationUsers },
 
-  { path: '/page-list', name: 'Pages', element: PageList },
+  { path: '/search-documents', name: 'Search Documents', element: PageList },
 
   { path: '/base', name: 'Base', element: Cards, exact: true },
   { path: '/base/accordion', name: 'Accordion', element: Accordion },
