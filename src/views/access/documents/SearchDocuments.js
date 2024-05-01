@@ -44,7 +44,7 @@ function SearchDocuments() {
       .then((response) => {
         console.log('doc res', response)
         setDocumentsList([])
-        setDocumentsList(response?.data)
+        setDocumentsList(response?.data?.documentsWithPages)
         console.log(documentsList)
       })
       .catch((error) => {

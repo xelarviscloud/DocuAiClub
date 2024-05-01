@@ -133,10 +133,10 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
               <option value="Error">Error</option>
             </CFormSelect>
           </CCol>
-          <CCol md={4}>
+          <CCol md={4} className="align-items-center text-center">
+            <CFormLabel className="d-block">Include Deleted Documents</CFormLabel>
             <CFormCheck
               style={{ marginTop: 12 }}
-              label="Include Deleted Documents"
               name="includeDeletedDocuments"
               id="includeDeletedDocuments"
               checked={searchParams.includeDeletedDocuments}
