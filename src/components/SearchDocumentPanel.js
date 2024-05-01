@@ -27,7 +27,7 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
 
   const [searchParams, setSearchParams] = useState({
     fileName: '',
-    status: '',
+    status: 'Completed',
     includeDeletedDocuments: false,
     createdDate: _createdDate,
   })
@@ -61,7 +61,7 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
 
   function onClearClicked() {
     setSearchParams({
-      status: '',
+      status: 'Completed',
       fileName: '',
       includeDeletedDocuments: false,
       arrivalDate: '',
@@ -107,7 +107,7 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
       </div>
       <div>
         <CForm className="row g-3">
-          <CCol md={2}>
+          <CCol md={4}>
             <CFormInput
               label="File Name"
               name="fileName"
@@ -130,6 +130,7 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
             >
               <option value="Completed">Completed</option>
               <option value="Processing">Processing</option>
+              <option value="Processing">New</option>
               <option value="Error">Error</option>
             </CFormSelect>
           </CCol>
