@@ -15,6 +15,25 @@ export async function getPagesByLocationId(locationId) {
   return response
 }
 
+export async function searchDocumentsByCriteria(searchCriteria) {
+  console.log('searchCriteria', searchCriteria)
+  let params = `?arrivalDate=${searchCriteria.arrivalDate}`
+  params += `&departureDate=${searchCriteria.departureDate}`
+  params += `&createdDate=${searchCriteria.createdDate}`
+  params += `&confirmationNumber=${searchCriteria.confirmationNumber}`
+  params += `&status=${searchCriteria.status}`
+  params += `&fileName=${searchCriteria.fileName}`
+  params += `&locationId=${searchCriteria.locationId}`
+
+  const url = `${process.env.REACT_APP_LOCAL_URL}/documents/search${params}`
+  const response = await axios.get(url, {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+    },
+  })
+  return response
+}
+
 export async function searchPagesByCriteria(searchCriteria) {
   console.log('searchCriteria', searchCriteria)
   let params = `?arrivalDate=${searchCriteria.arrivalDate}`

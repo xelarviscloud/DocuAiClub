@@ -2,6 +2,7 @@ import React from 'react'
 import LocationDetails from './views/access/locations/LocationDetails'
 import react from 'react'
 import { element } from 'prop-types'
+import SearchDocuments from './views/access/documents/SearchDocuments'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -106,7 +107,7 @@ const routes = [
   { path: '/organization-users', name: 'Organization Admin', element: OrganizationUsers },
   { path: '/location-users', name: 'Property Admin', element: LocationUsers },
 
-  { path: '/search-documents', name: 'Search Documents', element: PageList },
+  { path: '/search-documents', name: 'Search Documents', element: SearchDocuments },
 
   { path: '/base', name: 'Base', element: Cards, exact: true },
   { path: '/base/accordion', name: 'Accordion', element: Accordion },
