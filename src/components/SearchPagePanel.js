@@ -69,7 +69,7 @@ function SearchPagePanel({ fetchSearchPages, pageCounts }) {
           )}
         </span>
         <span className="d-flex">
-          Created:{' '}
+          <span style={{ minWidth: 110 }}>Uploaded Date: </span>
           <CFormInput
             style={{
               padding: 3,

@@ -151,3 +151,16 @@ body {
   padding-top: 5px !important;
   padding-bottom: 0px !important;
 }
+
+.accordion-button:not(.collapsed) {
+  background-color: #cdd9e8f5;
+}
+
+.accordion-button:focus {
+  box-shadow: none !important;
+}
+
+[data-coreui-theme='dark'] .carousel .carousel-caption,
+[data-coreui-theme='dark'].carousel .carousel-caption {
+  color: #d9dfe4 !important;
+}

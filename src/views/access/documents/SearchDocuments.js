@@ -24,13 +24,17 @@ import {
   COffcanvasTitle,
   COffcanvasBody,
   CCloseButton,
+  CCarousel,
+  CCarouselItem,
+  CCarouselCaption,
+  CImage,
 } from '@coreui/react'
 import SearchPagePanel from '../../../components/SearchPagePanel'
 import { downloadFile } from '../../../services/FileService'
 import { dicPageTagsDisplayName } from '../../../services/Utility'
 import Tables from './../../base/tables/Tables'
 import SearchDocumentPanel from '../../../components/SearchDocumentPanel'
-
+import ReactImg from '../../../assets/react-img.jpg'
 function SearchDocuments() {
   const [documentsList, setDocumentsList] = useState([])
   const [values, setValues] = useState({})
@@ -77,134 +81,80 @@ function SearchDocuments() {
   }
   return (
     <div>
-      <SearchDocumentPanel
-        fetchSearchDocuments={onSearchDocuments}
-        pageCounts={documentsList?.length > 0 ? documentsList.length : ''}
-      ></SearchDocumentPanel>
-      {sidebarVisible ? (
-        <>
-          <COffcanvas
-            placement="end"
-            visible={sidebarVisible}
-            onHide={() => setSidebarVisible(false)}
-          >
-            <COffcanvasHeader className="justify-content-between">
-              <COffcanvasTitle>Details</COffcanvasTitle>
-              <CCloseButton
-                className="text-reset"
-                onClick={() => {
-                  document.body.style.overflow = 'auto'
-                  setSidebarVisible(false)
-                }}
-              />
-            </COffcanvasHeader>
-            <COffcanvasBody>
-              {sidebarDetails[0]?.cells?.map((cell) => (
-                <p>{cell.content}</p>
-              ))}
-            </COffcanvasBody>
-          </COffcanvas>
-        </>
-      ) : (
-        ''
-      )}
-      {
-        <>
-          <COffcanvas
-            id="pdfView"
-            placement="end"
-            visible={visible}
-            onHide={() => setVisible(false)}
-          >
-            <COffcanvasHeader className="justify-content-between">
-              <COffcanvasTitle>Details</COffcanvasTitle>
-              <CCloseButton
-                className="text-reset"
-                onClick={() => {
-                  document.body.style.overflow = 'auto'
-                  setVisible(false)
-                }}
-              />
-            </COffcanvasHeader>
-            <COffcanvasBody>
-              <PDFViewer blob={downloaded}></PDFViewer>
-            </COffcanvasBody>
-          </COffcanvas>
-        </>
-      }
-      <CAccordion activeItemKey={-1}>
-        {documentsList?.map((item, key) => {
-          return (
-            <CAccordionItem itemKey={key} key={key}>
-              <CAccordionHeader>
-                #{key + 1}: {item?.fileName.substring(0, 40)} {item?.pageCount}
-              </CAccordionHeader>
-              <CAccordionBody>
-                <CRow key={key}>
-                  <CCol md={9}>
-                    {/* <Highlighter
-                      highlightClassName="search-text-highlight"
-                      autoEscape={true}
-                      searchWords={Object.keys(values).map((key) => values[key])}
-                      textToHighlight={item.data}
-                    >
-                      {}
-                    </Highlighter> */}
-                  </CCol>
-                  {/* <CCol md={3}>
-                    <CCard className="text-center">
-                      <CCardBody>
-                        <CCardTitle>
-                          {item.documentName.split('/')[1]} {item.pageName}
-                        </CCardTitle>
-                        <CCardText>
-                          {Object.keys(item?.tags).map((key) => (
-                            <span key={key} className="d-block" style={{ fontWeight: 500 }}>
-                              {dicPageTagsDisplayName[key]}:<i> {item?.tags[key]}</i>
-                            </span>
-                          ))}
-                        </CCardText>
-                        <div className="position-relative">
-                          <CBadge color="success" shape="rounded-pill" style={{ fontSize: 10 }}>
-                            PDF Action Bar
-                          </CBadge>{' '}
-                        </div>
-                        <CButton
-                          color="primary"
-                          href="#"
-                          style={{ margin: 3 }}
-                          onClick={() => handleViewFile(item.pageBlobPath, true)}
-                        >
-                          View
-                        </CButton>
-                        <CButton
-                          style={{ margin: 3 }}
-                          color="primary"
-                          href="#"
-                          onClick={() => handleViewFile(item.pageBlobPath, false)}
-                        >
-                          Download
-                        </CButton>
-                        <CButton
-                          style={{ margin: 3 }}
-                          color="link"
-                          shape="rounded-0"
-                          onClick={() => {
-                            setSidebarVisible(true)
-                            setSidebarDetails(item?.data?.tables)
-                          }}
-                        >
-                          Details
-                        </CButton>
-                      </CCardBody>
-                    </CCard>
-                  </CCol> */}
-                </CRow>
-              </CAccordionBody>
-            </CAccordionItem>
-          )
-        })}
-      </CAccordion>
+      <CRow>
+        <SearchDocumentPanel
+          fetchSearchDocuments={onSearchDocuments}
+          pageCounts={documentsList?.length > 0 ? documentsList.length : ''}
+        ></SearchDocumentPanel>
+      </CRow>
+
+      <CRow>
+        <CCol>
+          <CAccordion activeItemKey={-1}>
+            {documentsList?.map((item, key) => {
+              return (
+                <CAccordionItem itemKey={key} key={key}>
+                  <CAccordionHeader>
+                    #{key + 1}: {item?.fileName.substring(0, 40)}
+                    <CBadge color="danger" shape="rounded-pill" className="ms-1">
+                      Pages#
+                      {item?.pageCount ?? 0}{' '}
+                      <span className="visually-hidden">unread messages</span>
+                    </CBadge>
+                  </CAccordionHeader>
+
+                  <CAccordionBody>
+                    {item?.vw_doc_pages?.length > 0 ? (
+                      <CCarousel controls transition="crossfade" style={{ background: '#233246' }}>
+                        {item?.vw_doc_pages?.map((page, key) => {
+                          console.log('vw_doc_pages', page, page.pageName)
+                          return (
+                            <CCarouselItem style={{ height: 300 }}>
+                              <CCarouselCaption
+                                className="d-md-block top-15"
+                                style={{ top: '15%' }}
+                              >
+                                <h5>{page?.pageName}</h5>
+                                <p>{page?.data?.content}</p>
+                              </CCarouselCaption>
+                            </CCarouselItem>
+                          )
+                        })}
+                      </CCarousel>
+                    ) : (
+                      ''
+                    )}
+                  </CAccordionBody>
+                </CAccordionItem>
+              )
+            })}
+          </CAccordion>
+
+          {/* <CCarousel controls indicators dark>
+            <CCarouselItem>
+              <CImage className="d-block w-100" src={ReactImg} alt="slide 1" />
+              <CCarouselCaption className=" d-md-block">
+                <h5>First slide label</h5>
+                <p>Some representative placeholder content for the first slide.</p>
+              </CCarouselCaption>
+            </CCarouselItem>
+            <CCarouselItem>
+              <CImage className="d-block w-100" src={ReactImg} alt="slide 2" />
+              <CCarouselCaption className=" d-md-block">
+                <h5>Second slide label</h5>
+                <p>Some representative placeholder content for the first slide.</p>
+              </CCarouselCaption>
+            </CCarouselItem>
+            <CCarouselItem>
+              <CImage className="d-block w-100" src={ReactImg} alt="slide 3" />
+              <CCarouselCaption className=" d-md-block">
+                <h5>Third slide label</h5>
+                <p>Some representative placeholder content for the first slide.</p>
+              </CCarouselCaption>
+            </CCarouselItem>
+          </CCarousel> */}
+        </CCol>
+      </CRow>
     </div>
   )
 }
