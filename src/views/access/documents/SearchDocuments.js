@@ -68,7 +68,7 @@ function SearchDocuments() {
       const file = new Blob([res.data], { type: 'application/pdf' })
       const fileURL = URL.createObjectURL(file)
       if (isView) {
-        setVisible(true)
+        setSidebarVisible(true)
         setDownloaded(fileURL)
       } else {
         const link = document.createElement('a')
@@ -96,6 +96,18 @@ function SearchDocuments() {
                 <CAccordionItem itemKey={key} key={key}>
                   <CAccordionHeader>
                     #{key + 1}: {item?.fileName.substring(0, 40)}
+                    <div
+                      style={{ cursor: 'pointer' }}
+                      className="small text-body-secondary text-nowrap text-decoration-underline ms-2"
+                      onClick={(e) => {
+                        console.log('accordion event', item)
+                        e.stopPropagation()
+                        e.nativeEvent.stopImmediatePropagation()
+                        handleViewFile(item.blobPath)
+                      }}
+                    >
+                      View PDF
+                    </div>
                     <CBadge color="danger" shape="rounded-pill" className="ms-1">
                       Pages#
                       {item?.pageCount ?? 0}{' '}
@@ -155,6 +167,29 @@ function SearchDocuments() {
           </CCarousel> */}
         </CCol>
       </CRow>
+
+      <>
+        <COffcanvas
+          id="pdfView"
+          placement="end"
+          visible={sidebarVisible}
+          onHide={() => setSidebarVisible(false)}
+        >
+          <COffcanvasHeader className="justify-content-between">
+            <COffcanvasTitle>Details</COffcanvasTitle>
+            <CCloseButton
+              className="text-reset"
+              onClick={() => {
+                document.body.style.overflow = 'auto'
+                setSidebarVisible(false)
+              }}
+            />
+          </COffcanvasHeader>
+          <COffcanvasBody>
+            <PDFViewer blob={downloaded}></PDFViewer>
+          </COffcanvasBody>
+        </COffcanvas>
+      </>
     </div>
   )
 }
