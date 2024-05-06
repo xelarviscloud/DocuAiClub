@@ -122,10 +122,7 @@ function SearchDocuments() {
                           console.log('vw_doc_pages', page, page.pageName)
                           return (
                             <CCarouselItem style={{ height: 300 }}>
-                              <CCarouselCaption
-                                className="d-md-block top-15"
-                                style={{ top: '15%' }}
-                              >
+                              <CCarouselCaption className="d-md-block top-15">
                                 <h5>{page?.pageName}</h5>
                                 <p>{page?.data?.content}</p>
                               </CCarouselCaption>
