@@ -110,10 +110,9 @@ function SearchDocuments() {
                     >
                       View PDF
                     </div>
-                    <CBadge color="light" shape="rounded-pill" className="badge-no-fill">
+                    <CBadge color="info" shape="rounded-pill" className="badge-no-fill">
                       Pages#
-                      {item?.pageCount ?? 0}{' '}
-                      <span className="visually-hidden">unread messages</span>
+                      {item?.pageCount ?? 0}
                     </CBadge>
                   </CAccordionHeader>
 
