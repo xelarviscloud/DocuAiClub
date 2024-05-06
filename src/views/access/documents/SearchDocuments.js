@@ -24,6 +24,7 @@ import {
   COffcanvasTitle,
   COffcanvasBody,
   CCloseButton,
+  CCardFooter,
   CCarousel,
   CCarouselItem,
   CCarouselCaption,
@@ -128,6 +129,7 @@ function SearchDocuments() {
                               >
                                 {page?.data?.content}
                               </CCardBody>
+                              <CCardFooter className="text-body-secondary">2 days ago</CCardFooter>
                             </CCard>
                           )
                         })
