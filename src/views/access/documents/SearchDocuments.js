@@ -110,7 +110,7 @@ function SearchDocuments() {
                     >
                       View PDF
                     </div>
-                    <CBadge color="danger" shape="rounded-pill" className="ms-1">
+                    <CBadge color="danger" shape="rounded-pill" className="badge-no-fill">
                       Pages#
                       {item?.pageCount ?? 0}{' '}
                       <span className="visually-hidden">unread messages</span>

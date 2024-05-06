@@ -135,7 +135,10 @@ function SearchPages() {
           return (
             <CAccordionItem itemKey={key} key={key}>
               <CAccordionHeader>
-                {item.pageName}#{item.data.content.substring(1, 40)} {key}
+                {item.pageName}#{item.data.content.substring(0, 40)} {key}
+                <CBadge color="info" shape="rounded-pill" className="badge-no-fill">
+                  {item?.createdAt}
+                </CBadge>
               </CAccordionHeader>
               <CAccordionBody>
                 <CRow key={key}>
