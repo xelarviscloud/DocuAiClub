@@ -164,3 +164,18 @@ body {
 [data-coreui-theme='dark'].carousel .carousel-caption {
   color: #d9dfe4 !important;
 }
+.card-horizontal-slider {
+  display: inline-block;
+  border: 1px solid #aaa;
+  margin: 5px;
+  vertical-align: top;
+}
+
+.card-body-slider {
+  width: 350px;
+  overflow-y: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 300px;
+}

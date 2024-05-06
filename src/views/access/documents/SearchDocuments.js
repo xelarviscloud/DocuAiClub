@@ -18,7 +18,7 @@ import {
   CModal,
   CModalTitle,
   CModalBody,
-  CModalHeader,
+  CCardHeader,
   COffcanvas,
   COffcanvasHeader,
   COffcanvasTitle,
@@ -35,6 +35,7 @@ import { dicPageTagsDisplayName } from '../../../services/Utility'
 import Tables from './../../base/tables/Tables'
 import SearchDocumentPanel from '../../../components/SearchDocumentPanel'
 import ReactImg from '../../../assets/react-img.jpg'
+import { auto } from '@popperjs/core'
 function SearchDocuments() {
   const [documentsList, setDocumentsList] = useState([])
   const [values, setValues] = useState({})
@@ -115,24 +116,22 @@ function SearchDocuments() {
                     </CBadge>
                   </CAccordionHeader>
 
-                  <CAccordionBody>
-                    {item?.vw_doc_pages?.length > 0 ? (
-                      <CCarousel controls transition="crossfade" style={{ background: '#233246' }}>
-                        {item?.vw_doc_pages?.map((page, key) => {
-                          console.log('vw_doc_pages', page, page.pageName)
+                  <CAccordionBody style={{ whiteSpace: 'nowrap', overflowX: auto }}>
+                    {item?.vw_doc_pages?.length > 0
+                      ? item?.vw_doc_pages?.map((page, key) => {
                           return (
-                            <CCarouselItem style={{ height: 300 }}>
-                              <CCarouselCaption className="d-md-block top-15">
-                                <h5>{page?.pageName}</h5>
-                                <p>{page?.data?.content}</p>
-                              </CCarouselCaption>
-                            </CCarouselItem>
+                            <CCard className="card-horizontal-slider">
+                              <CCardHeader>{page?.pageName}</CCardHeader>
+                              <CCardBody
+                                style={{ maxWidth: 350, whiteSpace: 'initial' }}
+                                className="card-body-slider"
+                              >
+                                {page?.data?.content}
+                              </CCardBody>
+                            </CCard>
                           )
-                        })}
-                      </CCarousel>
-                    ) : (
-                      ''
-                    )}
+                        })
+                      : ''}
                   </CAccordionBody>
                 </CAccordionItem>
               )
