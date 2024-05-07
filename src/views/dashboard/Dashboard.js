@@ -35,6 +35,7 @@ import pdfAvatarProgress from '../../assets/pdfProgress.png'
 import pdfAvatarCompleted from '../../assets/pdfCompleted.png'
 import pdfAvatarError from '../../assets/pdfError.png'
 import moment from 'moment'
+import { toast } from 'react-toastify'
 
 const Dashboard = () => {
   const token = localStorage.getItem('token')
@@ -76,9 +77,16 @@ const Dashboard = () => {
 
   async function refreshFiles() {
     fetchDocuments()
-    alert('File is Uploaded successfully.')
+    //alert('File is Uploaded successfully.');
+    //toast('Wow so easy!')
+    showToastMessage()
   }
 
+  const showToastMessage = () => {
+    toast.success('Success Notification !', {
+      position: 'top-right',
+    })
+  }
   useEffect(() => {
     fetchDocuments()
   }, [userLocationId])
