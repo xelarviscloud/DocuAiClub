@@ -134,7 +134,7 @@ const Dashboard = () => {
               color: 'info',
             },
             payment: { name: 'Visa', icon: cibCcVisa },
-            activity: '5 minutes ago',
+            activity: moment(d.createdAt).fromNow(),
           }
         })
         setTableExample(dd)
