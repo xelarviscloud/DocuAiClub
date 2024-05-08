@@ -35,7 +35,7 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
   function onSearchClicked() {
     let criteria = {
       fileName: searchParams.fileName,
-      arrivalDate: searchParams.arrivalDate,
+      pageCount: searchParams.pageCount,
       departureDate: searchParams.departureDate,
       status: searchParams.status,
       includeDeletedDocuments: searchParams.includeDeletedDocuments,
@@ -52,7 +52,6 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
 
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target
-    console.log('aaaa', name, checked)
     setSearchParams({
       ...searchParams,
       [name]: checked,
@@ -64,7 +63,7 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
       status: 'Completed',
       fileName: '',
       includeDeletedDocuments: false,
-      arrivalDate: '',
+      pageCount: '',
       departureDate: '',
       createdDate: _createdDate,
     })
@@ -74,7 +73,7 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
       <div className="d-flex justify-content-between">
         <span style={{ fontSize: 10 }}>
           {searchParams.fileName} {searchParams.status} {searchParams.includeDeletedDocuments}
-          {searchParams.arrivalDate}
+          {searchParams.pageCount}
           {searchParams.departureDate}
           {searchParams.createdDate}{' '}
           {pageCounts > 0 ? (
@@ -107,7 +106,7 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
       </div>
       <div>
         <CForm className="row g-3">
-          <CCol md={4}>
+          <CCol md={3}>
             <CFormInput
               label="File Name"
               name="fileName"
@@ -134,7 +133,19 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
               <option value="Error">Error</option>
             </CFormSelect>
           </CCol>
-          <CCol md={4} className="align-items-center text-center">
+          <CCol md={2}>
+            <CFormInput
+              label="Pages"
+              name="pageCount"
+              id="pageCount"
+              type="number"
+              placeholder="Pages"
+              aria-label="Pages"
+              value={searchParams.pageCount}
+              onChange={(e) => handleOnChange(e)}
+            />
+          </CCol>
+          <CCol md={3} className="align-items-center text-center">
             <CFormLabel className="d-block">Include Deleted Documents</CFormLabel>
             <CFormCheck
               style={{ marginTop: 12 }}

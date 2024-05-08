@@ -65,7 +65,6 @@ function SearchDocuments() {
     let _fileName = bPath.split('/')[1]
 
     await downloadFile(bPath).then((res) => {
-      console.log('downloaded file', res.data)
       const file = new Blob([res.data], { type: 'application/pdf' })
       const fileURL = URL.createObjectURL(file)
       if (isView) {

@@ -13,7 +13,7 @@ export async function getPagesByLocationId(locationId) {
 
 export async function searchDocumentsByCriteria(searchCriteria) {
   console.log('searchCriteria', searchCriteria)
-  let params = `?arrivalDate=${searchCriteria.arrivalDate}`
+  let params = `?pageCount=${searchCriteria.pageCount}`
   params += `&departureDate=${searchCriteria.departureDate}`
   params += `&createdDate=${searchCriteria.createdDate}`
   params += `&confirmationNumber=${searchCriteria.confirmationNumber}`
