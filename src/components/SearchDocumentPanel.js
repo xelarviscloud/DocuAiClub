@@ -129,7 +129,7 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
             >
               <option value="Completed">Completed</option>
               <option value="Processing">Processing</option>
-              <option value="Processing">New</option>
+              <option value="New">New</option>
               <option value="Error">Error</option>
             </CFormSelect>
           </CCol>
