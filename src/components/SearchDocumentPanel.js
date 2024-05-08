@@ -20,7 +20,8 @@ import moment from 'moment'
 import { jwtDecode } from 'jwt-decode'
 
 function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
-  const _createdDate = moment().subtract(7, 'd').format('YYYY-MM-DD')
+  const _createdStartDate = moment().subtract(7, 'd').format('YYYY-MM-DD')
+  const _createdEndDate = moment().format('YYYY-MM-DD')
   const token = localStorage.getItem('token')
   const decodedToken = jwtDecode(token)
   let _locationId = decodedToken.locationId
@@ -29,7 +30,8 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
     fileName: '',
     status: 'Completed',
     includeDeletedDocuments: false,
-    createdDate: _createdDate,
+    createdStartDate: _createdStartDate,
+    createdEndDate: _createdEndDate,
   })
 
   function onSearchClicked() {
@@ -39,7 +41,8 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
       departureDate: searchParams.departureDate,
       status: searchParams.status,
       includeDeletedDocuments: searchParams.includeDeletedDocuments,
-      createdDate: searchParams.createdDate,
+      createdStartDate: searchParams.createdStartDate,
+      createdEndDate: searchParams.createdEndDate,
       locationId: _locationId,
     }
     fetchSearchDocuments(criteria)
@@ -65,7 +68,8 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
       includeDeletedDocuments: false,
       pageCount: '',
       departureDate: '',
-      createdDate: _createdDate,
+      createdStartDate: _createdStartDate,
+      createdEndDate: _createdEndDate,
     })
   }
   return (
@@ -75,7 +79,8 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
           {searchParams.fileName} {searchParams.status} {searchParams.includeDeletedDocuments}
           {searchParams.pageCount}
           {searchParams.departureDate}
-          {searchParams.createdDate}{' '}
+          {searchParams.createdStartDate}
+          {searchParams.createdEndDate}{' '}
           {pageCounts > 0 ? (
             <CBadge className="me-1" color="info">
               {pageCounts}
@@ -85,7 +90,8 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
           )}
         </span>
         <span className="d-flex">
-          <span style={{ minWidth: 110 }}>Uploaded Date: </span>
+          <span style={{ minWidth: 80 }}>Uploaded</span>
+          <span>Start:</span>
           <CFormInput
             style={{
               padding: 3,
@@ -94,12 +100,29 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
               fontSize: 14,
               lineHeight: 'normal',
             }}
-            name="createdDate"
-            id="createdDate"
+            name="createdStartDate"
+            id="createdStartDate"
             type="date"
-            placeholder="Created Date"
-            aria-label="Created Date"
-            value={searchParams.createdDate}
+            placeholder="Start Date"
+            aria-label="Start Date"
+            value={searchParams.createdStartDate}
+            onChange={(e) => handleOnChange(e)}
+          />
+          <span>End:</span>
+          <CFormInput
+            style={{
+              padding: 3,
+              margin: 0,
+              marginLeft: 4,
+              fontSize: 14,
+              lineHeight: 'normal',
+            }}
+            name="createdEndDate"
+            id="createdEndDate"
+            type="date"
+            placeholder="End Date"
+            aria-label="End Date"
+            value={searchParams.createdEndDate}
             onChange={(e) => handleOnChange(e)}
           />
         </span>

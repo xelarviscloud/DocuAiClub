@@ -15,7 +15,8 @@ export async function searchDocumentsByCriteria(searchCriteria) {
   console.log('searchCriteria', searchCriteria)
   let params = `?pageCount=${searchCriteria.pageCount}`
   params += `&departureDate=${searchCriteria.departureDate}`
-  params += `&createdDate=${searchCriteria.createdDate}`
+  params += `&createdStartDate=${searchCriteria.createdStartDate}`
+  params += `&createdEndDate=${searchCriteria.createdEndDate}`
   params += `&confirmationNumber=${searchCriteria.confirmationNumber}`
   params += `&status=${searchCriteria.status}`
   params += `&fileName=${searchCriteria.fileName}`
@@ -47,4 +48,13 @@ export async function searchPagesByCriteria(searchCriteria) {
     },
   })
   return response
+}
+
+export async function SendTestEmail() {
+  const config = {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+    },
+  }
+  return axiosHttp.post(`/document/sendTestEmail`, {}, config)
 }
