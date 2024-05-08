@@ -49,7 +49,6 @@ function SearchDocuments() {
     await searchDocumentsByCriteria(_params)
       .then((response) => {
         setDocumentsList(response?.data?.documentsWithPages)
-        console.log(documentsList)
       })
       .catch((error) => {
         console.log('error', error)

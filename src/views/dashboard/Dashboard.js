@@ -94,49 +94,53 @@ const Dashboard = () => {
   const fetchDocuments = async () => {
     await getDocumentsByLocationId(userLocationId)
       .then((response) => {
-        var dd = response.data.documents.map((d, e) => {
-          let _cDate = moment(d.createdAt).format('MMM D, YYYY')
-          let _pdfIcon = pdfAvatarNew
-          let _pdfStatusColor = 'danger'
-          switch (d.status) {
-            case 'New':
-              _pdfIcon = pdfAvatarNew
-              _pdfStatusColor = 'info'
-              break
+        var dd = response.data.documents
+          .sort(function (a, b) {
+            return moment(b.createdAt) - moment(a.createdAt)
+          })
+          .map((d, e) => {
+            let _cDate = moment(d.createdAt).format('MMM D, YYYY')
+            let _pdfIcon = pdfAvatarNew
+            let _pdfStatusColor = 'danger'
+            switch (d.status) {
+              case 'New':
+                _pdfIcon = pdfAvatarNew
+                _pdfStatusColor = 'info'
+                break
 
-            case 'Processing':
-              _pdfIcon = pdfAvatarProgress
-              _pdfStatusColor = 'warning'
-              break
+              case 'Processing':
+                _pdfIcon = pdfAvatarProgress
+                _pdfStatusColor = 'warning'
+                break
 
-            case 'Completed':
-              _pdfIcon = pdfAvatarCompleted
-              _pdfStatusColor = 'success'
-              break
-            default:
-              _pdfIcon = pdfAvatarError
-              _pdfStatusColor = 'danger'
-              break
-          }
-          return {
-            avatar: { src: _pdfIcon, status: _pdfStatusColor },
-            document: {
-              name: d.fileName,
-              status: d.status,
-              created: _cDate,
-              locationName: d.locationName,
-              blobPath: d.blobPath,
-            },
-            user: { firstName: d.firstName, lastName: d.lastName },
-            usage: {
-              value: 22,
-              period: 'Jun 11, 2023 - Jul 10, 2023',
-              color: 'info',
-            },
-            payment: { name: 'Visa', icon: cibCcVisa },
-            activity: moment(d.createdAt).fromNow(),
-          }
-        })
+              case 'Completed':
+                _pdfIcon = pdfAvatarCompleted
+                _pdfStatusColor = 'success'
+                break
+              default:
+                _pdfIcon = pdfAvatarError
+                _pdfStatusColor = 'danger'
+                break
+            }
+            return {
+              avatar: { src: _pdfIcon, status: _pdfStatusColor },
+              document: {
+                name: d.fileName,
+                status: d.status,
+                created: _cDate,
+                locationName: d.locationName,
+                blobPath: d.blobPath,
+              },
+              user: { firstName: d.firstName, lastName: d.lastName },
+              usage: {
+                value: 22,
+                period: 'Jun 11, 2023 - Jul 10, 2023',
+                color: 'info',
+              },
+              payment: { name: 'Visa', icon: cibCcVisa },
+              activity: moment(d.createdAt).fromNow(),
+            }
+          })
         setTableExample(dd)
       })
       .catch((error) => {
