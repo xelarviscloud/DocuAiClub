@@ -183,4 +183,6 @@ body {
 .badge-no-fill {
   position: absolute;
   right: 50px;
+  background-color: transparent !important;
+  border: 1px solid cornflowerblue;
 }
