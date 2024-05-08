@@ -28,7 +28,7 @@ import {
 import SearchPagePanel from '../../../components/SearchPagePanel'
 import { downloadFile } from '../../../services/FileService'
 import { dicPageTagsDisplayName } from '../../../services/Utility'
-import Tables from './../../base/tables/Tables'
+import moment from 'moment'
 
 function SearchPages() {
   const [pagesList, setPagesList] = useState([])
@@ -41,7 +41,11 @@ function SearchPages() {
   const fetchSearchPages = async (_params) => {
     await searchPagesByCriteria(_params)
       .then((response) => {
-        setPagesList(response?.data)
+        setPagesList(
+          response?.data?.sort(function (a, b) {
+            return moment(b.createdAt) - moment(a.createdAt)
+          }),
+        )
         console.log(pagesList)
       })
       .catch((error) => {

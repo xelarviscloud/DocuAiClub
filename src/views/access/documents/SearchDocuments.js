@@ -1,23 +1,16 @@
 import React, { useState } from 'react'
-import Highlighter from 'react-highlight-words'
-import { searchDocumentsByCriteria, searchPagesByCriteria } from '../../../services/PageService'
+import { searchDocumentsByCriteria } from '../../../services/PageService'
 import PDFViewer from '../../access/documents/PDFViewer'
 import {
   CAccordion,
   CAccordionItem,
   CAccordionHeader,
   CAccordionBody,
-  CButton,
   CBadge,
   CRow,
   CCol,
   CCardBody,
-  CCardTitle,
-  CCardText,
   CCard,
-  CModal,
-  CModalTitle,
-  CModalBody,
   CCardHeader,
   COffcanvas,
   COffcanvasHeader,
@@ -25,18 +18,12 @@ import {
   COffcanvasBody,
   CCloseButton,
   CCardFooter,
-  CCarousel,
-  CCarouselItem,
-  CCarouselCaption,
-  CImage,
 } from '@coreui/react'
-import SearchPagePanel from '../../../components/SearchPagePanel'
 import { downloadFile } from '../../../services/FileService'
-import { dicPageTagsDisplayName } from '../../../services/Utility'
-import Tables from './../../base/tables/Tables'
 import SearchDocumentPanel from '../../../components/SearchDocumentPanel'
-import ReactImg from '../../../assets/react-img.jpg'
 import { auto } from '@popperjs/core'
+import moment from 'moment'
+
 function SearchDocuments() {
   const [documentsList, setDocumentsList] = useState([])
   const [values, setValues] = useState({})
@@ -48,7 +35,11 @@ function SearchDocuments() {
   const fetchSearchDocuments = async (_params) => {
     await searchDocumentsByCriteria(_params)
       .then((response) => {
-        setDocumentsList(response?.data?.documentsWithPages)
+        setDocumentsList(
+          response?.data?.documentsWithPages?.sort(function (a, b) {
+            return moment(b.createdAt) - moment(a.createdAt)
+          }),
+        )
       })
       .catch((error) => {
         console.log('error', error)
@@ -119,7 +110,7 @@ function SearchDocuments() {
 
                   <CAccordionBody style={{ whiteSpace: 'nowrap', overflowX: auto }}>
                     {item?.vw_doc_pages?.length > 0
-                      ? item?.vw_doc_pages?.map((page, key) => {
+                      ? item?.vw_doc_pages?.map((page) => {
                           return (
                             <CCard className="card-horizontal-slider">
                               <CCardHeader>{page?.pageName}</CCardHeader>
@@ -129,7 +120,9 @@ function SearchDocuments() {
                               >
                                 {page?.data?.content}
                               </CCardBody>
-                              <CCardFooter className="text-body-secondary">2 days ago</CCardFooter>
+                              <CCardFooter className="text-body-secondary">
+                                {moment(page?.createdAt).fromNow()}
+                              </CCardFooter>
                             </CCard>
                           )
                         })
