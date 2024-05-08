@@ -1,17 +1,13 @@
-import axios from 'axios'
-
+import axiosHttp from './axiosHttp'
 /**
  * GET: All Location by LocId
  */
 export async function getPagesByLocationId(locationId) {
-  const response = await axios.get(
-    `${process.env.REACT_APP_LOCAL_URL}/pages/location/${locationId}`,
-    {
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
+  const response = await axiosHttp.get(`/pages/location/${locationId}`, {
+    headers: {
+      Authorization: localStorage.getItem('token'),
     },
-  )
+  })
   return response
 }
 
@@ -25,8 +21,8 @@ export async function searchDocumentsByCriteria(searchCriteria) {
   params += `&fileName=${searchCriteria.fileName}`
   params += `&locationId=${searchCriteria.locationId}`
 
-  const url = `${process.env.REACT_APP_LOCAL_URL}/documents/search${params}`
-  const response = await axios.get(url, {
+  const url = `/documents/search${params}`
+  const response = await axiosHttp.get(url, {
     headers: {
       Authorization: localStorage.getItem('token'),
     },
@@ -44,8 +40,8 @@ export async function searchPagesByCriteria(searchCriteria) {
   params += `&content=${searchCriteria.content}`
   params += `&locationId=${searchCriteria.locationId}`
 
-  const url = `${process.env.REACT_APP_LOCAL_URL}/pages/search${params}`
-  const response = await axios.get(url, {
+  const url = `/pages/search${params}`
+  const response = await axiosHttp.get(url, {
     headers: {
       Authorization: localStorage.getItem('token'),
     },

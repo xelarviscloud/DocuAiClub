@@ -41,7 +41,6 @@ function SearchPages() {
   const fetchSearchPages = async (_params) => {
     await searchPagesByCriteria(_params)
       .then((response) => {
-        setPagesList([])
         setPagesList(response?.data)
         console.log(pagesList)
       })
@@ -50,6 +49,7 @@ function SearchPages() {
       })
   }
   async function onSearchPages(_params) {
+    setPagesList([])
     setValues(_params)
     await fetchSearchPages(_params)
   }

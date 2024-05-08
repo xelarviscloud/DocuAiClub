@@ -48,8 +48,6 @@ function SearchDocuments() {
   const fetchSearchDocuments = async (_params) => {
     await searchDocumentsByCriteria(_params)
       .then((response) => {
-        console.log('doc res', response)
-        setDocumentsList([])
         setDocumentsList(response?.data?.documentsWithPages)
         console.log(documentsList)
       })
@@ -58,6 +56,7 @@ function SearchDocuments() {
       })
   }
   async function onSearchDocuments(_params) {
+    setDocumentsList([])
     setValues(_params)
     await fetchSearchDocuments(_params)
   }

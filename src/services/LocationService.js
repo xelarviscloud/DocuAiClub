@@ -1,18 +1,15 @@
-import axios from 'axios'
+import axiosHttp from './axiosHttp'
 
 /**
  * GET: All Location by LocId
  */
 export async function getLocation({ locationId: locationId }) {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_LOCAL_URL}/location/get/${locationId}`,
-      {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
+    const response = await axiosHttp.get(`/location/get/${locationId}`, {
+      headers: {
+        Authorization: localStorage.getItem('token'),
       },
-    )
+    })
     return response.data
   } catch (error) {
     throw error
@@ -29,8 +26,8 @@ export async function getLocations({
   pageSize = 10,
 }) {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_LOCAL_URL}/locations/get?organizationId=${organizationId}&page=${currentPage}&pageSize=${pageSize}`,
+    const response = await axiosHttp.get(
+      `/locations/get?organizationId=${organizationId}&page=${currentPage}&pageSize=${pageSize}`,
       {
         headers: {
           Authorization: localStorage.getItem('token'),
@@ -48,7 +45,7 @@ export async function getLocations({
  */
 export async function addLocation({ body: body }) {
   try {
-    const response = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/location/add`, body, {
+    const response = await axiosHttp.post(`/location/add`, body, {
       headers: {
         Authorization: localStorage.getItem('token'),
       },
@@ -64,15 +61,11 @@ export async function addLocation({ body: body }) {
  */
 export async function updateLocation({ id: id, body: body }) {
   try {
-    const response = await axios.put(
-      `${process.env.REACT_APP_LOCAL_URL}/location/edit/${id}`,
-      body,
-      {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
+    const response = await axiosHttp.put(`/location/edit/${id}`, body, {
+      headers: {
+        Authorization: localStorage.getItem('token'),
       },
-    )
+    })
     return response.data
   } catch (error) {
     throw error
@@ -89,8 +82,8 @@ export async function getLocationUsers({
   pageSize = 10,
 }) {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_LOCAL_URL}/locationUsers?page=${currentPage}&pageSize=${pageSize}&locationId=${locationId}&organizationId=${organizationId}`,
+    const response = await axiosHttp.get(
+      `/locationUsers?page=${currentPage}&pageSize=${pageSize}&locationId=${locationId}&organizationId=${organizationId}`,
       {
         headers: {
           Authorization: localStorage.getItem('token'),
@@ -108,7 +101,7 @@ export async function getLocationUsers({
  */
 export async function addLocationUser({ body: body }) {
   try {
-    const response = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/locationUser`, body, {
+    const response = await axiosHttp.post(`/locationUser`, body, {
       headers: {
         Authorization: localStorage.getItem('token'),
       },
@@ -124,7 +117,7 @@ export async function addLocationUser({ body: body }) {
  */
 export async function updateLocationUser({ body: body }) {
   try {
-    const response = await axios.put(`${process.env.REACT_APP_LOCAL_URL}/locationUser`, body, {
+    const response = await axiosHttp.put(`/locationUser`, body, {
       headers: {
         Authorization: localStorage.getItem('token'),
       },

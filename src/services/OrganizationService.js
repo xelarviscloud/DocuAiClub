@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axiosHttp from './axiosHttp'
 
 /**
  * GOOD
@@ -7,14 +7,11 @@ import axios from 'axios'
 
 export async function getOrganization({ organizationId = organizationId }) {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_LOCAL_URL}/organization/get/${organizationId}`,
-      {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
+    const response = await axiosHttp.get(`/organization/get/${organizationId}`, {
+      headers: {
+        Authorization: localStorage.getItem('token'),
       },
-    )
+    })
     return response.data
   } catch (error) {
     throw error
@@ -31,8 +28,8 @@ export async function getOrganizations({
   pageSize = 10,
 }) {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_LOCAL_URL}/organizations/get?page=${currentPage}&pageSize=${pageSize}`,
+    const response = await axiosHttp.get(
+      `/organizations/get?page=${currentPage}&pageSize=${pageSize}`,
       {
         headers: {
           Authorization: localStorage.getItem('token'),
@@ -52,7 +49,7 @@ export async function getOrganizations({
 
 export async function addOrganization({ body: body }) {
   try {
-    const response = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/organization/add`, body, {
+    const response = await axiosHttp.post(`/organization/add`, body, {
       headers: {
         Authorization: localStorage.getItem('token'),
       },
@@ -70,15 +67,11 @@ export async function addOrganization({ body: body }) {
 
 export async function editOrganization({ id: id, body: body }) {
   try {
-    const response = await axios.put(
-      `${process.env.REACT_APP_LOCAL_URL}/organization/edit/${id}`,
-      body,
-      {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
+    const response = await axiosHttp.put(`/organization/edit/${id}`, body, {
+      headers: {
+        Authorization: localStorage.getItem('token'),
       },
-    )
+    })
     return response.data
   } catch (error) {
     throw error
@@ -95,8 +88,8 @@ export async function getOrganizationUsers({
   organizationId,
 }) {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_LOCAL_URL}/organizationUsers?page=${currentPage}&pageSize=${pageSize}&organizationId=${organizationId}`,
+    const response = await axiosHttp.get(
+      `/organizationUsers?page=${currentPage}&pageSize=${pageSize}&organizationId=${organizationId}`,
       {
         headers: {
           Authorization: localStorage.getItem('token'),
@@ -115,7 +108,7 @@ export async function getOrganizationUsers({
  */
 export async function addOrganizationUser({ body: body }) {
   try {
-    const response = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/organizationUser`, body, {
+    const response = await axiosHttp.post(`/organizationUser`, body, {
       headers: {
         Authorization: localStorage.getItem('token'),
         'content-type': 'application/x-www-form-urlencoded',
@@ -133,7 +126,7 @@ export async function addOrganizationUser({ body: body }) {
  */
 export async function updateOrganizationUser({ body: body }) {
   try {
-    const response = await axios.put(`${process.env.REACT_APP_LOCAL_URL}/organizationUser`, body, {
+    const response = await axiosHttp.put(`/organizationUser`, body, {
       headers: {
         Authorization: localStorage.getItem('token'),
         'content-type': 'application/x-www-form-urlencoded',
@@ -144,22 +137,3 @@ export async function updateOrganizationUser({ body: body }) {
     throw error
   }
 }
-
-axios.interceptors.request.use((config) => {
-  window.localStorage.setItem('spinner-state', '1')
-  window.dispatchEvent(new Event('storage'))
-  return config
-})
-
-axios.interceptors.response.use(
-  (response) => {
-    window.localStorage.setItem('spinner-state', '0')
-    window.dispatchEvent(new Event('storage'))
-    return response
-  },
-  (error) => {
-    window.localStorage.setItem('spinner-state', '0')
-    window.dispatchEvent(new Event('storage'))
-    return Promise.reject(error)
-  },
-)
