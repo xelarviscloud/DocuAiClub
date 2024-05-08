@@ -1,5 +1,6 @@
 import axios from 'axios'
-
+import 'dotenv/config'
+dotenv.config()
 const axiosHttp = axios.create({
   baseURL: `${process.env.REACT_APP_LOCAL_URL}`,
 })
