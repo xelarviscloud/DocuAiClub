@@ -77,13 +77,11 @@ const Dashboard = () => {
 
   async function refreshFiles() {
     fetchDocuments()
-    //alert('File is Uploaded successfully.');
-    //toast('Wow so easy!')
     showToastMessage()
   }
 
   const showToastMessage = () => {
-    toast.success('Success Notification !', {
+    toast.success('Document Uploaded Successfully!', {
       position: 'top-right',
     })
   }
@@ -154,11 +152,11 @@ const Dashboard = () => {
       <CCard className="mb-4">
         <CCardBody>
           <CRow>
-            <CCol sm={4}>
+            <CCol sm={12}>
               <h4 id="documentManager" className="card-title mb-0">
                 Upload
               </h4>
-              <div className="small text-body-secondary">January - July 2023</div>
+              <div className="small text-body-secondary">Select a PDF File</div>
             </CCol>
             <CCol>
               <FileUpload className="float-end" refreshFiles={refreshFiles} />
