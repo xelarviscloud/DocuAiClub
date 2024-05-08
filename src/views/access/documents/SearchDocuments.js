@@ -107,7 +107,11 @@ function SearchDocuments() {
                     >
                       View PDF
                     </div>
-                    <CBadge color="info" shape="rounded-pill" className="badge-no-fill">
+                    <CBadge
+                      color="info"
+                      shape="rounded-pill"
+                      className="badge-no-fill text-bg-info"
+                    >
                       Pages#
                       {item?.pageCount ?? 0}
                     </CBadge>
