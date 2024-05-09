@@ -156,22 +156,6 @@ const _nav = isUserSuperAdmin
               text: 'NEW',
             },
           },
-          {
-            component: CNavTitle,
-            name: 'ACCESS',
-          },
-          {
-            component: CNavItem,
-            name: 'Organization',
-            to: '/organization-details',
-            icon: <CIcon icon={cilHome} customClassName="nav-icon" />,
-          },
-          {
-            component: CNavItem,
-            name: 'Property',
-            to: '/location-details',
-            icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-          },
 
           {
             component: CNavTitle,
@@ -188,6 +172,22 @@ const _nav = isUserSuperAdmin
             name: 'Documents',
             to: '/search-documents',
             icon: <CIcon icon={cilSearch} customClassName="nav-icon" />,
+          },
+          {
+            component: CNavTitle,
+            name: 'ACCESS',
+          },
+          {
+            component: CNavItem,
+            name: 'Organization',
+            to: '/organization-details',
+            icon: <CIcon icon={cilHome} customClassName="nav-icon" />,
+          },
+          {
+            component: CNavItem,
+            name: 'Property',
+            to: '/location-details',
+            icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
           },
         ]
       : []
