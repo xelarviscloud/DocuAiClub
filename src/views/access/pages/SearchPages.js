@@ -19,6 +19,7 @@ import {
   CModalTitle,
   CModalBody,
   CModalHeader,
+  CModalFooter,
   COffcanvas,
   COffcanvasHeader,
   COffcanvasTitle,
@@ -28,21 +29,25 @@ import {
 import SearchPagePanel from '../../../components/SearchPagePanel'
 import { downloadFile } from '../../../services/FileService'
 import { dicPageTagsDisplayName } from '../../../services/Utility'
-import Tables from './../../base/tables/Tables'
+import moment from 'moment'
 
 function SearchPages() {
   const [pagesList, setPagesList] = useState([])
   const [values, setValues] = useState({})
   const [visible, setVisible] = useState(false)
   const [sidebarVisible, setSidebarVisible] = useState(false)
+  const [sharePageModalVisible, setSharePageModalVisible] = useState(false)
   const [sidebarDetails, setSidebarDetails] = useState({})
   const [downloaded, setDownloaded] = useState()
 
   const fetchSearchPages = async (_params) => {
     await searchPagesByCriteria(_params)
       .then((response) => {
-        setPagesList([])
-        setPagesList(response?.data)
+        setPagesList(
+          response?.data?.sort(function (a, b) {
+            return moment(b.createdAt) - moment(a.createdAt)
+          }),
+        )
         console.log(pagesList)
       })
       .catch((error) => {
@@ -50,6 +55,7 @@ function SearchPages() {
       })
   }
   async function onSearchPages(_params) {
+    setPagesList([])
     setValues(_params)
     await fetchSearchPages(_params)
   }
@@ -73,12 +79,39 @@ function SearchPages() {
       }
     })
   }
+
+  async function handleSharePage(bPath, isView = true) {
+    let _fileName = bPath.split('/')[1]
+    setSharePageModalVisible(true)
+    console.log('Share Page', _fileName)
+  }
   return (
     <div>
       <SearchPagePanel
         fetchSearchPages={onSearchPages}
         pageCounts={pagesList?.length > 0 ? pagesList.length : ''}
       ></SearchPagePanel>
+      <>
+        <CModal
+          visible={sharePageModalVisible}
+          onClose={() => setSharePageModalVisible(false)}
+          aria-labelledby="sharePageModal"
+        >
+          <CModalHeader onClose={() => setSharePageModalVisible(false)}>
+            <CModalTitle id="sharePageModal">Share Page</CModalTitle>
+          </CModalHeader>
+          <CModalBody>
+            <p>Verify before you share. Page might contain sensitive information!</p>
+          </CModalBody>
+          <CModalFooter>
+            <CButton color="secondary" onClick={() => setSharePageModalVisible(false)}>
+              Close
+            </CButton>
+            <CButton color="primary">Share</CButton>
+          </CModalFooter>
+        </CModal>
+      </>
+
       {sidebarVisible ? (
         <>
           <COffcanvas
@@ -135,7 +168,10 @@ function SearchPages() {
           return (
             <CAccordionItem itemKey={key} key={key}>
               <CAccordionHeader>
-                {item.pageName}#{item.data.content.substring(1, 40)} {key}
+                {item.pageName}#{item.data.content.substring(0, 40)} {key}
+                <CBadge color="info" shape="rounded-pill" className="badge-no-fill text-bg-info">
+                  {item?.createdAt}
+                </CBadge>
               </CAccordionHeader>
               <CAccordionBody>
                 <CRow key={key}>
@@ -174,6 +210,14 @@ function SearchPages() {
                           onClick={() => handleViewFile(item.pageBlobPath, true)}
                         >
                           View
+                        </CButton>
+                        <CButton
+                          color="primary"
+                          href="#"
+                          style={{ margin: 3 }}
+                          onClick={() => handleSharePage(item.pageBlobPath, true)}
+                        >
+                          Share
                         </CButton>
                         <CButton
                           style={{ margin: 3 }}

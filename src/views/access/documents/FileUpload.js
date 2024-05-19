@@ -29,6 +29,7 @@ function FileUpload({ refreshFiles }) {
     formData.append('userId', decodedToken.userId)
     formData.append('userName', decodedToken.userName)
     formData.append('locationId', decodedToken.locationId)
+    formData.append('organizationId', decodedToken.organizationId)
 
     let res = await uploadFile(formData)
       .then((response) => {
@@ -50,7 +51,7 @@ function FileUpload({ refreshFiles }) {
   return (
     <CForm onSubmit={handleSubmit} className="align-items-baseline">
       <CRow>
-        <CCol>
+        <CCol sm={10}>
           <CFormInput
             ref={ref}
             type="file"
@@ -64,7 +65,7 @@ function FileUpload({ refreshFiles }) {
             }}
           />
         </CCol>
-        <CCol>
+        <CCol sm={2} className="text-center">
           <CTooltip content="Choose a file first then click on upload.">
             <CButton color="primary" type="submit" disabled={!file}>
               {showSpinner ? (

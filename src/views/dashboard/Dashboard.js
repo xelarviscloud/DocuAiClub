@@ -35,11 +35,12 @@ import pdfAvatarProgress from '../../assets/pdfProgress.png'
 import pdfAvatarCompleted from '../../assets/pdfCompleted.png'
 import pdfAvatarError from '../../assets/pdfError.png'
 import moment from 'moment'
+import { toast } from 'react-toastify'
 
 const Dashboard = () => {
   const token = localStorage.getItem('token')
   const decodedToken = jwtDecode(token)
-
+  console.log('decoded token', decodedToken)
   const [sidebarVisible, setSidebarVisible] = useState(false)
   const [downloaded, setDownloaded] = useState()
   const [userLocationId, setUserLocationId] = useState(decodedToken.locationId)
@@ -76,9 +77,14 @@ const Dashboard = () => {
 
   async function refreshFiles() {
     fetchDocuments()
-    alert('File is Uploaded successfully.')
+    showToastMessage()
   }
 
+  const showToastMessage = () => {
+    toast.success('Document Uploaded Successfully!', {
+      position: 'top-right',
+    })
+  }
   useEffect(() => {
     fetchDocuments()
   }, [userLocationId])
@@ -86,49 +92,53 @@ const Dashboard = () => {
   const fetchDocuments = async () => {
     await getDocumentsByLocationId(userLocationId)
       .then((response) => {
-        var dd = response.data.documents.map((d, e) => {
-          let _cDate = moment(d.createdAt).format('MMM D, YYYY')
-          let _pdfIcon = pdfAvatarNew
-          let _pdfStatusColor = 'danger'
-          switch (d.status) {
-            case 'New':
-              _pdfIcon = pdfAvatarNew
-              _pdfStatusColor = 'info'
-              break
+        var dd = response.data.documents
+          .sort(function (a, b) {
+            return moment(b.createdAt) - moment(a.createdAt)
+          })
+          .map((d, e) => {
+            let _cDate = moment(d.createdAt).format('MMM D, YYYY')
+            let _pdfIcon = pdfAvatarNew
+            let _pdfStatusColor = 'danger'
+            switch (d.status) {
+              case 'New':
+                _pdfIcon = pdfAvatarNew
+                _pdfStatusColor = 'info'
+                break
 
-            case 'Processing':
-              _pdfIcon = pdfAvatarProgress
-              _pdfStatusColor = 'warning'
-              break
+              case 'Processing':
+                _pdfIcon = pdfAvatarProgress
+                _pdfStatusColor = 'warning'
+                break
 
-            case 'Completed':
-              _pdfIcon = pdfAvatarCompleted
-              _pdfStatusColor = 'success'
-              break
-            default:
-              _pdfIcon = pdfAvatarError
-              _pdfStatusColor = 'danger'
-              break
-          }
-          return {
-            avatar: { src: _pdfIcon, status: _pdfStatusColor },
-            document: {
-              name: d.fileName,
-              status: d.status,
-              created: _cDate,
-              locationName: d.locationName,
-              blobPath: d.blobPath,
-            },
-            user: { firstName: d.firstName, lastName: d.lastName },
-            usage: {
-              value: 22,
-              period: 'Jun 11, 2023 - Jul 10, 2023',
-              color: 'info',
-            },
-            payment: { name: 'Visa', icon: cibCcVisa },
-            activity: '5 minutes ago',
-          }
-        })
+              case 'Completed':
+                _pdfIcon = pdfAvatarCompleted
+                _pdfStatusColor = 'success'
+                break
+              default:
+                _pdfIcon = pdfAvatarError
+                _pdfStatusColor = 'danger'
+                break
+            }
+            return {
+              avatar: { src: _pdfIcon, status: _pdfStatusColor },
+              document: {
+                name: d.fileName,
+                status: d.status,
+                created: _cDate,
+                locationName: d.locationName,
+                blobPath: d.blobPath,
+              },
+              user: { firstName: d.firstName, lastName: d.lastName },
+              usage: {
+                value: 22,
+                period: 'Jun 11, 2023 - Jul 10, 2023',
+                color: 'info',
+              },
+              payment: { name: 'Visa', icon: cibCcVisa },
+              activity: moment(d.createdAt).fromNow(),
+            }
+          })
         setTableExample(dd)
       })
       .catch((error) => {
@@ -138,15 +148,15 @@ const Dashboard = () => {
 
   return (
     <>
-      <WidgetsDropdown className="mb-4" />
+      {/* <WidgetsDropdown className="mb-4" /> */}
       <CCard className="mb-4">
         <CCardBody>
           <CRow>
-            <CCol sm={4}>
+            <CCol sm={12}>
               <h4 id="documentManager" className="card-title mb-0">
                 Upload
               </h4>
-              <div className="small text-body-secondary">January - July 2023</div>
+              <div className="small text-body-secondary">Select a PDF File</div>
             </CCol>
             <CCol>
               <FileUpload className="float-end" refreshFiles={refreshFiles} />

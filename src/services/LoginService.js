@@ -1,9 +1,8 @@
-import axios from 'axios'
-
+import axiosHttp from './axiosHttp'
 // Login Api
 export async function userLogin(body) {
   try {
-    const response = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/user/login`, body)
+    const response = await axiosHttp.post(`/user/login`, body)
     return response.data
   } catch (error) {
     throw error
@@ -15,7 +14,7 @@ export async function userLogin(body) {
  */
 export async function addVerifyEmail(body) {
   try {
-    const response = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/verification`, body, {
+    const response = await axiosHttp.post(`/verification`, body, {
       headers: {
         Authorization: localStorage.getItem('token'),
       },
@@ -26,8 +25,22 @@ export async function addVerifyEmail(body) {
   }
 }
 
+/**
+ * UPDATE USER PROFILE
+ */
 export async function updateUserProfile(body) {
-  return await axios.put(`${process.env.REACT_APP_LOCAL_URL}/user/updateUserProfile`, body, {
+  return await axiosHttp.put(`/user/updateUserProfile`, body, {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+    },
+  })
+}
+
+/**
+ * CHANGE PASSWORD
+ */
+export async function changePassword(body) {
+  return await axiosHttp.put(`/user/changePassword`, body, {
     headers: {
       Authorization: localStorage.getItem('token'),
     },

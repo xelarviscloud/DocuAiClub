@@ -151,3 +151,38 @@ body {
   padding-top: 5px !important;
   padding-bottom: 0px !important;
 }
+
+.accordion-button:not(.collapsed) {
+  background-color: #cdd9e8f5;
+}
+
+.accordion-button:focus {
+  box-shadow: none !important;
+}
+
+[data-coreui-theme='dark'] .carousel .carousel-caption,
+[data-coreui-theme='dark'].carousel .carousel-caption {
+  color: #d9dfe4 !important;
+}
+.card-horizontal-slider {
+  display: inline-block;
+  border: 1px solid #aaa;
+  margin: 5px;
+  vertical-align: top;
+}
+
+.card-body-slider {
+  width: 350px;
+  overflow-y: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 300px;
+  padding: 5px;
+}
+.badge-no-fill {
+  position: absolute;
+  right: 50px;
+  background-color: transparent !important;
+  border: 1px solid cornflowerblue;
+}

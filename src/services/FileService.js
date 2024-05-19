@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axiosHttp from './axiosHttp'
 
 export async function uploadFile(body) {
   const config = {
@@ -6,7 +6,7 @@ export async function uploadFile(body) {
       Authorization: localStorage.getItem('token'),
     },
   }
-  return axios.post(`${process.env.REACT_APP_LOCAL_URL}/file/upload`, body, config)
+  return axiosHttp.post(`/file/upload`, body, config)
 }
 
 export async function downloadFile(blobPath) {
@@ -17,10 +17,7 @@ export async function downloadFile(blobPath) {
     },
   }
   console.log('blobPath', blobPath)
-  return axios.get(
-    `${process.env.REACT_APP_LOCAL_URL}/blob/downloadPdf?blobPath=${blobPath}`,
-    config,
-  )
+  return axiosHttp.get(`/blob/downloadPdf?blobPath=${encodeURIComponent(blobPath)}`, config)
 }
 
 export async function getDocumentsByLocationId(locationId) {
@@ -29,5 +26,5 @@ export async function getDocumentsByLocationId(locationId) {
       Authorization: localStorage.getItem('token'),
     },
   }
-  return axios.get(`${process.env.REACT_APP_LOCAL_URL}/documents/location/${locationId}`, config)
+  return axiosHttp.get(`/documents/location/${locationId}`, config)
 }

@@ -5,7 +5,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useColorModes } from '@coreui/react'
 import { Toaster } from 'react-hot-toast'
 import './scss/style.scss'
-
+import { Bounce, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
@@ -36,6 +37,7 @@ const App = () => {
   return (
     <>
       <Toaster position="top-center" />
+      <ToastContainer />
       <BrowserRouter>
         <Suspense>
           <Routes>

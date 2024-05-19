@@ -1,17 +1,33 @@
-import axios from 'axios'
-
+import axiosHttp from './axiosHttp'
 /**
  * GET: All Location by LocId
  */
 export async function getPagesByLocationId(locationId) {
-  const response = await axios.get(
-    `${process.env.REACT_APP_LOCAL_URL}/pages/location/${locationId}`,
-    {
-      headers: {
-        Authorization: localStorage.getItem('token'),
-      },
+  const response = await axiosHttp.get(`/pages/location/${locationId}`, {
+    headers: {
+      Authorization: localStorage.getItem('token'),
     },
-  )
+  })
+  return response
+}
+
+export async function searchDocumentsByCriteria(searchCriteria) {
+  console.log('searchCriteria', searchCriteria)
+  let params = `?pageCount=${searchCriteria.pageCount}`
+  params += `&departureDate=${searchCriteria.departureDate}`
+  params += `&createdStartDate=${searchCriteria.createdStartDate}`
+  params += `&createdEndDate=${searchCriteria.createdEndDate}`
+  params += `&confirmationNumber=${searchCriteria.confirmationNumber}`
+  params += `&status=${searchCriteria.status}`
+  params += `&fileName=${searchCriteria.fileName}`
+  params += `&locationId=${searchCriteria.locationId}`
+
+  const url = `/documents/search${params}`
+  const response = await axiosHttp.get(url, {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+    },
+  })
   return response
 }
 
@@ -25,11 +41,39 @@ export async function searchPagesByCriteria(searchCriteria) {
   params += `&content=${searchCriteria.content}`
   params += `&locationId=${searchCriteria.locationId}`
 
-  const url = `${process.env.REACT_APP_LOCAL_URL}/pages/search${params}`
-  const response = await axios.get(url, {
+  const url = `/pages/search${params}`
+  const response = await axiosHttp.get(url, {
     headers: {
       Authorization: localStorage.getItem('token'),
     },
   })
   return response
+}
+
+export async function ShareDocument(criteria) {
+  const config = {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+    },
+  }
+  
+  return axiosHttp.post(`/pages/shareDocument`, { criteria }, config)
+}
+
+export async function SharePage(criteria) {
+  const config = {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+    },
+  }
+  return axiosHttp.post(`/pages/sharePage`, { criteria }, config)
+}
+
+export async function SendTestEmail() {
+  const config = {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+    },
+  }
+  return axiosHttp.post(`/document/sendTestEmail`, {}, config)
 }
