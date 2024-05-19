@@ -19,6 +19,7 @@ import {
   CModalTitle,
   CModalBody,
   CModalHeader,
+  CModalFooter,
   COffcanvas,
   COffcanvasHeader,
   COffcanvasTitle,
@@ -35,6 +36,7 @@ function SearchPages() {
   const [values, setValues] = useState({})
   const [visible, setVisible] = useState(false)
   const [sidebarVisible, setSidebarVisible] = useState(false)
+  const [sharePageModalVisible, setSharePageModalVisible] = useState(false)
   const [sidebarDetails, setSidebarDetails] = useState({})
   const [downloaded, setDownloaded] = useState()
 
@@ -77,12 +79,39 @@ function SearchPages() {
       }
     })
   }
+
+  async function handleSharePage(bPath, isView = true) {
+    let _fileName = bPath.split('/')[1]
+    setSharePageModalVisible(true)
+    console.log('Share Page', _fileName)
+  }
   return (
     <div>
       <SearchPagePanel
         fetchSearchPages={onSearchPages}
         pageCounts={pagesList?.length > 0 ? pagesList.length : ''}
       ></SearchPagePanel>
+      <>
+        <CModal
+          visible={sharePageModalVisible}
+          onClose={() => setSharePageModalVisible(false)}
+          aria-labelledby="sharePageModal"
+        >
+          <CModalHeader onClose={() => setSharePageModalVisible(false)}>
+            <CModalTitle id="sharePageModal">Share Page</CModalTitle>
+          </CModalHeader>
+          <CModalBody>
+            <p>Verify before you share. Page might contain sensitive information!</p>
+          </CModalBody>
+          <CModalFooter>
+            <CButton color="secondary" onClick={() => setSharePageModalVisible(false)}>
+              Close
+            </CButton>
+            <CButton color="primary">Share</CButton>
+          </CModalFooter>
+        </CModal>
+      </>
+
       {sidebarVisible ? (
         <>
           <COffcanvas
@@ -181,6 +210,14 @@ function SearchPages() {
                           onClick={() => handleViewFile(item.pageBlobPath, true)}
                         >
                           View
+                        </CButton>
+                        <CButton
+                          color="primary"
+                          href="#"
+                          style={{ margin: 3 }}
+                          onClick={() => handleSharePage(item.pageBlobPath, true)}
+                        >
+                          Share
                         </CButton>
                         <CButton
                           style={{ margin: 3 }}

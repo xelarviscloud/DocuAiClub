@@ -50,6 +50,25 @@ export async function searchPagesByCriteria(searchCriteria) {
   return response
 }
 
+export async function ShareDocument(criteria) {
+  const config = {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+    },
+  }
+  
+  return axiosHttp.post(`/pages/shareDocument`, { criteria }, config)
+}
+
+export async function SharePage(criteria) {
+  const config = {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+    },
+  }
+  return axiosHttp.post(`/pages/sharePage`, { criteria }, config)
+}
+
 export async function SendTestEmail() {
   const config = {
     headers: {
