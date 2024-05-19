@@ -17,7 +17,7 @@ export async function downloadFile(blobPath) {
     },
   }
   console.log('blobPath', blobPath)
-  return axiosHttp.get(`/blob/downloadPdf?blobPath=${blobPath}`, config)
+  return axiosHttp.get(`/blob/downloadPdf?blobPath=${encodeURIComponent(blobPath)}`, config)
 }
 
 export async function getDocumentsByLocationId(locationId) {
