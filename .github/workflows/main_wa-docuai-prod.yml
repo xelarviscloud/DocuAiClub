@@ -58,5 +58,5 @@ jobs:
         with:
           app-name: 'wa-docuai-prod'
           slot-name: 'Production'
-          package: .
+          package: ./dist
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_633019C46349498D9BF8A7C64CA0D367 }}
