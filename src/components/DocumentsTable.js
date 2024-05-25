@@ -56,7 +56,7 @@ function DocumentsTable({ downloadPdfFile, tableExampleData }) {
                   </small>
                 </div>
               </div>
-              <CProgress thin color={item.usage.color} value={item.usage.value} />
+              {/* <CProgress thin color={item.usage.color} value={item.usage.value} /> */}
             </CTableDataCell>
             <CTableDataCell className="text-center">
               {/* <CIcon size="xl" icon={item.payment.icon} /> */}

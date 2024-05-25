@@ -142,7 +142,7 @@ function RegisterLocation({
                         feedbackInvalid="Please provide Location Name"
                         type="text"
                         name="locationName"
-                        placeholder="Enter Your Name"
+                        placeholder="Enter Location Name"
                         value={values?.locationName}
                         onChange={(e) => handleOnChange(e)}
                       />
