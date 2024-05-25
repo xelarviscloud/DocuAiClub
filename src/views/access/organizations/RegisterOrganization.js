@@ -107,7 +107,7 @@ const RegisterOrganization = ({
                         feedbackInvalid="Please provide Organization Name"
                         type="text"
                         name="organizationName"
-                        placeholder="Enter Your Name"
+                        placeholder="Enter Organization Name"
                         value={values?.organizationName}
                         onChange={(e) => handleOnChange(e)}
                       />
