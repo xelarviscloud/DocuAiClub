@@ -16,7 +16,6 @@ function FileUpload({ refreshFiles }) {
   const ref = React.useRef()
 
   function handleChange(event) {
-    console.log('file change', event)
     setFile(event.target.files[0])
   }
 

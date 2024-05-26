@@ -93,7 +93,7 @@ const AppHeader = () => {
         <CHeaderNav className="ms-auto ms-sm-1">
           <CDropdown variant="nav-item" placement="bottom-end">
             <CDropdownToggle caret={false}>
-              <CBadge color="danger" position="top-end" shape="rounded-pill">
+              <CBadge color="danger" position="top-end" shape="rounded-pill" className="top-eight">
                 {userAlerts?.length} <span className="visually-hidden">unread messages</span>
               </CBadge>
               <CIcon icon={cilBell} size="xl" />
