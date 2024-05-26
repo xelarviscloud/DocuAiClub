@@ -1,4 +1,3 @@
-import { shareDocument, sharePage } from '../services/PageService'
 import React, { useState, useEffect } from 'react'
 import {
   CModal,
@@ -30,10 +29,6 @@ function ShareModal({ title, visibleState, setVisibleState, blobStoragePath, fun
     blobPath: blobStoragePath,
   })
 
-  useEffect(() => {
-    setFormData({ ...formData, blobPath: blobStoragePath })
-  }, [blobStoragePath])
-
   const clearForm = () => {
     setFormData({ emailAddress: '', blobPath: '', emailSubject: '', emailBody: '' })
     setVisibleState(false)
@@ -45,7 +40,8 @@ function ShareModal({ title, visibleState, setVisibleState, blobStoragePath, fun
       event.preventDefault()
       event.stopPropagation()
     }
-    setValidated(true)
+
+    formData.blobPath = blobStoragePath
 
     await func(formData)
       .then((response) => {
@@ -54,7 +50,7 @@ function ShareModal({ title, visibleState, setVisibleState, blobStoragePath, fun
       })
       .catch((error) => {
         console.log('err', error)
-        toast.error(error?.message)
+        toast.error('Sending a file in an email has failed.')
       })
   }
 
