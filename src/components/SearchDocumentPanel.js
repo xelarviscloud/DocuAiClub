@@ -44,6 +44,7 @@ function SearchDocumentPanel({ fetchSearchDocuments, pageCounts }) {
       createdStartDate: searchParams.createdStartDate,
       createdEndDate: searchParams.createdEndDate,
       locationId: _locationId,
+      organizationId: decodedToken.organizationId,
     }
     fetchSearchDocuments(criteria)
   }

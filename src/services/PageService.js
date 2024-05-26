@@ -21,6 +21,7 @@ export async function searchDocumentsByCriteria(searchCriteria) {
   params += `&status=${searchCriteria.status}`
   params += `&fileName=${searchCriteria.fileName}`
   params += `&locationId=${searchCriteria.locationId}`
+  params += `&organizationId=${searchCriteria.organizationId}`
 
   const url = `/documents/search${params}`
   const response = await axiosHttp.get(url, {
@@ -56,7 +57,7 @@ export async function ShareDocument(criteria) {
       Authorization: localStorage.getItem('token'),
     },
   }
-  
+
   return axiosHttp.post(`/pages/shareDocument`, { criteria }, config)
 }
 
