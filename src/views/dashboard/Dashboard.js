@@ -41,6 +41,7 @@ const Dashboard = () => {
   const token = localStorage.getItem('token')
   const decodedToken = jwtDecode(token)
   console.log('decoded token', decodedToken)
+
   const [sidebarVisible, setSidebarVisible] = useState(false)
   const [downloaded, setDownloaded] = useState()
   const [userLocationId, setUserLocationId] = useState(decodedToken.locationId)
@@ -65,7 +66,6 @@ const Dashboard = () => {
       console.log('downloaded file', res.data)
       const file = new Blob([res.data], { type: 'application/pdf' })
       const fileURL = URL.createObjectURL(file)
-      // window.open(fileURL)
       setSidebarVisible(true)
       setDownloaded(fileURL)
     })
