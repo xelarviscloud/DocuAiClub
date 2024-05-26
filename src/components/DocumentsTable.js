@@ -48,15 +48,7 @@ function DocumentsTable({ downloadPdfFile, tableExampleData }) {
               <span>{item.document.status}</span>
             </CTableDataCell>
             <CTableDataCell>
-              <div className="d-flex justify-content-between text-nowrap">
-                {/* <div className="fw-semibold">{item.usage.value}%</div> */}
-                <div className="ms-3">
-                  <small className="text-body-secondary fw-semibold">
-                    {item.document.locationName}
-                  </small>
-                </div>
-              </div>
-              {/* <CProgress thin color={item.usage.color} value={item.usage.value} /> */}
+              <span>{item.document.locationName}</span>
             </CTableDataCell>
             <CTableDataCell className="text-center">
               {/* <CIcon size="xl" icon={item.payment.icon} /> */}

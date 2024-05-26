@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode'
 import CIcon from '@coreui/icons-react'
 
 import { cilCloudUpload } from '@coreui/icons'
+import { createAlert } from '../../../services/notificationService'
 const token = localStorage.getItem('token')
 const decodedToken = jwtDecode(token)
 
@@ -15,7 +16,6 @@ function FileUpload({ refreshFiles }) {
   const ref = React.useRef()
 
   function handleChange(event) {
-    console.log('file change', event)
     setFile(event.target.files[0])
   }
 
@@ -32,10 +32,17 @@ function FileUpload({ refreshFiles }) {
     formData.append('organizationId', decodedToken.organizationId)
 
     let res = await uploadFile(formData)
-      .then((response) => {
-        console.log('file response', response)
+      .then(async (response) => {
         if (response.status == 200) {
-          console.log('valid')
+          // Creating an alert on file upload
+          let response = await createAlert({
+            description: 'New file uploaded.',
+            type: 'Information',
+            userId: decodedToken?.userId,
+            userName: decodedToken?.userName,
+            organizationId: decodedToken.organizationId,
+          })
+
           setUploadState(true)
         }
       })

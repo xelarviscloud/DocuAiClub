@@ -1,14 +1,4 @@
-import {
-  cilBell,
-  cilContrast,
-  cilEnvelopeOpen,
-  cilList,
-  cilMenu,
-  cilMoon,
-  cilPowerStandby,
-  cilSun,
-  cilUser,
-} from '@coreui/icons'
+import { cilBell, cilContrast, cilInfo, cilMenu, cilMoon, cilSun } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import {
   CContainer,
@@ -23,6 +13,7 @@ import {
   CNavItem,
   CNavLink,
   useColorModes,
+  CBadge,
 } from '@coreui/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -30,9 +21,12 @@ import { NavLink } from 'react-router-dom'
 
 import { AppHeaderDropdown } from './header/index'
 import { AppBreadcrumb } from './index'
+import { getAlerts } from '../services/notificationService'
+import { jwtDecode } from 'jwt-decode'
 
 const AppHeader = () => {
   const [decodedToken, setDecodedToken] = useState({})
+  const [userAlerts, setUserAlerts] = useState([])
   const headerRef = useRef()
   const { colorMode, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
 
@@ -41,6 +35,19 @@ const AppHeader = () => {
 
   useEffect(() => {
     setDecodedToken(JSON.parse(localStorage.getItem('userInfo')))
+
+    const token = localStorage.getItem('token')
+    const decodedToken = jwtDecode(token)
+
+    const response = getAlerts({
+      userId: decodedToken?.userId,
+      userName: decodedToken?.userName,
+      organizationId: decodedToken?.organizationId,
+    }).then((res) => {
+      console.log(res.data.uAlerts)
+      setUserAlerts(res.data.uAlerts)
+    })
+
     document.addEventListener('scroll', () => {
       headerRef.current &&
         headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
@@ -83,22 +90,30 @@ const AppHeader = () => {
             <CNavbarText>{decodedToken?.roleDescription}</CNavbarText>
           </CNavItem>
         </CHeaderNav>
-        <CHeaderNav className="ms-auto ms-sm-0">
-          <CNavItem>
-            <CNavLink href="/">
-              <CIcon icon={cilBell} size="lg" />
-            </CNavLink>
-          </CNavItem>
-          {/* <CNavItem>
-            <CNavLink href="/">
-              <CIcon icon={cilList} size="lg" />
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink href="/">
-              <CIcon icon={cilEnvelopeOpen} size="lg" />
-            </CNavLink>
-          </CNavItem> */}
+        <CHeaderNav className="ms-auto ms-sm-1">
+          <CDropdown variant="nav-item" placement="bottom-end">
+            <CDropdownToggle caret={false}>
+              <CBadge color="danger" position="top-end" shape="rounded-pill" className="top-eight">
+                {userAlerts?.length} <span className="visually-hidden">unread messages</span>
+              </CBadge>
+              <CIcon icon={cilBell} size="xl" />
+            </CDropdownToggle>
+            <CDropdownMenu id="ddm-notifications">
+              {userAlerts?.map((e, i) => {
+                return (
+                  <CDropdownItem
+                    key={i}
+                    active={colorMode === 'dark'}
+                    className="d-flex align-items-center"
+                    as="button"
+                    type="button"
+                  >
+                    <CIcon className="me-2" icon={cilInfo} size="lg" /> {e?.description}
+                  </CDropdownItem>
+                )
+              })}
+            </CDropdownMenu>
+          </CDropdown>
         </CHeaderNav>
         <CHeaderNav>
           <li className="nav-item py-1">
