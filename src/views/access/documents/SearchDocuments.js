@@ -7,6 +7,7 @@ import {
   CAccordionHeader,
   CAccordionBody,
   CBadge,
+  CButton,
   CRow,
   CCol,
   CCardBody,
@@ -23,14 +24,15 @@ import { downloadFile } from '../../../services/FileService'
 import SearchDocumentPanel from '../../../components/SearchDocumentPanel'
 import { auto } from '@popperjs/core'
 import moment from 'moment'
+import ShareModal from '../../../components/ShareModal'
 
 function SearchDocuments() {
   const [documentsList, setDocumentsList] = useState([])
   const [values, setValues] = useState({})
-  const [visible, setVisible] = useState(false)
   const [sidebarVisible, setSidebarVisible] = useState(false)
-  const [sidebarDetails, setSidebarDetails] = useState({})
   const [downloaded, setDownloaded] = useState()
+  const [sharePageModalVisible, setSharePageModalVisible] = useState(false)
+  const [shareFileBlobPath, setShareFileBlobPath] = useState(null);
 
   const fetchSearchDocuments = async (_params) => {
     await searchDocumentsByCriteria(_params)
@@ -69,6 +71,12 @@ function SearchDocuments() {
       }
     })
   }
+
+  async function handleSharePage(bPath, isView = true) {
+    setSharePageModalVisible(true)
+    setShareFileBlobPath(bPath);
+  }
+
   return (
     <div>
       <CRow>
@@ -77,7 +85,13 @@ function SearchDocuments() {
           pageCounts={documentsList?.length > 0 ? documentsList.length : ''}
         ></SearchDocumentPanel>
       </CRow>
-
+      <ShareModal
+        title={'Share Document'}
+        sharePageModalVisible={sharePageModalVisible}
+        setSharePageModalVisible={setSharePageModalVisible}
+        shareFileBlobPath={shareFileBlobPath}
+      >
+      </ShareModal>
       <CRow>
         <CCol>
           <CAccordion activeItemKey={-1}>
@@ -108,14 +122,25 @@ function SearchDocuments() {
                     </CBadge>
                   </CAccordionHeader>
 
-                  <CAccordionBody style={{ whiteSpace: 'nowrap', overflowX: auto }}>
-                    {item?.vw_doc_pages?.length > 0
-                      ? item?.vw_doc_pages?.map((page) => {
+                  <CAccordionBody style={{ whiteSpace: 'nowrap' }}>
+                    <div style={{ display: 'flex', justifyContent: 'end' }}>
+                      <CButton
+                        color="primary"
+                        href="#"
+                        style={{ margin: 3 }}
+                        onClick={() => handleSharePage(item.blobPath, true)}
+                      >
+                        Share
+                      </CButton>
+                    </div>
+                    <div style={{ overflowX: auto, paddingBottom: '0.5rem' }}>
+                      {item?.vw_doc_pages?.length > 0
+                        ? item?.vw_doc_pages?.map((page) => {
                           return (
                             <CCard className="card-horizontal-slider">
                               <CCardHeader>{page?.pageName}</CCardHeader>
                               <CCardBody
-                                style={{ maxWidth: 350, whiteSpace: 'initial' }}
+                                style={{ maxWidth: 350, whiteSpace: 'initial', overflowY: auto }}
                                 className="card-body-slider"
                               >
                                 {page?.data?.content}
@@ -126,7 +151,8 @@ function SearchDocuments() {
                             </CCard>
                           )
                         })
-                      : ''}
+                        : ''}
+                    </div>
                   </CAccordionBody>
                 </CAccordionItem>
               )
