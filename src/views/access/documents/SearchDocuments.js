@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { searchDocumentsByCriteria } from '../../../services/PageService'
+import { searchDocumentsByCriteria, shareDocument } from '../../../services/PageService'
 import PDFViewer from '../../access/documents/PDFViewer'
 import {
   CAccordion,
@@ -7,7 +7,6 @@ import {
   CAccordionHeader,
   CAccordionBody,
   CBadge,
-  CButton,
   CRow,
   CCol,
   CCardBody,
@@ -25,14 +24,17 @@ import SearchDocumentPanel from '../../../components/SearchDocumentPanel'
 import { auto } from '@popperjs/core'
 import moment from 'moment'
 import ShareModal from '../../../components/ShareModal'
+import { FaShareAlt } from 'react-icons/fa'
+import { LuBookOpen } from 'react-icons/lu'
+import AppToolTip from '../../../components/AppToolTip'
 
 function SearchDocuments() {
   const [documentsList, setDocumentsList] = useState([])
   const [values, setValues] = useState({})
   const [sidebarVisible, setSidebarVisible] = useState(false)
   const [downloaded, setDownloaded] = useState()
-  const [sharePageModalVisible, setSharePageModalVisible] = useState(false)
-  const [shareFileBlobPath, setShareFileBlobPath] = useState(null);
+  const [shareModalVisibleState, setShareModalVisibleState] = useState(false)
+  const [shareFileBlobPath, setShareFileBlobPath] = useState(null)
 
   const fetchSearchDocuments = async (_params) => {
     await searchDocumentsByCriteria(_params)
@@ -73,8 +75,9 @@ function SearchDocuments() {
   }
 
   async function handleSharePage(bPath, isView = true) {
-    setSharePageModalVisible(true)
-    setShareFileBlobPath(bPath);
+    console.log(bPath)
+    setShareModalVisibleState(true)
+    setShareFileBlobPath(bPath)
   }
 
   return (
@@ -87,11 +90,11 @@ function SearchDocuments() {
       </CRow>
       <ShareModal
         title={'Share Document'}
-        sharePageModalVisible={sharePageModalVisible}
-        setSharePageModalVisible={setSharePageModalVisible}
-        shareFileBlobPath={shareFileBlobPath}
-      >
-      </ShareModal>
+        visibleState={shareModalVisibleState}
+        setVisibleState={setShareModalVisibleState}
+        blobStoragePath={shareFileBlobPath}
+        func={shareDocument}
+      ></ShareModal>
       <CRow>
         <CCol>
           <CAccordion activeItemKey={-1}>
@@ -104,13 +107,31 @@ function SearchDocuments() {
                       style={{ cursor: 'pointer' }}
                       className="small text-body-secondary text-nowrap text-decoration-underline ms-2"
                       onClick={(e) => {
-                        console.log('accordion event', item)
                         e.stopPropagation()
                         e.nativeEvent.stopImmediatePropagation()
                         handleViewFile(item.blobPath)
                       }}
                     >
-                      View PDF
+                      <AppToolTip
+                        tooltip="View Document"
+                        component={
+                          <LuBookOpen style={{ color: '#3d99f5' }} className="iconSize22" />
+                        }
+                      ></AppToolTip>
+                    </div>
+                    <div
+                      style={{ cursor: 'pointer' }}
+                      className="small text-body-secondary text-nowrap text-decoration-underline ms-2"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        e.nativeEvent.stopImmediatePropagation()
+                        handleSharePage(item.blobPath, true)
+                      }}
+                    >
+                      <AppToolTip
+                        tooltip="Share Document"
+                        component={<FaShareAlt className="iconSize22" />}
+                      ></AppToolTip>
                     </div>
                     <CBadge
                       color="info"
@@ -123,34 +144,24 @@ function SearchDocuments() {
                   </CAccordionHeader>
 
                   <CAccordionBody style={{ whiteSpace: 'nowrap' }}>
-                    <div style={{ display: 'flex', justifyContent: 'end' }}>
-                      <CButton
-                        color="primary"
-                        href="#"
-                        style={{ margin: 3 }}
-                        onClick={() => handleSharePage(item.blobPath, true)}
-                      >
-                        Share
-                      </CButton>
-                    </div>
                     <div style={{ overflowX: auto, paddingBottom: '0.5rem' }}>
                       {item?.vw_doc_pages?.length > 0
-                        ? item?.vw_doc_pages?.map((page) => {
-                          return (
-                            <CCard className="card-horizontal-slider">
-                              <CCardHeader>{page?.pageName}</CCardHeader>
-                              <CCardBody
-                                style={{ maxWidth: 350, whiteSpace: 'initial', overflowY: auto }}
-                                className="card-body-slider"
-                              >
-                                {page?.data?.content}
-                              </CCardBody>
-                              <CCardFooter className="text-body-secondary">
-                                {moment(page?.createdAt).fromNow()}
-                              </CCardFooter>
-                            </CCard>
-                          )
-                        })
+                        ? item?.vw_doc_pages?.map((page, i) => {
+                            return (
+                              <CCard className="card-horizontal-slider" key={i}>
+                                <CCardHeader>{page?.pageName}</CCardHeader>
+                                <CCardBody
+                                  style={{ maxWidth: 350, whiteSpace: 'initial', overflowY: auto }}
+                                  className="card-body-slider"
+                                >
+                                  {page?.data?.content}
+                                </CCardBody>
+                                <CCardFooter className="text-body-secondary">
+                                  {moment(page?.createdAt).fromNow()}
+                                </CCardFooter>
+                              </CCard>
+                            )
+                          })
                         : ''}
                     </div>
                   </CAccordionBody>

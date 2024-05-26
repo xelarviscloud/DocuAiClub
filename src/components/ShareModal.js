@@ -1,103 +1,173 @@
-import { shareDocument, sharePage } from "../services/PageService";
+import { shareDocument, sharePage } from '../services/PageService'
 import React, { useState, useEffect } from 'react'
 import {
-    CModal,
-    CModalTitle,
-    CModalBody,
-    CModalHeader,
-    CModalFooter,
-    CFormInput,
-    CFormLabel,
-    CButton,
-    CRow,
-    CCol,
-    CCardBody,
+  CModal,
+  CModalTitle,
+  CModalBody,
+  CModalHeader,
+  CModalFooter,
+  CFormInput,
+  CFormLabel,
+  CButton,
+  CRow,
+  CCol,
+  CCardBody,
+  CPopover,
+  CFormTextarea,
+  CForm,
 } from '@coreui/react'
 import toast from 'react-hot-toast'
+import { cilAlarm } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 
-function ShareModal({ title, sharePageModalVisible, setSharePageModalVisible, shareFileBlobPath }) {
+function ShareModal({ title, visibleState, setVisibleState, blobStoragePath, func }) {
+  const [validated, setValidated] = useState(false)
+  const [isValidEmail, setIsValidEmail] = useState(true)
+  const [formData, setFormData] = useState({
+    emailAddress: '',
+    emailSubject: '',
+    emailBody: '',
+    blobPath: blobStoragePath,
+  })
 
-    const [emailAddress, setEmailAddress] = useState('');
-    const [emailValid, setEmailValid] = useState(true);
+  useEffect(() => {
+    setFormData({ ...formData, blobPath: blobStoragePath })
+  }, [blobStoragePath])
 
-    let decodedToken = JSON.parse(localStorage.getItem('userInfo'))
-    useEffect(() => {
-        let { emailAddress } = decodedToken
-        setEmailAddress(emailAddress);
-    }, [])
+  const clearForm = () => {
+    setFormData({ emailAddress: '', blobPath: '', emailSubject: '', emailBody: '' })
+    setVisibleState(false)
+  }
 
-    const handleOnChange = (e) => {
-        setEmailAddress(e.target.value);
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        setEmailValid(emailRegex.test(e.target.value));
+  const handleSubmit = async (event) => {
+    const form = event.currentTarget
+    if (form.checkValidity() === false && isValidEmail === false) {
+      event.preventDefault()
+      event.stopPropagation()
     }
+    setValidated(true)
 
-    const handleOnSubmit = async (e) => {
-        e.preventDefault()
+    await func(formData)
+      .then((response) => {
+        toast.success(response?.data?.message)
+        setVisibleState(false)
+      })
+      .catch((error) => {
+        console.log('err', error)
+        toast.error(error?.message)
+      })
+  }
 
-        var formData = {
-            emailAddress,
-            'blobPath': shareFileBlobPath,
-        }
-
-        let func = title == 'Share Page' ? sharePage(formData) : shareDocument(formData)
-
-        await func
-            .then((response) => {
-                toast.success(response?.data?.message)
-                setSharePageModalVisible(false)
-            })
-            .catch((error) => {
-                console.log('err', error)
-                toast.error(error?.message)
-            })
-        return
+  const onInputValueChange = (e) => {
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+    if (name === 'emailAddress') {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+      setIsValidEmail(emailRegex.test(e.target.value))
     }
-
-    return (
-        <>
-            <CModal
-                visible={sharePageModalVisible}
-                onClose={() => setSharePageModalVisible(false)}
-                aria-labelledby="sharePageModal"
+  }
+  return (
+    <>
+      <CModal
+        backdrop={'static'}
+        visible={visibleState}
+        onClose={() => {
+          clearForm()
+        }}
+        aria-labelledby="shareModal"
+      >
+        <CForm
+          className="needs-validation"
+          noValidate
+          validated={validated}
+          onSubmit={handleSubmit}
+        >
+          <CModalHeader onClose={() => clearForm()}>
+            <CModalTitle id="fileShareModal">{title}</CModalTitle>
+          </CModalHeader>
+          <CModalBody>
+            <CPopover
+              title="Verify Information"
+              content="Verify your email before you share. Page might contain sensitive information!"
+              placement="right"
             >
-                <CModalHeader onClose={() => setSharePageModalVisible(false)}>
-                    <CModalTitle id="sharePageModal">{title}</CModalTitle>
-                </CModalHeader>
-                <CModalBody>
-                    <p>Verify your email before you share. Page might contain sensitive information!</p>
-                    <CCardBody>
-                        <div className="mb-3">
-                            <CRow>
-                                <CCol xs>
-                                    <CFormLabel htmlFor="emailAddress">Email*</CFormLabel>
-                                    <CFormInput
-                                        required
-                                        aria-describedby="emailAddress"
-                                        id="emailAddress"
-                                        feedbackInvalid="Please provide a valid Email Address"
-                                        type="email"
-                                        name="emailAddress"
-                                        // pattern="^\S+@\S+\.\S+$"
-                                        placeholder="Enter Your Email"
-                                        value={emailAddress}
-                                        onChange={(e) => handleOnChange(e)}
-                                        invalid={!emailValid}
-                                    />
-                                </CCol>
-                            </CRow>
-                        </div>
-                    </CCardBody>
-                </CModalBody>
-                <CModalFooter>
-                    <CButton color="secondary" onClick={() => setSharePageModalVisible(false)}>
-                        Close
-                    </CButton>
-                    <CButton color="primary" onClick={handleOnSubmit}>Share</CButton>
-                </CModalFooter>
-            </CModal>
-        </>
-    )
+              <>
+                <CButton color="danger" style={{ marginRight: 5 }}>
+                  <CIcon icon={cilAlarm} title="Verify Information" />
+                </CButton>
+                Verify Email Address and Information!
+                <p>{blobStoragePath?.split('/')[1]}</p>
+              </>
+            </CPopover>
+
+            <CCardBody>
+              <div className="mb-3">
+                <CRow>
+                  <CCol>
+                    <CFormLabel htmlFor="emailAddress">Email*</CFormLabel>
+                    <CFormInput
+                      required
+                      aria-describedby="emailAddress"
+                      id="emailAddress"
+                      feedbackInvalid="Enter valid Email Address"
+                      type="email"
+                      name="emailAddress"
+                      placeholder="Enter Your Email"
+                      value={formData?.emailAddress}
+                      onChange={(e) => onInputValueChange(e)}
+                      invalid={!isValidEmail}
+                      autoComplete="new-email"
+                    />
+                  </CCol>
+                </CRow>
+                <CRow>
+                  <CCol>
+                    <CFormLabel htmlFor="emailSubject">Subject*</CFormLabel>
+                    <CFormInput
+                      required
+                      aria-describedby="emailSubject"
+                      id="emailSubject"
+                      feedbackInvalid="Enter Email Subject"
+                      type="text"
+                      name="emailSubject"
+                      placeholder="Enter Email Subject"
+                      value={formData?.emailSubject}
+                      onChange={(e) => onInputValueChange(e)}
+                      autoComplete="new-subject"
+                    />
+                  </CCol>
+                </CRow>
+                <CRow>
+                  <CCol>
+                    <CFormLabel htmlFor="emailBody">Body*</CFormLabel>
+                    <CFormTextarea
+                      required
+                      aria-describedby="emailBody"
+                      id="emailBody"
+                      feedbackInvalid="Enter Email Body"
+                      type="text"
+                      name="emailBody"
+                      placeholder="Enter Email Body"
+                      value={formData.emailBody}
+                      onChange={(e) => onInputValueChange(e)}
+                    />
+                  </CCol>
+                </CRow>
+              </div>
+            </CCardBody>
+          </CModalBody>
+          <CModalFooter>
+            <CButton color="secondary" onClick={() => clearForm()}>
+              Close
+            </CButton>
+            <CButton color="primary" onClick={handleSubmit}>
+              Share
+            </CButton>
+          </CModalFooter>
+        </CForm>
+      </CModal>
+    </>
+  )
 }
 
 export default ShareModal
