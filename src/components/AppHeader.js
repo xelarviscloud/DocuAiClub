@@ -21,8 +21,9 @@ import { NavLink } from 'react-router-dom'
 
 import { AppHeaderDropdown } from './header/index'
 import { AppBreadcrumb } from './index'
-import { getAlerts } from '../services/notificationService'
+import { getAlerts, updateAlert } from '../services/notificationService'
 import { jwtDecode } from 'jwt-decode'
+import { toast } from 'react-toastify'
 
 const AppHeader = () => {
   const [decodedToken, setDecodedToken] = useState({})
@@ -32,12 +33,19 @@ const AppHeader = () => {
 
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
+  const token = localStorage.getItem('token')
 
   useEffect(() => {
     setDecodedToken(JSON.parse(localStorage.getItem('userInfo')))
+    fetchUserAlerts()
+    document.addEventListener('scroll', () => {
+      headerRef.current &&
+        headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
+    })
+  }, [])
 
-    const token = localStorage.getItem('token')
-    const decodedToken = jwtDecode(token)
+  function fetchUserAlerts() {
+    let decodedToken = jwtDecode(token)
 
     const response = getAlerts({
       userId: decodedToken?.userId,
@@ -47,12 +55,28 @@ const AppHeader = () => {
       console.log(res.data.uAlerts)
       setUserAlerts(res.data.uAlerts)
     })
+  }
 
-    document.addEventListener('scroll', () => {
-      headerRef.current &&
-        headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
+  async function handleAlertViewed(alertId) {
+    let decodedToken = jwtDecode(token)
+    let response = updateAlert({
+      id: alertId,
+      userId: decodedToken?.userId,
+      userName: decodedToken?.userName,
+      organizationId: decodedToken.organizationId,
     })
-  }, [])
+      .then((res) => {
+        fetchUserAlerts()
+        toast.success('Alert Updated!', {
+          position: 'top-right',
+        })
+      })
+      .catch((err) => {
+        toast.error('Alert failed to update.', {
+          position: 'top-right',
+        })
+      })
+  }
 
   window.addEventListener('userInfo', () => {
     setDecodedToken(JSON.parse(localStorage.getItem('userInfo')))
@@ -107,6 +131,7 @@ const AppHeader = () => {
                     className="d-flex align-items-center"
                     as="button"
                     type="button"
+                    onClick={() => handleAlertViewed(e._id)}
                   >
                     <CIcon className="me-2" icon={cilInfo} size="lg" /> {e?.description}
                   </CDropdownItem>

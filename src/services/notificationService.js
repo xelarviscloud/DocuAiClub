@@ -11,6 +11,17 @@ export async function createAlert(body) {
   return await axiosHttp.post(`/alerts`, body, config)
 }
 
+export async function updateAlert(body) {
+  const config = {
+    headers: {
+      Authorization: localStorage.getItem('token'),
+      'content-type': 'application/x-www-form-urlencoded',
+    },
+  }
+
+  return await axiosHttp.put(`/alerts`, body, config)
+}
+
 export async function getAlerts(body) {
   const config = {
     headers: {
