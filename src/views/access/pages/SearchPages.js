@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Highlighter from 'react-highlight-words'
-import { searchPagesByCriteria } from '../../../services/PageService'
+import { searchPagesByCriteria, sharePage } from '../../../services/PageService'
 import PDFViewer from '../../access/documents/PDFViewer'
 import {
   CAccordion,
@@ -15,11 +15,6 @@ import {
   CCardTitle,
   CCardText,
   CCard,
-  CModal,
-  CModalTitle,
-  CModalBody,
-  CModalHeader,
-  CModalFooter,
   COffcanvas,
   COffcanvasHeader,
   COffcanvasTitle,
@@ -30,6 +25,7 @@ import SearchPagePanel from '../../../components/SearchPagePanel'
 import { downloadFile } from '../../../services/FileService'
 import { dicPageTagsDisplayName } from '../../../services/Utility'
 import moment from 'moment'
+import ShareModal from '../../../components/ShareModal'
 
 function SearchPages() {
   const [pagesList, setPagesList] = useState([])
@@ -39,6 +35,7 @@ function SearchPages() {
   const [sharePageModalVisible, setSharePageModalVisible] = useState(false)
   const [sidebarDetails, setSidebarDetails] = useState({})
   const [downloaded, setDownloaded] = useState()
+  const [shareFileBlobPath, setShareFileBlobPath] = useState(null);
 
   const fetchSearchPages = async (_params) => {
     await searchPagesByCriteria(_params)
@@ -81,36 +78,23 @@ function SearchPages() {
   }
 
   async function handleSharePage(bPath, isView = true) {
-    let _fileName = bPath.split('/')[1]
     setSharePageModalVisible(true)
-    console.log('Share Page', _fileName)
+    setShareFileBlobPath(bPath);
   }
+
   return (
     <div>
       <SearchPagePanel
         fetchSearchPages={onSearchPages}
         pageCounts={pagesList?.length > 0 ? pagesList.length : ''}
       ></SearchPagePanel>
-      <>
-        <CModal
-          visible={sharePageModalVisible}
-          onClose={() => setSharePageModalVisible(false)}
-          aria-labelledby="sharePageModal"
-        >
-          <CModalHeader onClose={() => setSharePageModalVisible(false)}>
-            <CModalTitle id="sharePageModal">Share Page</CModalTitle>
-          </CModalHeader>
-          <CModalBody>
-            <p>Verify before you share. Page might contain sensitive information!</p>
-          </CModalBody>
-          <CModalFooter>
-            <CButton color="secondary" onClick={() => setSharePageModalVisible(false)}>
-              Close
-            </CButton>
-            <CButton color="primary">Share</CButton>
-          </CModalFooter>
-        </CModal>
-      </>
+      <ShareModal
+        title={'Share Page'}
+        sharePageModalVisible={sharePageModalVisible}
+        setSharePageModalVisible={setSharePageModalVisible}
+        shareFileBlobPath={shareFileBlobPath}
+      >
+      </ShareModal>
 
       {sidebarVisible ? (
         <>
@@ -182,7 +166,7 @@ function SearchPages() {
                       searchWords={Object.keys(values).map((key) => values[key])}
                       textToHighlight={item.data.content}
                     >
-                      {}
+                      { }
                     </Highlighter>
                   </CCol>
                   <CCol md={3}>

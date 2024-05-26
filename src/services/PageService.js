@@ -51,26 +51,25 @@ export async function searchPagesByCriteria(searchCriteria) {
   return response
 }
 
-export async function ShareDocument(criteria) {
+export async function shareDocument(criteria) {
   const config = {
     headers: {
       Authorization: localStorage.getItem('token'),
     },
   }
-
-  return axiosHttp.post(`/pages/shareDocument`, { criteria }, config)
+  return axiosHttp.post(`/document/shareDocument`, criteria, config)
 }
 
-export async function SharePage(criteria) {
+export async function sharePage(criteria) {
   const config = {
     headers: {
       Authorization: localStorage.getItem('token'),
     },
   }
-  return axiosHttp.post(`/pages/sharePage`, { criteria }, config)
+  return axiosHttp.post(`/pages/sharePage`, criteria, config)
 }
 
-export async function SendTestEmail() {
+export async function sendTestEmail() {
   const config = {
     headers: {
       Authorization: localStorage.getItem('token'),

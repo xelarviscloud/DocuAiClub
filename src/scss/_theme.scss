@@ -140,7 +140,7 @@ body {
 }
 
 .modal-content {
-  width: fit-content !important;
+  //width: fit-content !important;
 }
 
 #pdfView {
@@ -202,4 +202,9 @@ body {
 
 .top-eight {
   top: 8px !important;
+}
+
+.iconSize22 {
+  height: 22px;
+  width: 22px;
 }

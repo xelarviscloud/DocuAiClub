@@ -122,22 +122,26 @@ const AppHeader = () => {
               </CBadge>
               <CIcon icon={cilBell} size="xl" />
             </CDropdownToggle>
-            <CDropdownMenu id="ddm-notifications">
-              {userAlerts?.map((e, i) => {
-                return (
-                  <CDropdownItem
-                    key={i}
-                    active={colorMode === 'dark'}
-                    className="d-flex align-items-center"
-                    as="button"
-                    type="button"
-                    onClick={() => handleAlertViewed(e._id)}
-                  >
-                    <CIcon className="me-2" icon={cilInfo} size="lg" /> {e?.description}
-                  </CDropdownItem>
-                )
-              })}
-            </CDropdownMenu>
+            {userAlerts?.length > 0 ? (
+              <CDropdownMenu id="ddm-notifications">
+                {userAlerts?.map((e, i) => {
+                  return (
+                    <CDropdownItem
+                      key={i}
+                      active={colorMode === 'dark'}
+                      className="d-flex align-items-center"
+                      as="button"
+                      type="button"
+                      onClick={() => handleAlertViewed(e._id)}
+                    >
+                      <CIcon className="me-2" icon={cilInfo} size="lg" /> {e?.description}
+                    </CDropdownItem>
+                  )
+                })}
+              </CDropdownMenu>
+            ) : (
+              ''
+            )}
           </CDropdown>
         </CHeaderNav>
         <CHeaderNav>
