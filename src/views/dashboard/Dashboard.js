@@ -29,7 +29,7 @@ import DocumentsTable from '../../components/DocumentsTable'
 import { downloadFile } from '../../services/FileService'
 import PDFViewer from '../access/documents/PDFViewer'
 import { jwtDecode } from 'jwt-decode'
-import { getDocumentsByLocationId } from '../../services/FileService'
+import { getDashboardDocuments } from '../../services/DashboardService'
 import pdfAvatarNew from '../../assets/pdfNew.png'
 import pdfAvatarProgress from '../../assets/pdfProgress.png'
 import pdfAvatarCompleted from '../../assets/pdfCompleted.png'
@@ -40,11 +40,11 @@ import { toast } from 'react-toastify'
 const Dashboard = () => {
   const token = localStorage.getItem('token')
   const decodedToken = jwtDecode(token)
-  console.log('decoded token', decodedToken)
 
   const [sidebarVisible, setSidebarVisible] = useState(false)
   const [downloaded, setDownloaded] = useState()
   const [userLocationId, setUserLocationId] = useState(decodedToken.locationId)
+  const [userOrganizationId, setUserOrganizationId] = useState(decodedToken.organizationId)
   const [tableExample, setTableExample] = useState([])
 
   const progressExample = [
@@ -87,10 +87,10 @@ const Dashboard = () => {
   }
   useEffect(() => {
     fetchDocuments()
-  }, [userLocationId])
+  }, [userOrganizationId, userLocationId])
 
   const fetchDocuments = async () => {
-    await getDocumentsByLocationId(userLocationId)
+    await getDashboardDocuments(userOrganizationId, userLocationId)
       .then((response) => {
         var dd = response.data.documents
           .sort(function (a, b) {
