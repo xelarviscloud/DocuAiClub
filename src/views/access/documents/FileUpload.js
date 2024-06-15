@@ -16,7 +16,12 @@ function FileUpload({ refreshFiles }) {
   const ref = React.useRef()
 
   function handleChange(event) {
-    setFile(event.target.files[0])
+    let file = event.target.files[0]
+    let newFile = new File([file], file.name.replace(/ /g, ''), {
+      type: file.type,
+    })
+
+    setFile(newFile)
   }
 
   async function handleSubmit(event) {
