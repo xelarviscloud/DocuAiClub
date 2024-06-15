@@ -19,12 +19,3 @@ export async function downloadFile(blobPath) {
   console.log('blobPath', blobPath)
   return axiosHttp.get(`/blob/downloadPdf?blobPath=${encodeURIComponent(blobPath)}`, config)
 }
-
-export async function getDocumentsByLocationId(locationId) {
-  const config = {
-    headers: {
-      Authorization: localStorage.getItem('token'),
-    },
-  }
-  return axiosHttp.get(`/documents/location/${locationId}`, config)
-}
