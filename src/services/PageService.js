@@ -41,6 +41,7 @@ export async function searchPagesByCriteria(searchCriteria) {
   params += `&name=${searchCriteria.name}`
   params += `&content=${searchCriteria.content}`
   params += `&locationId=${searchCriteria.locationId}`
+  params += `&organizationId=${searchCriteria.organizationId}`
 
   const url = `/pages/search${params}`
   const response = await axiosHttp.get(url, {
