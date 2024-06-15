@@ -22,6 +22,7 @@ function SearchPagePanel({ fetchSearchPages, pageCounts }) {
   const token = localStorage.getItem('token')
   const decodedToken = jwtDecode(token)
   let _locationId = decodedToken.locationId
+  let _organizationId = decodedToken.organizationId
 
   const [searchParams, setSearchParams] = useState({ createdDate: _createdDate })
   const handleOnChange = (e) => {
@@ -38,6 +39,7 @@ function SearchPagePanel({ fetchSearchPages, pageCounts }) {
       confirmationNumber: searchParams.confirmationNumber?.toLowerCase(),
       createdDate: searchParams.createdDate,
       locationId: _locationId,
+      organizationId: _organizationId,
     }
     fetchSearchPages(criteria)
   }
