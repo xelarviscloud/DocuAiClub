@@ -92,7 +92,7 @@ function SearchPagePanel({ fetchSearchPages, pageCounts }) {
       </div>
       <div>
         <CForm className="row g-3">
-          <CCol md={2}>
+          <CCol md={10}>
             <CFormInput
               label="Content"
               name="content"
@@ -103,7 +103,7 @@ function SearchPagePanel({ fetchSearchPages, pageCounts }) {
               onChange={(e) => handleOnChange(e)}
             />
           </CCol>
-          <CCol md={2}>
+          {/* <CCol md={2}>
             <CFormInput
               label="Name"
               name="name"
@@ -148,7 +148,7 @@ function SearchPagePanel({ fetchSearchPages, pageCounts }) {
               value={searchParams.departureDate}
               onChange={(e) => handleOnChange(e)}
             />
-          </CCol>
+          </CCol> */}
           <CCol md={2} className="text-center">
             <CButton
               style={{ marginTop: 32 }}
