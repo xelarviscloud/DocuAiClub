@@ -103,7 +103,7 @@ const routes = [
     element: UpdatePassword,
   },
   { path: '/search-pages', name: 'Search Pages', element: SearchPages },
-  { path: '/locations', name: 'Properties', element: Locations },
+  { path: '/locations', name: 'Location(s)', element: Locations },
   { path: '/organization-users', name: 'Organization Admin', element: OrganizationUsers },
   { path: '/location-users', name: 'Property Admin', element: LocationUsers },
 

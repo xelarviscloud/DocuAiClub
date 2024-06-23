@@ -35,7 +35,7 @@ function SearchPages() {
   const [sharePageModalVisible, setSharePageModalVisible] = useState(false)
   const [sidebarDetails, setSidebarDetails] = useState({})
   const [downloaded, setDownloaded] = useState()
-  const [shareFileBlobPath, setShareFileBlobPath] = useState(null);
+  const [shareFileBlobPath, setShareFileBlobPath] = useState(null)
 
   const fetchSearchPages = async (_params) => {
     await searchPagesByCriteria(_params)
@@ -79,7 +79,7 @@ function SearchPages() {
 
   async function handleSharePage(bPath, isView = true) {
     setSharePageModalVisible(true)
-    setShareFileBlobPath(bPath);
+    setShareFileBlobPath(bPath)
   }
 
   return (
@@ -93,8 +93,7 @@ function SearchPages() {
         sharePageModalVisible={sharePageModalVisible}
         setSharePageModalVisible={setSharePageModalVisible}
         shareFileBlobPath={shareFileBlobPath}
-      >
-      </ShareModal>
+      ></ShareModal>
 
       {sidebarVisible ? (
         <>
@@ -114,9 +113,15 @@ function SearchPages() {
               />
             </COffcanvasHeader>
             <COffcanvasBody>
-              {sidebarDetails[0]?.cells?.map((cell) => (
-                <p>{cell.content}</p>
+              {sidebarDetails?.keyValuePairs?.map((cell) => (
+                <p>
+                  {cell.key.content}{' '}
+                  <span style={{ color: '#997133' }}> {cell?.value?.content}</span>
+                </p>
               ))}
+              {/* {sidebarDetails[0]?.cells?.map((cell) => (
+                <p>{cell.content}</p>
+              ))} */}
             </COffcanvasBody>
           </COffcanvas>
         </>
@@ -166,7 +171,7 @@ function SearchPages() {
                       searchWords={Object.keys(values).map((key) => values[key])}
                       textToHighlight={item.data.content}
                     >
-                      { }
+                      {}
                     </Highlighter>
                   </CCol>
                   <CCol md={3}>
@@ -217,7 +222,7 @@ function SearchPages() {
                           shape="rounded-0"
                           onClick={() => {
                             setSidebarVisible(true)
-                            setSidebarDetails(item?.data?.tables)
+                            setSidebarDetails(item?.data)
                           }}
                         >
                           Details
