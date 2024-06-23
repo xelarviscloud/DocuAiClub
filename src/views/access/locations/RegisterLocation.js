@@ -139,10 +139,10 @@ function RegisterLocation({
                         required
                         aria-describedby="locationName"
                         id="locationName"
-                        feedbackInvalid="Please provide Location Name"
+                        feedbackInvalid="Please provide Property Name"
                         type="text"
                         name="locationName"
-                        placeholder="Enter Location Name"
+                        placeholder="Enter Property Name"
                         value={values?.locationName}
                         onChange={(e) => handleOnChange(e)}
                       />

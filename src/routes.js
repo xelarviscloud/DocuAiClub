@@ -84,7 +84,7 @@ const routes = [
   },
   {
     path: '/location-details',
-    name: 'Location Details',
+    name: 'Property Details',
     element: LocationDetails,
   },
   {

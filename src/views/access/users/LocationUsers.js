@@ -173,7 +173,7 @@ function LocationUsers() {
                         <AppLabel text={currentOrganization?.organizationName} />
                       </CInputGroup>
                     )}
-                    <CTooltip content="Select...a Location.">
+                    <CTooltip content="Select...a Property.">
                       <CInputGroup style={{ marginBottom: 5 }}>
                         <CInputGroupText id="basic-addon1" style={{ paddingLeft: 42 }}>
                           Property(s)
