@@ -106,7 +106,7 @@ function RegisterLocationUser({
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Add New Property Admin</strong>
+            <strong>Add New Location Admin</strong>
           </CCardHeader>
           <CCardBody>
             <CForm
@@ -118,7 +118,7 @@ function RegisterLocationUser({
               <div className="mb-3">
                 <CRow>
                   <CCol xs>
-                    <CFormLabel htmlFor="userLocationId">Parent Property*</CFormLabel>
+                    <CFormLabel htmlFor="userLocationId">Parent Location*</CFormLabel>
                     <CFormSelect
                       required
                       aria-describedby="userLocationId"
@@ -130,7 +130,7 @@ function RegisterLocationUser({
                       onChange={(e) => handleOnChange(e)}
                       disabled={editData?.userLocationId}
                     >
-                      <option value="">Select Property</option>
+                      <option value="">Select Location</option>
                       {locationList?.map((item) => (
                         <option key={item?.locationId} value={item?.locationId}>
                           {item?.locationName}
@@ -303,7 +303,7 @@ function RegisterLocationUser({
               </div>
 
               <div className="mb-3">
-                <CTooltip content="Submit Property Admin" placement="bottom">
+                <CTooltip content="Submit Location Admin" placement="bottom">
                   <CButton
                     color="primary"
                     type="submit"
@@ -312,7 +312,7 @@ function RegisterLocationUser({
                     Submit
                   </CButton>
                 </CTooltip>
-                <CTooltip content="Close Property Admin Form" placement="bottom">
+                <CTooltip content="Close Location Admin Form" placement="bottom">
                   <CButton
                     color="secondary"
                     style={{ float: 'right', marginRight: 10, display: 'flex' }}

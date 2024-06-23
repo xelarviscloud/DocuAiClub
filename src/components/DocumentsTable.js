@@ -26,7 +26,7 @@ function DocumentsTable({ downloadPdfFile, tableExampleData }) {
           </CTableHeaderCell>
           <CTableHeaderCell className="bg-body-tertiary">Document</CTableHeaderCell>
           <CTableHeaderCell className="bg-body-tertiary text-center">Status</CTableHeaderCell>
-          <CTableHeaderCell className="bg-body-tertiary">Property</CTableHeaderCell>
+          <CTableHeaderCell className="bg-body-tertiary">Location</CTableHeaderCell>
           <CTableHeaderCell className="bg-body-tertiary text-center">User</CTableHeaderCell>
           <CTableHeaderCell className="bg-body-tertiary">Activity</CTableHeaderCell>
         </CTableRow>

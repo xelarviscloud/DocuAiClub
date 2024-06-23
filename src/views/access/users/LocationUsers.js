@@ -119,13 +119,13 @@ function LocationUsers() {
                     ''
                   ) : (
                     <CCallout color="warning" className="p-2 m-1">
-                      Select an Organization to add a new Property.
+                      Select an Organization to add a new Location.
                     </CCallout>
                   )}
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <strong className="fontHeader me-2">Users</strong>
 
-                    <CTooltip content="Add New Property Admin" placement="bottom">
+                    <CTooltip content="Add New Location Admin" placement="bottom">
                       <CButton
                         color="primary"
                         style={{ float: 'right', marginRight: 0 }}
@@ -176,7 +176,7 @@ function LocationUsers() {
                     <CTooltip content="Select...a Location.">
                       <CInputGroup style={{ marginBottom: 5 }}>
                         <CInputGroupText id="basic-addon1" style={{ paddingLeft: 42 }}>
-                          Property(s)
+                          Location(s)
                         </CInputGroupText>
                         <CFormSelect
                           id="locationList"
@@ -205,7 +205,7 @@ function LocationUsers() {
                         <CTableHeaderCell scope="col">Last Name</CTableHeaderCell>
                         <CTableHeaderCell scope="col">Email</CTableHeaderCell>
                         <CTableHeaderCell scope="col">Phone Number</CTableHeaderCell>
-                        <CTableHeaderCell scope="col">Property</CTableHeaderCell>
+                        <CTableHeaderCell scope="col">Location</CTableHeaderCell>
                         <CTableHeaderCell scope="col">Organization</CTableHeaderCell>
                         <CTableHeaderCell scope="col">Action</CTableHeaderCell>
                       </CTableRow>

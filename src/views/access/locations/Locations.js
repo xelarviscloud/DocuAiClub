@@ -118,7 +118,7 @@ function Locations() {
                       <AppLabel text={currentOrganization?.organizationName} />
                     )}
 
-                    <CTooltip content="Add New Property" placement="bottom">
+                    <CTooltip content="Add New Location" placement="bottom">
                       <CButton
                         color="primary"
                         style={{ float: 'right', marginLeft: 20, marginRight: 0 }}
@@ -132,7 +132,7 @@ function Locations() {
                 <CCardBody>
                   <CBreadcrumb>
                     <CBreadcrumbItem active>
-                      <h5>Property(s)</h5>
+                      <h5>Location(s)</h5>
                     </CBreadcrumbItem>
                   </CBreadcrumb>
                   <CTable>

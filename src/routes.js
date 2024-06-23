@@ -105,7 +105,7 @@ const routes = [
   { path: '/search-pages', name: 'Search Pages', element: SearchPages },
   { path: '/locations', name: 'Location(s)', element: Locations },
   { path: '/organization-users', name: 'Organization Admin', element: OrganizationUsers },
-  { path: '/location-users', name: 'Property Admin', element: LocationUsers },
+  { path: '/location-users', name: 'Location Admin', element: LocationUsers },
 
   { path: '/search-documents', name: 'Search Documents', element: SearchDocuments },
 

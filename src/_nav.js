@@ -47,7 +47,7 @@ const _nav = isUserSuperAdmin
       },
       {
         component: CNavItem,
-        name: 'Properties',
+        name: 'Location(s)',
         to: '/locations',
         icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
       },
@@ -64,7 +64,7 @@ const _nav = isUserSuperAdmin
           },
           {
             component: CNavItem,
-            name: 'Property',
+            name: 'Location',
             to: '/location-users',
           },
         ],
@@ -110,7 +110,7 @@ const _nav = isUserSuperAdmin
         },
         {
           component: CNavItem,
-          name: 'Properties',
+          name: 'Location(s)',
           to: '/locations',
           icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
         },
@@ -122,7 +122,7 @@ const _nav = isUserSuperAdmin
           items: [
             {
               component: CNavItem,
-              name: 'Property',
+              name: 'Location',
               to: '/location-users',
             },
           ],
@@ -185,7 +185,7 @@ const _nav = isUserSuperAdmin
           },
           {
             component: CNavItem,
-            name: 'Property',
+            name: 'Location',
             to: '/location-details',
             icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
           },

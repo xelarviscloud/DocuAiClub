@@ -87,7 +87,7 @@ function RegisterLocation({
         <CCard className="mb-4">
           <CCardHeader>
             <strong>{header}</strong>
-            <span>{values?.organizationName ? values?.organizationName : 'Add New Property'}</span>
+            <span>{values?.organizationName ? values?.organizationName : 'Add New Location'}</span>
           </CCardHeader>
           <CCardBody>
             <CForm
@@ -289,7 +289,7 @@ function RegisterLocation({
                   ''
                 ) : (
                   <div className="mb-3">
-                    <CTooltip content="Submit Property" placement="bottom">
+                    <CTooltip content="Submit Location" placement="bottom">
                       <CButton
                         color="primary"
                         type="submit"
@@ -298,7 +298,7 @@ function RegisterLocation({
                         Submit
                       </CButton>
                     </CTooltip>
-                    <CTooltip content="Close Property Form" placement="bottom">
+                    <CTooltip content="Close Location Form" placement="bottom">
                       <CButton
                         color="secondary"
                         style={{ float: 'right', marginRight: 10, display: 'flex' }}
