@@ -123,7 +123,7 @@ function RegisterLocationUser({
                       required
                       aria-describedby="userLocationId"
                       id="userLocationId"
-                      feedbackInvalid="Please select Parent Location"
+                      feedbackInvalid="Please select Parent Property"
                       type="text"
                       name="userLocationId"
                       value={values?.userLocationId}
