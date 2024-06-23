@@ -92,7 +92,7 @@ function SearchPagePanel({ fetchSearchPages, pageCounts }) {
       </div>
       <div>
         <CForm className="row g-3">
-          <CCol md={10}>
+          <CCol md={2}>
             <CFormInput
               label="Content"
               name="content"
