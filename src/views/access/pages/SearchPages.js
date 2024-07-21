@@ -35,7 +35,7 @@ function SearchPages() {
   const [sharePageModalVisible, setSharePageModalVisible] = useState(false)
   const [sidebarDetails, setSidebarDetails] = useState({})
   const [downloaded, setDownloaded] = useState()
-  const [shareFileBlobPath, setShareFileBlobPath] = useState(null);
+  const [shareFileBlobPath, setShareFileBlobPath] = useState(null)
 
   const fetchSearchPages = async (_params) => {
     await searchPagesByCriteria(_params)
@@ -79,7 +79,7 @@ function SearchPages() {
 
   async function handleSharePage(bPath, isView = true) {
     setSharePageModalVisible(true)
-    setShareFileBlobPath(bPath);
+    setShareFileBlobPath(bPath)
   }
 
   return (
@@ -93,8 +93,7 @@ function SearchPages() {
         sharePageModalVisible={sharePageModalVisible}
         setSharePageModalVisible={setSharePageModalVisible}
         shareFileBlobPath={shareFileBlobPath}
-      >
-      </ShareModal>
+      ></ShareModal>
 
       {sidebarVisible ? (
         <>
@@ -166,7 +165,7 @@ function SearchPages() {
                       searchWords={Object.keys(values).map((key) => values[key])}
                       textToHighlight={item.data.content}
                     >
-                      { }
+                      {}
                     </Highlighter>
                   </CCol>
                   <CCol md={3}>
@@ -176,7 +175,7 @@ function SearchPages() {
                           {item.documentName.split('/')[1]} {item.pageName}
                         </CCardTitle>
                         <CCardText>
-                          {Object.keys(item?.tags).map((key) => (
+                          {Object.keys(item?.tags)?.map((key) => (
                             <span key={key} className="d-block" style={{ fontWeight: 500 }}>
                               {dicPageTagsDisplayName[key]}:<i> {item?.tags[key]}</i>
                             </span>
